@@ -1,25 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import {Container, Row, Col} from 'react-bootstrap';
+
+
+//App container qui va regrouper tous les autres components ( widgets n)
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container fluid={true} className="app">
+      <Row>
+        <Col lg={3}>
+          <h1>Cas et décès</h1>
+        </Col>
+        <Col lg={3}>
+          <h1>Taux risques</h1>
+        </Col>
+        <Col lg={6}>
+          <h1>Map</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={6}>
+          Graphique
+        </Col>
+        <Col lg={6}>
+          <Row>
+            <Col lg={6}>
+              <h3>Histogrammes</h3>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={4}>
+              <h2>Camembert 1</h2>
+            </Col>
+            <Col lg={4}>
+              <h2>Camembert 1</h2>
+            </Col>
+            <Col lg={4}>
+              <h2>Camembert 1</h2>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+        
+    </Container>
   );
 }
 
