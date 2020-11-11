@@ -6,6 +6,14 @@ A lire impérativement avant de commencer quoi que ce soit, ce sont les règles 
  <a href="https://gitlab.com/Adrien_Kourganoff/instructions_web_ocres_ing4/-/blob/master/README.md">Règles pour le semestre</a>
 </p>
 
+# --PROJET DASHBOARD SUR LA COVID-19--
+Dashboard qui va récolter différentes données pertinentes sur la covid-19 en temps réel.
+
+# --COLLABORATEURS--
+
+SADOUN Benjamin : benjamin.sadoun@edu.ece.fr
+WANG David : david.wang@edu.ece.fr
+
 ## Introduction
 
 Ce repo git contient deux repertoires. L'un concerne la partie backend et l'autre la partie frontend.
