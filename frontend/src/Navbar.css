@@ -1,0 +1,28 @@
+.navbar{
+    background-color:#37384B;
+    color:#e8e8e8;
+}
+
+.navbar__row{
+    padding:1rem 0;
+}
+
+.navbar__row--name ,.navbar__row--icons ,.navbar__row--authors{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navbar__row--icon{
+    margin:0 1rem;
+}
+
+.navbar__row--icon:hover{
+    cursor: pointer;
+}
+
+.navbar__row--icon.active{
+    color: #1B9CFC;
+}
+
