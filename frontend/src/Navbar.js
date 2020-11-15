@@ -9,10 +9,13 @@ import {FaUser, FaEdit } from 'react-icons/fa';
 import {RiAppsFill} from 'react-icons/ri';
 import {MdSettings} from 'react-icons/md';
 
+
+//Composant Navbar servant la navigation entre les pages
 export const Navbar = ({page}) => {
 
     const history = useHistory();
 
+    //Fonction redirect qui prend en param le endPoint de l'URL et on l'ajoute à history
     const redirect = path => {
         history.push(path);
     }

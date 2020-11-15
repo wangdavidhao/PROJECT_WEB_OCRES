@@ -7,6 +7,8 @@ import Admin from './Admin.js';
 import Edit from './Edit.js';
 import Settings from './Settings.js';
 
+//Routing component qui va switcher de component en fonction du path 
+//lorsque l'on clique sur un Link ou utilisation de useHistory
 export const Routing = () => (
   <BrowserRouter>
     <Switch>
