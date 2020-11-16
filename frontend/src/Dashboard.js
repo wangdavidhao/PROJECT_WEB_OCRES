@@ -12,7 +12,10 @@ import Navbar from './Navbar.js';
 const API_URL = 'https://disease.sh/v3/covid-19';
 
 //URL de l'API data.gouv.fr
-const API_URL_FRANCE = 'https://www.data.gouv.fr/fr/datasets';
+const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
+
+//URL pour la FRANCE
+const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
 
 export const Dashboard = () => {
 
@@ -139,55 +142,98 @@ export const Dashboard = () => {
 
     /**
      * Fonction qui va récup un fichier CSV (COMMA SEPARATED VALUE) et retourner sous forme d'objet JS
+     * @param {String} Ref CSV
      */
-    const fetchFranceGenderData = async () => {
-        const response = await axios.get(`${API_URL_FRANCE}/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7`);
-        const data = await response.data;
+    const fetchGouvData = async (refData='/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7') => {
 
-        const franceGenderData = [];
+        try{
+            const response = await axios.get(`${API_URL_GOUV}${refData}`);
+            const data = await response.data;
 
-        //Transforme les lignes CSV (Comma Separated Value) => Split à chaque retour à la ligne - On prend la première ligne (header) 
-        //On split le header à chaque ';' => Renvoie un Array avec tous les labels du header
+            //Tableau d'objet final
+            const franceGenderData = [];
 
-        const splitedCsv = data.toString().split('\n');
-        const csvTitle = splitedCsv[0];
-        const csvTitleArray = csvTitle.split(';');
+            //Transforme les lignes CSV (Comma Separated Value) 
+            const splitedCsv = data.toString().split('\n');  //Split à chaque retour à la ligne
+            const csvTitle = splitedCsv[0]; // On prend la première ligne (header) 
+            const csvTitleArray = csvTitle.split(';'); //On split le header à chaque ';' => Renvoie un Array avec tous les labels du header
 
-        const csvTitleArrayFinal = [];
-        for(let i=0 ; i < csvTitleArray.length ; i++){
-            const title = csvTitleArray[i].substring(1, csvTitleArray[i].length-1);
-            csvTitleArrayFinal.push(title);
+            const csvTitleArrayFinal = [];
+
+            //Pour chaque valeur de l'Array on enlève les "" qui entoure 
+            for(let i=0 ; i < csvTitleArray.length ; i++){
+                const title = csvTitleArray[i].substring(1, csvTitleArray[i].length-1); //On prend le string excepté le premier et le dernier élément
+                csvTitleArrayFinal.push(title); //On le push dans l'Array final pour le header
+            }
+
+            //On commence à 1 car 0 = header
+            for(let i=1; i< splitedCsv.length ; i++){
+
+                const csvData = splitedCsv[i];
+                const csvDataArray = csvData.split(';');
+
+                //Chaque tour de boucle on clear le tableau et l'objet temporaire
+                const csvDataArrayTemp = [];
+                const objTemp = {};
+
+                for(let j=0 ; j< csvDataArray.length ; j++){
+                    const data = csvDataArray[j].substring(1, csvDataArray[j].length-1);
+                    csvDataArrayTemp.push(data);
+                }   
+                //On parcourt chaque element du tableau pour le rendre en key dans l'objet 
+                //data = index, incrémentation car forEach(item, index, arr) item=title index=data
+                csvTitleArrayFinal.forEach((title, data) => {
+                    objTemp[title] = csvDataArrayTemp [data]; //Chaque key à une data
+                });
+                franceGenderData.push(objTemp); //On l'ajoute dans l'Array final
+            }
+
+            setGender(franceGenderData);
+
+        }catch(error){
+            if(error.response){
+                console.log('Erreur fetching gouv' + error.response.status);
+            }else if(error.request){
+                console.log('Erreur fetching gouv ' + error.request);
+            }else{
+                console.log('Erreur fetching gouv ' + error.message);
+            }
         }
 
-        for(let i=1; i< splitedCsv.length ; i++){
-
-            const csvData = splitedCsv[i];
-            const csvDataArray = csvData.split(';');
-
-            const csvDataArrayTemp = [];
-            const obj = {};
-            for(let j=0 ; j< csvDataArray.length ; j++){
-                const data = csvDataArray[j].substring(1, csvDataArray[j].length-1);
-                csvDataArrayTemp.push(data);
-                
-            }   
-            csvTitleArrayFinal.forEach((title, data) => {
-                obj[title] = csvDataArrayTemp [data];
-            });
-            franceGenderData.push(obj);
-        }
-
-        setGender(franceGenderData);
     }
+
+    /**
+     * Fonction qui va récup des datas + précises concernant la FRANCE
+     * @param {String} route 
+     */
+    const fetchFranceData = async (route='') => {
+        axios.get(`${API_URL_FRANCE}/${route}`)
+        .then( (response) => {
+            console.log(response.data); //Pas de state pour l'instant
+        })
+        .catch(error => {
+            if(error.response){
+                console.log('Erreur  ' + error.response.status);
+            }else if(error.request){
+                console.log('Erreur  ' + error.request);
+            }else{
+                console.log('Erreur  ' + error.message);
+            }
+        })
+
+    }
+    
 
     useEffect(() => {
         // fetchAllData();
         // fetchCountriesData('france');
         // fetchContinentsData('south america');
         // fetchCountriesHistoric('france');
-        //fetchFranceGenderData();
+        // fetchGouvData();
+        fetchFranceData('FranceLiveGlobalData');
     }, []);
 
+    //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
