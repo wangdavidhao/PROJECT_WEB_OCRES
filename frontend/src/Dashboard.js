@@ -16,6 +16,7 @@ const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 
 //URL pour la FRANCE
 const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
+//https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
 export const Dashboard = () => {
 
@@ -230,7 +231,7 @@ export const Dashboard = () => {
         // fetchContinentsData('south america');
         // fetchCountriesHistoric('france');
         // fetchGouvData();
-        fetchFranceData('FranceLiveGlobalData');
+        // fetchFranceData('FranceLiveGlobalData');
     }, []);
 
     //Render => affichage

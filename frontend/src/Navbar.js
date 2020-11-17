@@ -33,7 +33,7 @@ export const Navbar = ({page}) => {
                     <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./settings")}></MdSettings>
                 </Col>
                 <Col lg={3} className="navbar__row--authors">
-                    <span> SADOUN Benjmain WANG David - &copy; 2020</span>
+                    <span> SADOUN Benjamin WANG David - &copy; 2020</span>
                 </Col>
             </Row>
         </Container>
