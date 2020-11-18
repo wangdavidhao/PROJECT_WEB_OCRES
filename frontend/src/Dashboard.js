@@ -7,6 +7,7 @@ import axios from 'axios';
 //Local imports
 import './Dashboard.css';
 import Navbar from './Navbar.js';
+import DptTable from './DptTable.js';
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -16,6 +17,7 @@ const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 
 //URL pour la FRANCE
 const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
+//AllLiveData
 //https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
 export const Dashboard = () => {
@@ -26,6 +28,7 @@ export const Dashboard = () => {
     const [countries, setCountries] = useState([]);
     const [continent, setContinent] = useState({});
     const [continents, setContinents] = useState([]);
+    const [france, setFrance] = useState([]);
 
     const [worldHistoric, setWorldHistoric] = useState({});
     const [countryHistoric, setCountryHistoric] = useState({});
@@ -210,7 +213,11 @@ export const Dashboard = () => {
     const fetchFranceData = async (route='') => {
         axios.get(`${API_URL_FRANCE}/${route}`)
         .then( (response) => {
-            console.log(response.data); //Pas de state pour l'instant
+            const fr = response.data.allLiveFranceData;
+            setFrance(fr);
+            // console.log(response.data.allLiveFranceData); //Pas de state pour l'instant
+            // console.log(fr);
+            // console.log(france);
         })
         .catch(error => {
             if(error.response){
@@ -232,9 +239,11 @@ export const Dashboard = () => {
         // fetchCountriesHistoric('france');
         // fetchGouvData();
         // fetchFranceData('FranceLiveGlobalData');
+        fetchFranceData('AllLiveData')
     }, []);
-
     //Render => affichage
+    console.log(france);
+    
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
@@ -253,7 +262,7 @@ export const Dashboard = () => {
                     <Row>
                         <Col lg={12}>
                             {/**Graphe */}
-                            Graphe
+                            {/* Graphe */}
                                 {/**Taux/Fréquences */}
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Chevrons pour changer de data */}
@@ -265,7 +274,9 @@ export const Dashboard = () => {
                     <Row>
                         <Col lg={12}>
                             {/**TableauDpt */}
-                            Tableau Dpt
+                            {/* Tableau Dpt */}
+                            
+                            <DptTable country={france}/> 
                         </Col>
                     </Row>
                     <Row>

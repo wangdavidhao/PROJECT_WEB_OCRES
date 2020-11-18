@@ -1,0 +1,22 @@
+.dpttable{
+    color : black;
+}
+
+.dpttable__name{
+    margin-left: 10px;
+    font-size: 2rem;
+    font : bolder;
+}
+
+.dpttable__hospit{
+    font-size: 1rem;
+    font-weight : bolder;
+}
+
+.dpttable__deces{
+    font-size: 1rem;
+    font-weight : bolder;
+}
+table tr td{
+    padding : 10px;
+}
