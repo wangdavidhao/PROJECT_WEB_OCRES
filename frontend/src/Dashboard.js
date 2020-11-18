@@ -7,6 +7,8 @@ import axios from 'axios';
 //Local imports
 import './Dashboard.css';
 import Navbar from './Navbar.js';
+import WorldTable from './WorldTable.js';
+
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -223,17 +225,61 @@ export const Dashboard = () => {
         })
 
     }
+
+    /**
+     * Fonction qui va comparer le nombre de cas aujourd'hui et le comparer à celui d'hier et retourner un nouveau tableau 
+     * avec un attribut en plus 
+     */
+    const comparePreviousDay = (countries) => {
+        let countriesHistoricTemp = countriesHistoric;  //State countriesHistoric stockée de manière temp
+        let countriesTemp = countries; //State countries
+        let countriesTemp2 = [];
+        let countriesTemp3 = [];
+
+        //Parcourt de tous les pays 
+        for(let i=0; i<countriesHistoricTemp.length;i++){
+
+            //On se positionne sur l'objet cases avec toutes les dates
+            const obj = countriesHistoricTemp[i].timeline.cases;
+
+            //Les 3 derniers jours
+            const lastDay = obj[Object.keys(obj)[Object.keys(obj).length-1]];
+            const lastDay2 = obj[Object.keys(obj)[Object.keys(obj).length-2]];
+            const lastDay3 = obj[Object.keys(obj)[Object.keys(obj).length-3]];
+
+            //La diff du nombre des cas
+            const diffLast = lastDay - lastDay2;
+            const diffLast2 = lastDay2 - lastDay3;
+
+            //On cherche le pays avec le meme nom
+            const countriesTemp2 = countriesTemp.find((country) => country.country === countriesHistoricTemp[i].country);
+            if(countriesTemp2){
+                countriesTemp2["previous"] = diffLast > diffLast2 ? 'true' : 'false'; //Ajout d'un attribut previous 
+                countriesTemp3.push(countriesTemp2); //Push dans un tableau
+            }
+
+            
+        }
+        return countriesTemp3;
+        
+    }
     
 
     useEffect(() => {
         // fetchAllData();
-        // fetchCountriesData('france');
+        fetchCountriesData();
         // fetchContinentsData('south america');
-        // fetchCountriesHistoric('france');
+        fetchCountriesHistoric();
         // fetchGouvData();
         // fetchFranceData('FranceLiveGlobalData');
+        
+        
     }, []);
 
+    //Si les tableaux sont non vides 
+    if(countriesHistoric.length > 0 && countries.length > 0){
+        comparePreviousDay(countries);
+    }
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
@@ -245,7 +291,8 @@ export const Dashboard = () => {
                         <Col lg={12}>
                             {/**Map */}
                             Map
-                                {/**TableauMonde */}
+                                <WorldTable countriesData={countries} historic={countriesHistoric}/>
+                                
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
                         </Col>
