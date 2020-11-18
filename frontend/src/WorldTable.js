@@ -4,7 +4,7 @@ import * as GoIcons from 'react-icons/go';
 
 import './WorldTable.css';
 
-export const WorldTable = ({countriesData, countriesHistoric}) => {
+export const WorldTable = ({countriesData}) => {
 
     const [countries, setCountries] = useState([]);
     /**
@@ -18,7 +18,7 @@ export const WorldTable = ({countriesData, countriesHistoric}) => {
     useEffect(() => {
         sortCasesDsc(countriesData);
         setCountries(countriesData);
-    });
+    },[countriesData]);
 
     
     return (

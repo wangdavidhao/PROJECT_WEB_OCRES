@@ -272,8 +272,6 @@ export const Dashboard = () => {
         fetchCountriesHistoric();
         // fetchGouvData();
         // fetchFranceData('FranceLiveGlobalData');
-        
-        
     }, []);
 
     //Si les tableaux sont non vides 
@@ -291,7 +289,7 @@ export const Dashboard = () => {
                         <Col lg={12}>
                             {/**Map */}
                             Map
-                                <WorldTable countriesData={countries} historic={countriesHistoric}/>
+                                <WorldTable countriesData={countries}/>
                                 
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
