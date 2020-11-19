@@ -1,0 +1,17 @@
+.worldTable{
+    max-height: 100vh;
+    overflow: scroll;
+}
+
+.worldTable__cases{
+    display: flex;
+    justify-content: space-between;
+}
+
+.worldTable__cases--down{
+    color: rgb(70, 226, 70);
+}
+
+.worldTable__cases--up{
+    color:red;
+}
