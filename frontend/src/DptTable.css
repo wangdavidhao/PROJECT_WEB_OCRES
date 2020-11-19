@@ -1,9 +1,15 @@
+*{
+    color: black;
+}
+
 .dpttable{
     color : black;
+    height : 250px;
+    overflow-y : scroll; 
 }
 
 .dpttable__name{
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: 2rem;
     font : bolder;
 }

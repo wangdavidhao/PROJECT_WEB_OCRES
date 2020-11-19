@@ -4,30 +4,18 @@ import './DptTable.css';
 import {
   ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
-const data = [
-  {name: 'Hospitalisations', donnee: 590,},
-  {name: 'Décès', donnee: 868,},
-];
-
-// data[1].name = 'Hospitalisations';
-// data[1].donnee = {dpt.hospitalises};
-// data[2].name = 'Décès';
-// data[2].donnee = {dpt.deces};
-
 const buildDptTable = (d) => {
-    // d.forEach ((dep) => {
         console.log(d);
         const inf = [
-            {name: 'Hospitalisations', donnee: 0,},
-            {name: 'Décès', donnee: 0,},
+            {name: 'Hospit.', donnees: 0,},
+            {name: 'Décès', donnees: 0,},
           ];
         if (d.code.includes('DEP')) {
-            inf[0].donnee = d.hospitalises;
-            inf[1].donnee = d.deces;
+            inf[0].donnees = d.hospitalises;
+            inf[1].donnees = d.deces;
             console.log(inf);
       }
       return inf;  
-    // })
   };
 
 function DptTable({country}) {
@@ -35,19 +23,24 @@ function DptTable({country}) {
     return (
         <div className="dpttable">
           {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
-              <table>
-            <ComposedChart layout="vertical" width={500} height={400} data={buildDptTable(dpt)} 
-                    margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis type="number" />
-                <YAxis dataKey="name" type="category" />
+              <div>
+              <h2 class="dpttable__name"> {dpt.nom}</h2>
+            <ComposedChart  layout="vertical" fill="#000000"
+                    width={450} height={200} data={buildDptTable(dpt)} 
+                    stroke={'red'}
+                    // style={{height: '40vh', width: '95%'}}
+                    margin={{top: 20, right: 20, bottom: 20, left: 20,}}
+                    >
+                <CartesianGrid />
+                <XAxis type="number" tick={{ fill: 'black',}} />
+                <YAxis dataKey="name" type="category" tick={{ fill: 'black' }}   />
                 <Tooltip />
                 <Legend />
-                <Area dataKey="amt" fill="#8884d8" stroke="#8884d8" />
-                <Bar dataKey="donnee" barSize={20} fill="#413ea0" />
-                <Line dataKey="uv" stroke="#ff7300" />
+                <Bar dataKey="donnees" fill="#000000" barSize={20}/>
+                {/* <Area dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
+                {/* <Line dataKey="uv" stroke="#ff7300" /> */}
             </ComposedChart>
-              <h2 class="dpttable__name"> {dpt.nom}</h2>
+              {/* <h2 class="dpttable__name"> {dpt.nom}</h2>
                 <tr>
                     <td> <h3 class="dpttable__hospit">Hospitalisations</h3> </td>
                     <td> <strong>{dpt.hospitalises}</strong> </td>
@@ -55,8 +48,8 @@ function DptTable({country}) {
                 <tr>
                     <td> <h3 class="dpttable__deces"> Décès</h3> </td>
                     <td> <strong>{dpt.deces}</strong> </td>
-                </tr>
-              </table>
+                </tr> */}
+              </div>
         ))};
       </div>
     );
