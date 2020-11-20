@@ -6,21 +6,6 @@ import './WorldTable.css';
 
 export const WorldTable = ({countriesData}) => {
 
-    const [countries, setCountries] = useState([]);
-    /**
-     * Fonction qui va trier le nombre de cas total par pays dans l'odre décroissant
-     */
-    const sortCasesDsc = (countriesTable) => {
-        let sortedTable = countriesTable;
-        return sortedTable.sort((countryA, countryB) => countryA.cases > countryB.cases ? -1 : 1  );
-    }
-
-    useEffect(() => {
-        sortCasesDsc(countriesData);
-        setCountries(countriesData);
-    },[countriesData]);
-
-    
     return (
         <Container className="worldTable">
             <Row>
@@ -34,7 +19,7 @@ export const WorldTable = ({countriesData}) => {
                         </thead>
 
                         <tbody>
-                            {countries.map( (country) => (
+                            {countriesData.map( (country) => (
                                 <tr key={country.countryInfo.id}>
                                     <td ><strong >{country.country}</strong></td>
                                     <td className="worldTable__cases">

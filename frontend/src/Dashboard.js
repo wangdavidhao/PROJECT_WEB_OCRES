@@ -9,6 +9,7 @@ import './Dashboard.css';
 import Navbar from './Navbar.js';
 import WorldTable from './WorldTable.js';
 
+import DropdownCountry from './DropdownCountry.js';
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -19,6 +20,7 @@ const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 //URL pour la FRANCE
 const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
 //https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
+
 
 export const Dashboard = () => {
 
@@ -35,7 +37,21 @@ export const Dashboard = () => {
 
     const [gender, setGender] = useState([]);
 
-    //First method
+    const [dropdownSelect, setDropdownSelect] = useState('World');
+
+    const [table, setTable] = useState([]);
+    
+
+
+    /**
+     * Fonction qui va trier le nombre de cas total par pays dans l'odre décroissant
+     */
+    const sortCasesDsc = (countriesTable) => {
+        const sortedTable = countriesTable;
+        return sortedTable.sort((countryA, countryB) => countryA.cases > countryB.cases ? -1 : 1  );
+        
+    }
+
     /**
      * Fonction qui va get toute la data sur le monde 
      * Puis sauvegarde dans le state world
@@ -72,6 +88,8 @@ export const Dashboard = () => {
             //Si pays non spécifié alors tableau sinon objet
             if(!country){
                 setCountries(response.data);
+                const sortedTable = sortCasesDsc(response.data);
+                setTable(sortedTable);
             }else{
                 setCountry(response.data);
             }
@@ -160,7 +178,6 @@ export const Dashboard = () => {
             const splitedCsv = data.toString().split('\n');  //Split à chaque retour à la ligne
             const csvTitle = splitedCsv[0]; // On prend la première ligne (header) 
             const csvTitleArray = csvTitle.split(';'); //On split le header à chaque ';' => Renvoie un Array avec tous les labels du header
-
             const csvTitleArrayFinal = [];
 
             //Pour chaque valeur de l'Array on enlève les "" qui entoure 
@@ -174,14 +191,29 @@ export const Dashboard = () => {
 
                 const csvData = splitedCsv[i];
                 const csvDataArray = csvData.split(';');
+                
 
                 //Chaque tour de boucle on clear le tableau et l'objet temporaire
                 const csvDataArrayTemp = [];
                 const objTemp = {};
 
+                
                 for(let j=0 ; j< csvDataArray.length ; j++){
-                    const data = csvDataArray[j].substring(1, csvDataArray[j].length-1);
-                    csvDataArrayTemp.push(data);
+                    
+                    const first = csvDataArray[j].charAt(0); 
+                    const last =  csvDataArray[j].charAt(csvDataArray[j].length-1); 
+
+                    //Si le premier element et le dernier sont des "
+                    if(first === '"' && last === '"'){
+                        const data = csvDataArray[j].substring(1, csvDataArray[j].length-1); //Alors on les enleve
+                        csvDataArrayTemp.push(data);
+                    }
+                    else{
+                        const data = csvDataArray[j]; //Sinon on fait rien
+                        csvDataArrayTemp.push(data);
+                    }
+                    
+                    
                 }   
                 //On parcourt chaque element du tableau pour le rendre en key dans l'objet 
                 //data = index, incrémentation car forEach(item, index, arr) item=title index=data
@@ -192,6 +224,7 @@ export const Dashboard = () => {
             }
 
             setGender(franceGenderData);
+            
 
         }catch(error){
             if(error.response){
@@ -226,14 +259,14 @@ export const Dashboard = () => {
 
     }
 
+
     /**
      * Fonction qui va comparer le nombre de cas aujourd'hui et le comparer à celui d'hier et retourner un nouveau tableau 
      * avec un attribut en plus 
      */
-    const comparePreviousDay = (countries) => {
+    const createNewTablePrevious = (countries) => {
         let countriesHistoricTemp = countriesHistoric;  //State countriesHistoric stockée de manière temp
         let countriesTemp = countries; //State countries
-        let countriesTemp2 = [];
         let countriesTemp3 = [];
 
         //Parcourt de tous les pays 
@@ -263,21 +296,23 @@ export const Dashboard = () => {
         return countriesTemp3;
         
     }
+
+    
+    
+    //Charge au chargement de la page
+    useEffect(() => {
+        fetchCountriesData();           
+        fetchCountriesHistoric();
+
+    }, []);
     
 
-    useEffect(() => {
-        // fetchAllData();
-        fetchCountriesData();
-        // fetchContinentsData('south america');
-        fetchCountriesHistoric();
-        // fetchGouvData();
-        // fetchFranceData('FranceLiveGlobalData');
-    }, []);
-
-    //Si les tableaux sont non vides 
-    if(countriesHistoric.length > 0 && countries.length > 0){
-        comparePreviousDay(countries);
+    if(countries.length > 0 && countriesHistoric.length > 0){
+        
+        createNewTablePrevious(countries);
+        
     }
+    
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
@@ -289,7 +324,7 @@ export const Dashboard = () => {
                         <Col lg={12}>
                             {/**Map */}
                             Map
-                                <WorldTable countriesData={countries}/>
+                                <WorldTable countriesData={table}/>
                                 
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
@@ -301,6 +336,7 @@ export const Dashboard = () => {
                             Graphe
                                 {/**Taux/Fréquences */}
                                 {/**Dropdown pour changer de pays*/}
+                                <DropdownCountry countries={countries} />
                                 {/**Chevrons pour changer de data */}
                         </Col>
                     </Row>
