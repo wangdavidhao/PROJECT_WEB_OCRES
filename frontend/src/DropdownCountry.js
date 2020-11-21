@@ -6,16 +6,19 @@ import {
   Select,
 } from "@material-ui/core";
 
-const DropdownCountry = ({countries}) => {
+const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
+
     return (
         <Container>
             <Row>
-                <Col>
+                <Col lg={12}>
                     <FormControl>
                         <Select
                         variant="outlined"
+                        value={selectCountry}
+                        onChange={handleCountrySelect}
                         >
-                        <MenuItem value="world">World</MenuItem>
+                        <MenuItem value="monde">Monde</MenuItem>
                         {countries.map((country) => (
                             <MenuItem value={country.countryInfo.iso2}>{country.country}</MenuItem>
                         ))}

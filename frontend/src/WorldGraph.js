@@ -1,11 +1,17 @@
 import React from 'react';
 import './WorldGraph.css';
 
-const WorldGraph = () => {
+import {Container, Row, Col} from 'react-bootstrap';
+
+const WorldGraph = ({countrySelected, counntryHistoric, type}) => {
     return (
-        <div>
-            
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                    Graphe
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

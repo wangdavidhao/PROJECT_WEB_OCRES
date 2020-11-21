@@ -11,6 +11,8 @@ import WorldTable from './WorldTable.js';
 
 import DropdownCountry from './DropdownCountry.js';
 
+import WorldGraph from './WorldGraph.js';
+
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
 
@@ -37,10 +39,14 @@ export const Dashboard = () => {
 
     const [gender, setGender] = useState([]);
 
-    const [dropdownSelect, setDropdownSelect] = useState('World');
-
     const [table, setTable] = useState([]);
     
+    const [selectCountry, setSelectCountry] = useState('Monde');
+    const [type, setType] = useState('Cas');
+
+    //State pour dropdown
+    const [dropdownCountry, setDropdownCountry] = useState({});
+    const [dropdownHistoric, setDropdownHistoric] = useState({});
 
 
     /**
@@ -61,6 +67,7 @@ export const Dashboard = () => {
         axios.get(`${API_URL}/all`)
         .then( (response) => {
             setWorld(response.data);
+            setDropdownCountry(response.data);
         })
         .catch((error) => {
             if(error.response){
@@ -92,6 +99,7 @@ export const Dashboard = () => {
                 setTable(sortedTable);
             }else{
                 setCountry(response.data);
+                setDropdownCountry(response.data);
             }
         }catch(error){
             if(error.response){
@@ -103,7 +111,6 @@ export const Dashboard = () => {
             }
         }
     }
-
 
     /**
      * Fonction qui va get toute la data de tous les continents par défaut si continent non spécifié
@@ -140,13 +147,15 @@ export const Dashboard = () => {
     const fetchCountriesHistoric = async (country='') => {
 
         try{
-            const response = await axios.get(`${API_URL}/historical/${country}`);
+            const response = await axios.get(`${API_URL}/historical/${country}?lastdays=120`);
             if(country === 'all'){
                 setWorldHistoric(response.data);
+                setDropdownHistoric(response.data);
             }else if(!country){
                 setCountriesHistoric(response.data);
             }else{
                 setCountryHistoric(response.data);
+                setDropdownHistoric(response.data);
             }
         }catch(error){
             if(error.response){
@@ -296,31 +305,49 @@ export const Dashboard = () => {
         return countriesTemp3;
         
     }
-
-    
     
     //Charge au chargement de la page
     useEffect(() => {
-        fetchCountriesData();           
-        fetchCountriesHistoric();
+        fetchAllData(); //Set dropdownCountry à monde
+        fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
+        fetchCountriesHistoric(); //Pour create newTablePreview
+        fetchCountriesHistoric('all'); //Pour dropdown historic monde
 
     }, []);
     
 
     if(countries.length > 0 && countriesHistoric.length > 0){
-        
         createNewTablePrevious(countries);
-        
+    }
+
+    /**
+     * Fonction qui va changer les states en focntion du select dans le dropdown
+     * @param {*} e 
+     */
+    const handleCountrySelect = (e) => {
+
+        const countryIso = e.target.value;
+
+        if(countryIso === 'monde'){
+            fetchAllData();
+            fetchCountriesHistoric('all');
+        }else{
+            fetchCountriesData(`${countryIso}`);
+            fetchCountriesHistoric(`${countryIso}`);
+        }
+
+        setSelectCountry(countryIso);
     }
     
+
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
-                <Col lg={7}>
+                <Col lg={7} className="dashboard__global">
                     {/**Global */}
-                    <Row>
+                    <Row className="dashboard__global--map">
                         <Col lg={12}>
                             {/**Map */}
                             Map
@@ -330,13 +357,12 @@ export const Dashboard = () => {
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className="dashboard__global--graph">
                         <Col lg={12}>
-                            {/**Graphe */}
-                            Graphe
+                            <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                                 {/**Taux/Fréquences */}
                                 {/**Dropdown pour changer de pays*/}
-                                <DropdownCountry countries={countries} />
+                                <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
                                 {/**Chevrons pour changer de data */}
                         </Col>
                     </Row>
