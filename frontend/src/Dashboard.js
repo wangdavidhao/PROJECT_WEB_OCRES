@@ -358,24 +358,26 @@ export const Dashboard = () => {
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
                         </Col>
                     </Row>
-                    <Row>
-                        <Col lg={4}>
-                            <Button onClick={() => setType('cases')}>Cas</Button>
+                    <Row className="dashboard__global--buttons w-100">
+                        <Col lg={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('cases')} className="cases">Cas</Button>
                         </Col>
-                        <Col lg={4}>
-                            <Button onClick={() => setType('recovered')}>Rétablis</Button>
+                        <Col lg={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
                         </Col>
-                        <Col lg={4}>
-                            <Button onClick={() => setType('deaths')}>Décès</Button>
+                        <Col lg={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
                         </Col>
                     </Row>
                     <Row className="dashboard__global--graph">
-                        <Col lg={12}>
+                        <Col lg={8}>
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                                 {/**Taux/Fréquences */}
-                                {/**Dropdown pour changer de pays*/}
-                                <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
                                 {/**Chevrons pour changer de data */}
+                        </Col>
+                        <Col lg={2}>
+                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+
                         </Col>
                     </Row>
                 </Col>

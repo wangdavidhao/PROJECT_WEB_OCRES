@@ -8,3 +8,38 @@
     display: flex;
     flex-direction: column;
 }
+
+.dashboard__global--buttons{
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dashboard__global--button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cases{
+    background-color:#f7b731 !important ;
+    border:none !important;
+    outline: none !important;
+    outline-width: 0;
+}
+
+.recovered{
+    background-color:#26de81 !important;
+    border:none !important;
+    outline: none !important;
+    outline-width: 0;
+}
+
+.deaths{
+    background-color: #eb3b5a !important;
+    border:none !important;
+    outline: none !important;
+    outline-width: 0;
+}
