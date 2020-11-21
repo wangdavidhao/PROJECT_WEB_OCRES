@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 
 //Fetch API
 import axios from 'axios';
@@ -42,10 +42,10 @@ export const Dashboard = () => {
     const [table, setTable] = useState([]);
     
     const [selectCountry, setSelectCountry] = useState('Monde');
-    const [type, setType] = useState('Cas');
+    const [type, setType] = useState('cases');
 
     //State pour dropdown
-    const [dropdownCountry, setDropdownCountry] = useState({});
+    const [dropdownCountry, setDropdownCountry] = useState({isWorld:true}); //Spread operator, par défaut: dropdown select sur le monde
     const [dropdownHistoric, setDropdownHistoric] = useState({});
 
 
@@ -67,7 +67,8 @@ export const Dashboard = () => {
         axios.get(`${API_URL}/all`)
         .then( (response) => {
             setWorld(response.data);
-            setDropdownCountry(response.data);
+            
+            setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
         })
         .catch((error) => {
             if(error.response){
@@ -99,7 +100,7 @@ export const Dashboard = () => {
                 setTable(sortedTable);
             }else{
                 setCountry(response.data);
-                setDropdownCountry(response.data);
+                setDropdownCountry({...dropdownCountry, isWorld:false, ...response.data});
             }
         }catch(error){
             if(error.response){
@@ -147,7 +148,7 @@ export const Dashboard = () => {
     const fetchCountriesHistoric = async (country='') => {
 
         try{
-            const response = await axios.get(`${API_URL}/historical/${country}?lastdays=120`);
+            const response = await axios.get(`${API_URL}/historical/${country}?lastdays=90`);
             if(country === 'all'){
                 setWorldHistoric(response.data);
                 setDropdownHistoric(response.data);
@@ -155,7 +156,7 @@ export const Dashboard = () => {
                 setCountriesHistoric(response.data);
             }else{
                 setCountryHistoric(response.data);
-                setDropdownHistoric(response.data);
+                setDropdownHistoric(response.data.timeline);
             }
         }catch(error){
             if(error.response){
@@ -316,7 +317,7 @@ export const Dashboard = () => {
     }, []);
     
 
-    if(countries.length > 0 && countriesHistoric.length > 0){
+    if(countries?.length > 0 && countriesHistoric?.length > 0){
         createNewTablePrevious(countries);
     }
 
@@ -355,6 +356,17 @@ export const Dashboard = () => {
                                 
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Dropdown pour changer de types : cas/rétablis/décès */}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg={4}>
+                            <Button onClick={() => setType('cases')}>Cas</Button>
+                        </Col>
+                        <Col lg={4}>
+                            <Button onClick={() => setType('recovered')}>Rétablis</Button>
+                        </Col>
+                        <Col lg={4}>
+                            <Button onClick={() => setType('deaths')}>Décès</Button>
                         </Col>
                     </Row>
                     <Row className="dashboard__global--graph">

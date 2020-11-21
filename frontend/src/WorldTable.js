@@ -10,6 +10,7 @@ export const WorldTable = ({countriesData}) => {
         <Container className="worldTable">
             <Row>
                 <Col>
+                    <h3>Tableau mondial des cas</h3>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
