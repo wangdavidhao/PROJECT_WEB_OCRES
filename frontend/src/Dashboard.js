@@ -327,8 +327,11 @@ export const Dashboard = () => {
      */
     const handleCountrySelect = (e) => {
 
+        //On get le numéro iso2 du pays ou le string 'monde' grâce à la value dans MenuItem
         const countryIso = e.target.value;
 
+
+        //On fetch selon 
         if(countryIso === 'monde'){
             fetchAllData();
             fetchCountriesHistoric('all');
@@ -337,7 +340,7 @@ export const Dashboard = () => {
             fetchCountriesHistoric(`${countryIso}`);
         }
 
-        setSelectCountry(countryIso);
+        setSelectCountry(countryIso); //On set le select du dropdown
     }
     
 
@@ -347,15 +350,10 @@ export const Dashboard = () => {
             <Navbar page="dashboard"/>
             <Row>
                 <Col lg={7} className="dashboard__global">
-                    {/**Global */}
                     <Row className="dashboard__global--map">
                         <Col lg={12}>
-                            {/**Map */}
-                            Map
+                                <h3>Tableau mondial des cas</h3>
                                 <WorldTable countriesData={table}/>
-                                
-                                {/**Dropdown pour changer de pays*/}
-                                {/**Dropdown pour changer de types : cas/rétablis/décès */}
                         </Col>
                     </Row>
                     <Row className="dashboard__global--buttons w-100">
@@ -372,8 +370,6 @@ export const Dashboard = () => {
                     <Row className="dashboard__global--graph">
                         <Col lg={8}>
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
-                                {/**Taux/Fréquences */}
-                                {/**Chevrons pour changer de data */}
                         </Col>
                         <Col lg={2}>
                             <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
@@ -390,7 +386,6 @@ export const Dashboard = () => {
                         </Col>
                     </Row>
                     <Row>
-                        {/**GraphesCircu */}
                         <Col lg={4}>
                             GrapheCircu Age
                         </Col>
