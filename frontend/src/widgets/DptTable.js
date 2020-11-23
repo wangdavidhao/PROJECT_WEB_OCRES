@@ -2,18 +2,16 @@ import React, {PureComponent} from 'react';
 import './DptTable.css';
 // import { HorizontalBar } from '@reactchartjs/react-chart.js';
 import {
-  ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
+  ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,} from 'recharts';
 
 const buildDptTable = (d) => {
-        // console.log(d);
         const inf = [
-            {name: 'Hospit.', donnees: 0,},
-            {name: 'Décès', donnees: 0,},
+            {name: 'Hospit.', nombre: 0,},
+            {name: 'Décès', nombre: 0,},
           ];
         if (d.code.includes('DEP')) {
-            inf[0].donnees = d.hospitalises;
-            inf[1].donnees = d.deces;
-            // console.log(inf);
+            inf[0].nombre = d.hospitalises;
+            inf[1].nombre = d.deces;
       }
       return inf;  
   };
@@ -32,11 +30,11 @@ function DptTable({country}) {
                     margin={{top: 20, right: 20, bottom: 20, left: 20,}}
                     >
                 <CartesianGrid />
-                <XAxis type="number" tick={{ fill: 'black',}} />
-                <YAxis dataKey="name" type="category" tick={{ fill: 'black' }}   />
+                <XAxis type="number" tick={{ fill: '#fff',}} />
+                <YAxis dataKey="name" type="category" tick={{ fill: '#fff' }}   />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="donnees" fill="#000000" barSize={20}/>
+                <Bar dataKey="nombre" fill="#1B9CFC" stroke="#02487e" barSize={20}/>
                 {/* <Area dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
                 {/* <Line dataKey="uv" stroke="#ff7300" /> */}
             </ComposedChart>

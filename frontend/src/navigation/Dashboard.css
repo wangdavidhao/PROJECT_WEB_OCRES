@@ -4,17 +4,12 @@
     max-height: 100vh;
 }
 
-
 .dashboard__global{
     display: flex;
     flex-direction: column;
 }
 
-.dashboard__global--table > h4{
-    text-align: center;
-}
-
-.dashboard__global--map > h4{
+.dashboard__global--table, .dashboard__global--map > h4{
     text-align: center;
 }
 
@@ -37,6 +32,7 @@
     border:none !important;
     outline: none !important;
     outline-width: 0;
+    box-shadow: none !important;
 }
 
 .recovered{
@@ -44,6 +40,7 @@
     border:none !important;
     outline: none !important;
     outline-width: 0;
+    box-shadow: none !important;
 }
 
 .deaths{
@@ -51,13 +48,14 @@
     border:none !important;
     outline: none !important;
     outline-width: 0;
+    box-shadow: none !important;
 }
 
 .dashboard__global--dropdown{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .dashboard__global--dropdown > img{
@@ -65,4 +63,28 @@
     height: 50px;
     margin: 1rem 0;
 }
+
+.dashboard__global--dropdown > p, span{
+    text-align: center;
+}
+
+.dashboard__france--graphCircu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.dashboard__global--mapContainer,
+.dashboard__global--buttons , 
+.dashboard__global--graphContainer,
+.dashboard__france--dptTable,
+.dashboard__france--circu{
+    background-color: #37384B;
+    margin:1rem !important;
+    padding: 1rem !important;
+    border-radius: 3px;
+    color:#fff !important;
+}
+
 

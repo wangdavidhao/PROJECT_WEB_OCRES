@@ -1,25 +1,18 @@
 *{
   margin: 0;
+  box-sizing: border-box !important;
 }
 
 body {
   margin: 0;
-
+  font-family: "Poppins", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background:radial-gradient(#787c96, #5e5f6c ); */
+  background:radial-gradient(#787c96, #5e5f6c );
   min-height: 100vh;
+  color:none !important;
 }
 
-html {
-  -webkit-font-smoothing: antialiased;
-}
-
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
 
 div.container-fluid {
     padding-left: 0;
@@ -39,10 +32,7 @@ div.col-xs-1,div.col-xs-10,div.col-xs-11,div.col-xs-12,div.col-xs-2,div.col-xs-3
     padding-right: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
-:root{
-  
-}
 
 

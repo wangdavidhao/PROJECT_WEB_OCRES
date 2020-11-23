@@ -9,13 +9,12 @@ export const WorldTable = ({countriesData}) => {
     return (
         <Container className="worldTable">
             <Row>
-                <Col>
-                    
+                <Col lg={12}>
                     <Table striped bordered hover>
                         <thead >
                             <tr>
                             <th><h6>Pays</h6></th>
-                            <th><h6>Cas Total Enregistrés</h6></th>
+                            <th><h6>Total Cas</h6></th>
                             </tr>
                         </thead>
 
@@ -34,8 +33,7 @@ export const WorldTable = ({countriesData}) => {
                                         
                                     </td>
                                 </tr>
-                            ))}
-                            
+                            ))}                           
                         </tbody>
                     </Table>
                 </Col>

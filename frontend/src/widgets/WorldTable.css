@@ -1,6 +1,7 @@
 .worldTable{
     max-height: 40vh;
     overflow-y: scroll;
+    overflow-x:hidden;
     height: 400px;
 }
 

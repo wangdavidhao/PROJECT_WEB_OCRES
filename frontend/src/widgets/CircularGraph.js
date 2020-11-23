@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { PieChart, Pie, Sector, Cell } from 'recharts';
+import { Container, Col, Row } from 'react-bootstrap';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
 import './CircularGraph.css';
 
 let data = [
@@ -124,13 +125,14 @@ const renderActiveShape = (props) => {
 function CircularGraph({info, color, type}) {
 
     const colorHSL = hexToHSL(color);
+
     const [active, setActive] = useState(0);
     const onPieEnter = (data, index) => {
         setActive(index);
     };
+
     let today = new Date(),
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
-    console.log(date);
     let male = 0;
     let female = 0;
 
@@ -150,17 +152,12 @@ function CircularGraph({info, color, type}) {
     let newRea = 0;
     let newDeaths = 0;
 
-    console.log(info[0]);
     let buildGraph = function(){ return 1; };
 
     switch (type) {
         case 'gender':
             info.filter(gender => ((gender.jour === date) && (gender.sexe !== "0") ))
                 .map((gdr) => (gdr.sexe === "1" ? male += parseInt(gdr.hosp) : female += parseInt(gdr.hosp)));
-            //
-            // console.log(g)
-            // console.log("male", male);
-            // console.log("female", female);
 
             buildGraph = (d) => {
                 const inf = [
@@ -241,9 +238,9 @@ function CircularGraph({info, color, type}) {
                   </div>));
             buildGraph = (d) => {
                 const inf = [
-                    { name : 'New Hospit.', value: newHospit, },
-                    { name : 'New Rea cases', value: newRea,},
-                    { name : 'New Deaths', value: newDeaths, },
+                    { name : 'Hospit.', value: newHospit, },
+                    { name : 'Rea cas', value: newRea,},
+                    { name : 'Morts', value: newDeaths, },
                 ];
                 return inf; 
             };
@@ -254,47 +251,48 @@ function CircularGraph({info, color, type}) {
             console.log(`SORRY NOT FOUND`);
             
     }
-    // console.log('New deaths',newDeaths );
-    // console.log(harmonize(colorHSL));
-    // info.filter(gdr => ((gdr.jour === date) && (gdr.sexe !== "0") ))
-    //     .map((g) => (g.sexe === "1" ? male += parseInt(g.hosp) : female += parseInt(g.hosp)));
-    // //
-    // // console.log(g)
-    // // console.log("male", male);
-    // // console.log("female", female);
-
-    // buildGraph = (d) => {
-    //     const inf = [
-    //         { name : 'Hommes', value: male, },
-    //         { name : 'Femmes', value: female,},
-    //       ];
-    //   return inf;  
-    // };
-    
 
     return (
-        <div class="circularGraph">
-                <PieChart width={400} height={400}>
-                    <Pie
-                    isAnimationActive = {true}
-                    activeIndex={active}
-                    activeShape={renderActiveShape}
-                    data={data}
-                    cx={100}
-                    cy={100}
-                    innerRadius={60}
-                    outerRadius={80}
-                    fill={colorHSL}
-                    //harmonize(colorHSL)[Math.floor(Math.random() * Math.floor(13))]
-                    dataKey="value"
-                    onMouseEnter={onPieEnter}
-                    >
-                    {   
-                        data.map((entry, index) => <Cell fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
-                    }
-                    </Pie>
-                </PieChart>
-        </div>
+        <Container fluid={true}>
+            <Row>
+                <Col lg={12}>
+                    <ResponsiveContainer width="99%" aspect={1}>
+                        <PieChart
+                            padding={10}
+                        
+                        >
+                            <defs>
+                                <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor={colorHSL} stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor={colorHSL} stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <Pie
+                                isAnimationActive = {true}
+                                activeIndex={active}
+                                activeShape={renderActiveShape}
+                                data={data}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius="60%"
+                                outerRadius="80%"
+                                fill="url(#value)"
+                                //harmonize(colorHSL)[Math.floor(Math.random() * Math.floor(13))]
+                                dataKey="value"
+                                onMouseEnter={onPieEnter}
+                            >
+                            {   
+                                data.map((entry, index) => <Cell fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
+                            }
+                            
+                            
+                            </Pie>
+                            {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
+                        </PieChart>
+                    </ResponsiveContainer>
+                </Col> 
+            </Row>
+        </Container>
     );
 }
 

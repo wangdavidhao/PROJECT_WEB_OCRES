@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Local imports
-import Dashboard from './Dashboard.js';
-import Admin from './Admin.js';
-import Edit from './Edit.js';
-import Settings from './Settings.js';
+import Dashboard from './navigation/Dashboard.js';
+import Admin from './navigation/Admin.js';
+import Edit from './navigation/Edit.js';
+import Settings from './navigation/Settings.js';
 
 //Routing component qui va switcher de component en fonction du path 
 //lorsque l'on clique sur un Link ou utilisation de useHistory
