@@ -10,6 +10,7 @@ import Navbar from './Navbar.js';
 import DptTable from './DptTable.js';
 import WorldTable from './WorldTable.js';
 import CircularGraph from './CircularGraph';
+import DptBar from './DptBar';
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -383,7 +384,8 @@ export const Dashboard = () => {
                     </Row>
                     <Row>
                         {/**Histogrammes */}
-                        <Col lg={12}>Histogrammes</Col>
+                        {/* <Col lg={12}>Histogrammes</Col> */}
+                        <DptBar/>
                             {/**Dropdown pour changer dpt */}
                             {/**Chevron pour changer de type de data */}
                     </Row>
