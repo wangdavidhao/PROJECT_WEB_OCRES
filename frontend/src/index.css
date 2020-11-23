@@ -4,12 +4,17 @@
 
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif !important;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background:radial-gradient(#787c96, #5e5f6c ); */
   min-height: 100vh;
 }
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

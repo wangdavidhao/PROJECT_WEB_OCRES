@@ -1,6 +1,7 @@
 .worldTable{
-    max-height: 100vh;
-    overflow: scroll;
+    max-height: 40vh;
+    overflow-y: scroll;
+    height: 400px;
 }
 
 .worldTable__cases{
@@ -15,3 +16,4 @@
 .worldTable__cases--up{
     color:red;
 }
+

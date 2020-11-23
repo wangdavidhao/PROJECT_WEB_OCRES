@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 
 //Fetch API
 import axios from 'axios';
@@ -9,7 +9,14 @@ import './Dashboard.css';
 import Navbar from './Navbar.js';
 import DptTable from './DptTable.js';
 import WorldTable from './WorldTable.js';
+
+
+import DropdownCountry from './DropdownCountry.js';
+
+import WorldGraph from './WorldGraph.js';
+
 import CircularGraph from './CircularGraph';
+
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -21,6 +28,7 @@ const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
 //AllLiveData
 //https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
+
 
 export const Dashboard = () => {
 
@@ -40,7 +48,25 @@ export const Dashboard = () => {
     const [age, setAge] = useState([]);
     const [generalInfo, setGeneralInfo] = useState([]);
 
-    //First method
+    const [table, setTable] = useState([]);
+    
+    const [selectCountry, setSelectCountry] = useState('Monde');
+    const [type, setType] = useState('cases');
+
+    //State pour dropdown
+    const [dropdownCountry, setDropdownCountry] = useState({isWorld:true}); //Spread operator, par défaut: dropdown select sur le monde
+    const [dropdownHistoric, setDropdownHistoric] = useState({});
+
+
+    /**
+     * Fonction qui va trier le nombre de cas total par pays dans l'odre décroissant
+     */
+    const sortCasesDsc = (countriesTable) => {
+        const sortedTable = countriesTable;
+        return sortedTable.sort((countryA, countryB) => countryA.cases > countryB.cases ? -1 : 1  );
+        
+    }
+
     /**
      * Fonction qui va get toute la data sur le monde 
      * Puis sauvegarde dans le state world
@@ -50,6 +76,8 @@ export const Dashboard = () => {
         axios.get(`${API_URL}/all`)
         .then( (response) => {
             setWorld(response.data);
+            
+            setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
         })
         .catch((error) => {
             if(error.response){
@@ -77,8 +105,11 @@ export const Dashboard = () => {
             //Si pays non spécifié alors tableau sinon objet
             if(!country){
                 setCountries(response.data);
+                const sortedTable = sortCasesDsc(response.data);
+                setTable(sortedTable);
             }else{
                 setCountry(response.data);
+                setDropdownCountry({...dropdownCountry, isWorld:false, ...response.data});
             }
         }catch(error){
             if(error.response){
@@ -90,7 +121,6 @@ export const Dashboard = () => {
             }
         }
     }
-
 
     /**
      * Fonction qui va get toute la data de tous les continents par défaut si continent non spécifié
@@ -127,13 +157,15 @@ export const Dashboard = () => {
     const fetchCountriesHistoric = async (country='') => {
 
         try{
-            const response = await axios.get(`${API_URL}/historical/${country}`);
+            const response = await axios.get(`${API_URL}/historical/${country}?lastdays=90`);
             if(country === 'all'){
                 setWorldHistoric(response.data);
+                setDropdownHistoric(response.data);
             }else if(!country){
                 setCountriesHistoric(response.data);
             }else{
                 setCountryHistoric(response.data);
+                setDropdownHistoric(response.data.timeline);
             }
         }catch(error){
             if(error.response){
@@ -271,14 +303,14 @@ export const Dashboard = () => {
 
     }
 
+
     /**
      * Fonction qui va comparer le nombre de cas aujourd'hui et le comparer à celui d'hier et retourner un nouveau tableau 
      * avec un attribut en plus 
      */
-    const comparePreviousDay = (countries) => {
+    const createNewTablePrevious = (countries) => {
         let countriesHistoricTemp = countriesHistoric;  //State countriesHistoric stockée de manière temp
         let countriesTemp = countries; //State countries
-        let countriesTemp2 = [];
         let countriesTemp3 = [];
 
         //Parcourt de tous les pays 
@@ -309,43 +341,93 @@ export const Dashboard = () => {
         
     }
     
-
+    //Charge au chargement de la page
     useEffect(() => {
-        // fetchAllData();
-        fetchCountriesData();
-        // fetchContinentsData('south america');
-        fetchCountriesHistoric();
+        fetchAllData(); //Set dropdownCountry à monde
+        fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
+        fetchCountriesHistoric(); //Pour create newTablePreview
+        fetchCountriesHistoric('all'); //Pour dropdown historic monde
         fetchGouvData('/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7');
         fetchGouvData('/r/08c18e08-6780-452d-9b8c-ae244ad529b3');
         fetchGouvData('/r/6fadff46-9efd-4c53-942a-54aca783c30c')
         // fetchFranceData('FranceLiveGlobalData');
         fetchFranceData('AllLiveData');
     }, []);
+    
 
-    if(countriesHistoric.length > 0 && countries.length > 0){
-        comparePreviousDay(countries);
+    if(countries?.length > 0 && countriesHistoric?.length > 0){
+        createNewTablePrevious(countries);
     }
+
+    /**
+     * Fonction qui va changer les states en focntion du select dans le dropdown
+     * @param {*} e 
+     */
+    const handleCountrySelect = (e) => {
+
+        //On get le numéro iso2 du pays ou le string 'monde' grâce à la value dans MenuItem
+        const countryIso = e.target.value;
+
+
+        //On fetch selon 
+        if(countryIso === 'monde'){
+            fetchAllData();
+            fetchCountriesHistoric('all');
+        }else{
+            fetchCountriesData(`${countryIso}`);
+            fetchCountriesHistoric(`${countryIso}`);
+        }
+
+        setSelectCountry(countryIso); //On set le select du dropdown
+}
+
+    
+    
+
     //Render => affichage
-    //console.log(france);
-    // console.log(gender);
-    console.log(generalInfo);
+
     
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
-                <Col lg={7}>
-                    {/**Global */}
-                    <Row>
-                        <Col lg={12}>
-                            {/**Map */}
-                            Map
-                                <WorldTable countriesData={countries}/>
-                                
-                                {/**Dropdown pour changer de pays*/}
-                                {/**Dropdown pour changer de types : cas/rétablis/décès */}
+                <Col lg={7} className="dashboard__global">
+                    <Row >
+                        <Col lg={4} className="dashboard__global--table">
+                            <h4>Tableau mondial des cas</h4>
+                            <WorldTable countriesData={table}/>
+                        </Col>
+                        <Col lg={8} className="dashboard__global--map">
+                            <h4>Map</h4>
+                            
                         </Col>
                     </Row>
+
+                    <Row className="dashboard__global--buttons w-100">
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('cases')} className="cases">Cas</Button>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                            <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col lg={10} md={8} className="dashboard__global--graph">
+                            <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
+                        </Col>
+                        <Col lg={2} md={2} className="dashboard__global--dropdown">
+                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+                            {!dropdownCountry.isWorld ? <img src={dropdownCountry.countryInfo.flag}></img> : ''}
+                            <span>Cas : {dropdownCountry.cases}</span>
+                            <p> +{dropdownCountry.todayCases}</p>
+                            <span>Rétablis : {dropdownCountry.recovered}</span>
+                            <p> +{dropdownCountry.todayRecovered}</p>
+                            <span>Morts : {dropdownCountry.deaths}</span>
+                            <p> +{dropdownCountry.todayDeaths}</p>  
+
                     <Row>
                         <Col lg={12}>
                             {/**Graphe */}
@@ -353,6 +435,7 @@ export const Dashboard = () => {
                                 {/**Taux/Fréquences */}
                                 {/**Dropdown pour changer de pays*/}
                                 {/**Chevrons pour changer de data */}
+
                         </Col>
                     </Row>
                 </Col>
@@ -367,6 +450,7 @@ export const Dashboard = () => {
                         </Col>
                     </Row>
                     <Row>
+
                         {/**GraphesCircu */}
                         <Col  lg={4}>
                             {/* <h1> Graphe répartition des hospitalisations par sexe </h1> */}
