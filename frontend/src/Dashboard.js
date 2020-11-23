@@ -16,6 +16,7 @@ import DropdownCountry from './DropdownCountry.js';
 import WorldGraph from './WorldGraph.js';
 
 import CircularGraph from './CircularGraph';
+import DptBar from './DptBar';
 
 
 //URL de l'API mondiale
@@ -467,7 +468,8 @@ export const Dashboard = () => {
                     </Row>
                     <Row>
                         {/**Histogrammes */}
-                        <Col lg={12}>Histogrammes</Col>
+                        {/* <Col lg={12}>Histogrammes</Col> */}
+                        <DptBar/>
                             {/**Dropdown pour changer dpt */}
                             {/**Chevron pour changer de type de data */}
                     </Row>
