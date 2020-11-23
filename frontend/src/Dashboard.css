@@ -4,6 +4,7 @@
     max-height: 100vh;
 }
 
+
 .dashboard__global{
     display: flex;
     flex-direction: column;
@@ -64,3 +65,4 @@
     height: 50px;
     margin: 1rem 0;
 }
+

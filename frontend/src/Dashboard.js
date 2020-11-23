@@ -7,11 +7,16 @@ import axios from 'axios';
 //Local imports
 import './Dashboard.css';
 import Navbar from './Navbar.js';
+import DptTable from './DptTable.js';
 import WorldTable from './WorldTable.js';
+
 
 import DropdownCountry from './DropdownCountry.js';
 
 import WorldGraph from './WorldGraph.js';
+
+import CircularGraph from './CircularGraph';
+
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -21,6 +26,7 @@ const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 
 //URL pour la FRANCE
 const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
+//AllLiveData
 //https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
 
@@ -32,12 +38,15 @@ export const Dashboard = () => {
     const [countries, setCountries] = useState([]);
     const [continent, setContinent] = useState({});
     const [continents, setContinents] = useState([]);
+    const [france, setFrance] = useState([]);
 
     const [worldHistoric, setWorldHistoric] = useState({});
     const [countryHistoric, setCountryHistoric] = useState({});
     const [countriesHistoric, setCountriesHistoric] = useState([]);
 
     const [gender, setGender] = useState([]);
+    const [age, setAge] = useState([]);
+    const [generalInfo, setGeneralInfo] = useState([]);
 
     const [table, setTable] = useState([]);
     
@@ -175,7 +184,7 @@ export const Dashboard = () => {
      * Fonction qui va récup un fichier CSV (COMMA SEPARATED VALUE) et retourner sous forme d'objet JS
      * @param {String} Ref CSV
      */
-    const fetchGouvData = async (refData='/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7') => {
+    const fetchGouvData = async (refData) => {
 
         try{
             const response = await axios.get(`${API_URL_GOUV}${refData}`);
@@ -232,9 +241,30 @@ export const Dashboard = () => {
                 });
                 franceGenderData.push(objTemp); //On l'ajoute dans l'Array final
             }
-
-            setGender(franceGenderData);
-            
+            // if (refData = '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7'){
+            //     setGender(franceGenderData);
+            //     console.log('GENRE');
+            // }
+            // if (refData = '/r/08c18e08-6780-452d-9b8c-ae244ad529b3'){
+            //     setAge(franceGenderData);
+            //     console.log('AGE');
+            // }
+            switch (refData) {
+                case '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7':
+                    setGender(franceGenderData);
+                    console.log('GENRE');
+                    break;
+                case '/r/08c18e08-6780-452d-9b8c-ae244ad529b3':
+                    setAge(franceGenderData);
+                    console.log('AGE');
+                    break;
+                case '/r/6fadff46-9efd-4c53-942a-54aca783c30c':
+                    setGeneralInfo(franceGenderData);
+                    console.log('INFOS GLOBALES');
+                    break;
+                default:
+                    console.log(`Sorry, we can't set any variable.`);
+            }
 
         }catch(error){
             if(error.response){
@@ -255,7 +285,11 @@ export const Dashboard = () => {
     const fetchFranceData = async (route='') => {
         axios.get(`${API_URL_FRANCE}/${route}`)
         .then( (response) => {
-            console.log(response.data); //Pas de state pour l'instant
+            const fr = response.data.allLiveFranceData;
+            setFrance(fr);
+            // console.log(response.data.allLiveFranceData); //Pas de state pour l'instant
+            // console.log(fr);
+            // console.log(france);
         })
         .catch(error => {
             if(error.response){
@@ -313,7 +347,11 @@ export const Dashboard = () => {
         fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
         fetchCountriesHistoric(); //Pour create newTablePreview
         fetchCountriesHistoric('all'); //Pour dropdown historic monde
-
+        fetchGouvData('/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7');
+        fetchGouvData('/r/08c18e08-6780-452d-9b8c-ae244ad529b3');
+        fetchGouvData('/r/6fadff46-9efd-4c53-942a-54aca783c30c')
+        // fetchFranceData('FranceLiveGlobalData');
+        fetchFranceData('AllLiveData');
     }, []);
     
 
@@ -341,10 +379,14 @@ export const Dashboard = () => {
         }
 
         setSelectCountry(countryIso); //On set le select du dropdown
-    }
+}
+
+    
     
 
     //Render => affichage
+
+    
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
@@ -360,6 +402,7 @@ export const Dashboard = () => {
                             
                         </Col>
                     </Row>
+
                     <Row className="dashboard__global--buttons w-100">
                         <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('cases')} className="cases">Cas</Button>
@@ -384,6 +427,15 @@ export const Dashboard = () => {
                             <p> +{dropdownCountry.todayRecovered}</p>
                             <span>Morts : {dropdownCountry.deaths}</span>
                             <p> +{dropdownCountry.todayDeaths}</p>  
+
+                    <Row>
+                        <Col lg={12}>
+                            {/**Graphe */}
+                            {/* Graphe */}
+                                {/**Taux/Fréquences */}
+                                {/**Dropdown pour changer de pays*/}
+                                {/**Chevrons pour changer de data */}
+
                         </Col>
                     </Row>
                 </Col>
@@ -392,18 +444,25 @@ export const Dashboard = () => {
                     <Row>
                         <Col lg={12}>
                             {/**TableauDpt */}
-                            Tableau Dpt
+                            {/* Tableau Dpt */}
+                            
+                            {/* <DptTable country={france}/>  */}
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={4}>
-                            GrapheCircu Age
+
+                        {/**GraphesCircu */}
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition des hospitalisations par sexe </h1> */}
+                            <CircularGraph  info ={gender} color={"#bff542"} type={"gender"} />
                         </Col>
-                        <Col lg={4}>
-                            GrapheCircu Sexe
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition des décès par âge </h1> */}
+                            <CircularGraph  info ={age} color={"#0022ff"} type={"age"}/>
                         </Col>
-                        <Col lg={4}>
-                            GrapheCircu Hospi
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition infos générales </h1> */}
+                            <CircularGraph  info ={generalInfo} color={"#fa0400"} type={"generalInfo"}/>
                         </Col>
                     </Row>
                     <Row>

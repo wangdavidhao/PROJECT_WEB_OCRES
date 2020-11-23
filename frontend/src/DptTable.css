@@ -1,0 +1,28 @@
+*{
+    color: black;
+}
+
+.dpttable{
+    color : black;
+    height : 250px;
+    overflow-y : scroll; 
+}
+
+.dpttable__name{
+    margin-left: 20px;
+    font-size: 2rem;
+    font : bolder;
+}
+
+.dpttable__hospit{
+    font-size: 1rem;
+    font-weight : bolder;
+}
+
+.dpttable__deces{
+    font-size: 1rem;
+    font-weight : bolder;
+}
+table tr td{
+    padding : 10px;
+}
