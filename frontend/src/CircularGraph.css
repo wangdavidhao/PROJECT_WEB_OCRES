@@ -1,0 +1,25 @@
+.circularGraph{
+    
+}
+
+.recharts-wrapper{
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 400px !important;
+    position: relative !important;
+    flex-direction: column;
+    margin: 0 !important;
+    padding: 0 !important;  
+    padding-left: 20px !important;
+}
+
+.recharts-surface{
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center !important;
+    position: relative !important;
+    width: 100% !important;
+    padding: 0 !important;
+}

@@ -5,7 +5,7 @@ import {
   ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
 const buildDptTable = (d) => {
-        console.log(d);
+        // console.log(d);
         const inf = [
             {name: 'Hospit.', donnees: 0,},
             {name: 'Décès', donnees: 0,},
@@ -13,7 +13,7 @@ const buildDptTable = (d) => {
         if (d.code.includes('DEP')) {
             inf[0].donnees = d.hospitalises;
             inf[1].donnees = d.deces;
-            console.log(inf);
+            // console.log(inf);
       }
       return inf;  
   };
