@@ -350,30 +350,40 @@ export const Dashboard = () => {
             <Navbar page="dashboard"/>
             <Row>
                 <Col lg={7} className="dashboard__global">
-                    <Row className="dashboard__global--map">
-                        <Col lg={12}>
-                                <h3>Tableau mondial des cas</h3>
-                                <WorldTable countriesData={table}/>
+                    <Row >
+                        <Col lg={4} className="dashboard__global--table">
+                            <h4>Tableau mondial des cas</h4>
+                            <WorldTable countriesData={table}/>
+                        </Col>
+                        <Col lg={8} className="dashboard__global--map">
+                            <h4>Map</h4>
+                            
                         </Col>
                     </Row>
                     <Row className="dashboard__global--buttons w-100">
-                        <Col lg={4} className="dashboard__global--button">
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('cases')} className="cases">Cas</Button>
                         </Col>
-                        <Col lg={4} className="dashboard__global--button">
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
                         </Col>
-                        <Col lg={4} className="dashboard__global--button">
+                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
                         </Col>
                     </Row>
-                    <Row className="dashboard__global--graph">
-                        <Col lg={8}>
+                    <Row >
+                        <Col lg={10} md={8} className="dashboard__global--graph">
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                         </Col>
-                        <Col lg={2}>
+                        <Col lg={2} md={2} className="dashboard__global--dropdown">
                             <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
-
+                            {!dropdownCountry.isWorld ? <img src={dropdownCountry.countryInfo.flag}></img> : ''}
+                            <span>Cas : {dropdownCountry.cases}</span>
+                            <p> +{dropdownCountry.todayCases}</p>
+                            <span>Rétablis : {dropdownCountry.recovered}</span>
+                            <p> +{dropdownCountry.todayRecovered}</p>
+                            <span>Morts : {dropdownCountry.deaths}</span>
+                            <p> +{dropdownCountry.todayDeaths}</p>  
                         </Col>
                     </Row>
                 </Col>

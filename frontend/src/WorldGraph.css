@@ -1,4 +1,21 @@
-.recharts-surface{
-    width:700px;
-    height: 500px;
+.worldGraph{
+
+}
+
+.worldGraph > h5{
+    text-align: center;
+}
+
+
+
+.frequences{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width:425px){
+    .recharts-wrapper{
+        height: 300px !important;
+    }
 }

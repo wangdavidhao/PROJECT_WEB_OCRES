@@ -12,10 +12,10 @@ export const WorldTable = ({countriesData}) => {
                 <Col>
                     
                     <Table striped bordered hover>
-                        <thead>
+                        <thead >
                             <tr>
-                            <th>Pays</th>
-                            <th>Nombre Cas Total Enregistrés</th>
+                            <th><h6>Pays</h6></th>
+                            <th><h6>Cas Total Enregistrés</h6></th>
                             </tr>
                         </thead>
 
