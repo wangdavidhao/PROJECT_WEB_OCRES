@@ -9,6 +9,7 @@ import './Dashboard.css';
 import Navbar from './Navbar.js';
 import DptTable from './DptTable.js';
 import WorldTable from './WorldTable.js';
+import CircularGraph from './CircularGraph';
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -36,6 +37,8 @@ export const Dashboard = () => {
     const [countriesHistoric, setCountriesHistoric] = useState([]);
 
     const [gender, setGender] = useState([]);
+    const [age, setAge] = useState([]);
+    const [generalInfo, setGeneralInfo] = useState([]);
 
     //First method
     /**
@@ -149,7 +152,7 @@ export const Dashboard = () => {
      * Fonction qui va récup un fichier CSV (COMMA SEPARATED VALUE) et retourner sous forme d'objet JS
      * @param {String} Ref CSV
      */
-    const fetchGouvData = async (refData='/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7') => {
+    const fetchGouvData = async (refData) => {
 
         try{
             const response = await axios.get(`${API_URL_GOUV}${refData}`);
@@ -162,7 +165,6 @@ export const Dashboard = () => {
             const splitedCsv = data.toString().split('\n');  //Split à chaque retour à la ligne
             const csvTitle = splitedCsv[0]; // On prend la première ligne (header) 
             const csvTitleArray = csvTitle.split(';'); //On split le header à chaque ';' => Renvoie un Array avec tous les labels du header
-
             const csvTitleArrayFinal = [];
 
             //Pour chaque valeur de l'Array on enlève les "" qui entoure 
@@ -176,14 +178,29 @@ export const Dashboard = () => {
 
                 const csvData = splitedCsv[i];
                 const csvDataArray = csvData.split(';');
+                
 
                 //Chaque tour de boucle on clear le tableau et l'objet temporaire
                 const csvDataArrayTemp = [];
                 const objTemp = {};
 
+                
                 for(let j=0 ; j< csvDataArray.length ; j++){
-                    const data = csvDataArray[j].substring(1, csvDataArray[j].length-1);
-                    csvDataArrayTemp.push(data);
+                    
+                    const first = csvDataArray[j].charAt(0); 
+                    const last =  csvDataArray[j].charAt(csvDataArray[j].length-1); 
+
+                    //Si le premier element et le dernier sont des "
+                    if(first === '"' && last === '"'){
+                        const data = csvDataArray[j].substring(1, csvDataArray[j].length-1); //Alors on les enleve
+                        csvDataArrayTemp.push(data);
+                    }
+                    else{
+                        const data = csvDataArray[j]; //Sinon on fait rien
+                        csvDataArrayTemp.push(data);
+                    }
+                    
+                    
                 }   
                 //On parcourt chaque element du tableau pour le rendre en key dans l'objet 
                 //data = index, incrémentation car forEach(item, index, arr) item=title index=data
@@ -192,8 +209,30 @@ export const Dashboard = () => {
                 });
                 franceGenderData.push(objTemp); //On l'ajoute dans l'Array final
             }
-
-            setGender(franceGenderData);
+            // if (refData = '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7'){
+            //     setGender(franceGenderData);
+            //     console.log('GENRE');
+            // }
+            // if (refData = '/r/08c18e08-6780-452d-9b8c-ae244ad529b3'){
+            //     setAge(franceGenderData);
+            //     console.log('AGE');
+            // }
+            switch (refData) {
+                case '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7':
+                    setGender(franceGenderData);
+                    console.log('GENRE');
+                    break;
+                case '/r/08c18e08-6780-452d-9b8c-ae244ad529b3':
+                    setAge(franceGenderData);
+                    console.log('AGE');
+                    break;
+                case '/r/6fadff46-9efd-4c53-942a-54aca783c30c':
+                    setGeneralInfo(franceGenderData);
+                    console.log('INFOS GLOBALES');
+                    break;
+                default:
+                    console.log(`Sorry, we can't set any variable.`);
+            }
 
         }catch(error){
             if(error.response){
@@ -276,16 +315,20 @@ export const Dashboard = () => {
         fetchCountriesData();
         // fetchContinentsData('south america');
         fetchCountriesHistoric();
-        // fetchGouvData();
+        fetchGouvData('/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7');
+        fetchGouvData('/r/08c18e08-6780-452d-9b8c-ae244ad529b3');
+        fetchGouvData('/r/6fadff46-9efd-4c53-942a-54aca783c30c')
         // fetchFranceData('FranceLiveGlobalData');
-        fetchFranceData('AllLiveData')
+        fetchFranceData('AllLiveData');
     }, []);
 
     if(countriesHistoric.length > 0 && countries.length > 0){
         comparePreviousDay(countries);
     }
     //Render => affichage
-    console.log(france);
+    //console.log(france);
+    // console.log(gender);
+    console.log(generalInfo);
     
     return (
         <Container fluid={true} className="dashboard">
@@ -320,19 +363,22 @@ export const Dashboard = () => {
                             {/**TableauDpt */}
                             {/* Tableau Dpt */}
                             
-                            <DptTable country={france}/> 
+                            {/* <DptTable country={france}/>  */}
                         </Col>
                     </Row>
                     <Row>
                         {/**GraphesCircu */}
-                        <Col lg={4}>
-                            GrapheCircu Age
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition des hospitalisations par sexe </h1> */}
+                            <CircularGraph  info ={gender} color={"#bff542"} type={"gender"} />
                         </Col>
-                        <Col lg={4}>
-                            GrapheCircu Sexe
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition des décès par âge </h1> */}
+                            <CircularGraph  info ={age} color={"#0022ff"} type={"age"}/>
                         </Col>
-                        <Col lg={4}>
-                            GrapheCircu Hospi
+                        <Col  lg={4}>
+                            {/* <h1> Graphe répartition infos générales </h1> */}
+                            <CircularGraph  info ={generalInfo} color={"#fa0400"} type={"generalInfo"}/>
                         </Col>
                     </Row>
                     <Row>
