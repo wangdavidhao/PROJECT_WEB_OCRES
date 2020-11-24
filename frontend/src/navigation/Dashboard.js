@@ -12,6 +12,7 @@ import DropdownCountry from './../widgets/DropdownCountry.js';
 import WorldGraph from './../widgets/WorldGraph.js';
 import CircularGraph from './../widgets/CircularGraph';
 import DptBar from './../widgets/DptBar.js';
+import Map from './../widgets/Map.js';
 
 
 //URL de l'API mondiale
@@ -51,6 +52,13 @@ export const Dashboard = () => {
     //State pour dropdown
     const [dropdownCountry, setDropdownCountry] = useState({isWorld:true}); //Spread operator, par défaut: dropdown select sur le monde
     const [dropdownHistoric, setDropdownHistoric] = useState({});
+
+    //Map
+    const [map, setMap] = useState({
+        lat:1,
+        long:1,
+        zoom:3,
+    })
 
 
     /**
@@ -236,14 +244,6 @@ export const Dashboard = () => {
                 });
                 franceGenderData.push(objTemp); //On l'ajoute dans l'Array final
             }
-            // if (refData = '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7'){
-            //     setGender(franceGenderData);
-            //     console.log('GENRE');
-            // }
-            // if (refData = '/r/08c18e08-6780-452d-9b8c-ae244ad529b3'){
-            //     setAge(franceGenderData);
-            //     console.log('AGE');
-            // }
             switch (refData) {
                 case '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7':
                     setGender(franceGenderData);
@@ -279,9 +279,6 @@ export const Dashboard = () => {
         .then( (response) => {
             const fr = response.data.allLiveFranceData;
             setFrance(fr);
-            // console.log(response.data.allLiveFranceData); //Pas de state pour l'instant
-            // console.log(fr);
-            // console.log(france);
         })
         .catch(error => {
             if(error.response){
@@ -382,7 +379,8 @@ export const Dashboard = () => {
                             <WorldTable countriesData={table}/>
                         </Col>
                         <Col lg={8} md={8} sm={12} className="dashboard__global--map">
-                            <h4>Map</h4>                           
+                            <h4>Map</h4> 
+                            <Map/>                          
                         </Col>
                     </Row>
 

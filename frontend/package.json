@@ -16,6 +16,7 @@
     "react-dom": "^16.11.0",
     "react-icons": "^3.11.0",
     "react-leaflet": "^3.0.2",
+    "react-mapbox-gl": "^5.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0",
     "recharts": "^1.8.5"
