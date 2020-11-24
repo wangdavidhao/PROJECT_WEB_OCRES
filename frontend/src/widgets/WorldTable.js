@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap';
 import * as GoIcons from 'react-icons/go';
 import PropTypes from 'prop-types';

@@ -147,7 +147,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                         }
                         layout="horizontal" verticalAlign="bottom" align="center" 
                         />
-                        <Area type="monotone" dataKey="nbCas" strokeWidth={1.5} stroke={graphColor} fill={graphColor} fillOpacity={1} fill="url(#nbCas)"/>
+                        <Area type="monotone" dataKey="nbCas" strokeWidth={1.5} stroke={graphColor} fillOpacity={1} fill="url(#nbCas)"/>
                     </AreaChart>
                     </ResponsiveContainer>
                     
@@ -160,8 +160,8 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
 }
 
 WorldGraph.propTypes = {
-    countrySelected : PropTypes.string.isRequired,
-    countryHistoric : PropTypes.array.isRequired,
+    countrySelected : PropTypes.object.isRequired,
+    countryHistoric : PropTypes.object.isRequired,
     type : PropTypes.string.isRequired,
 }
 

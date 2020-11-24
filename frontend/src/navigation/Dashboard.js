@@ -11,6 +11,7 @@ import WorldTable from './../widgets/WorldTable.js';
 import DropdownCountry from './../widgets/DropdownCountry.js';
 import WorldGraph from './../widgets/WorldGraph.js';
 import CircularGraph from './../widgets/CircularGraph';
+import DptBar from './../widgets/DptBar.js';
 
 
 //URL de l'API mondiale
@@ -348,13 +349,6 @@ export const Dashboard = () => {
         createNewTablePrevious(countries);
     }
 
-    if(generalInfo?.length > 0){
-        console.log('vrai');
-        console.log(generalInfo[0].jour);
-    }else{
-        console.log('faux');
-    }
-
     /**
      * Fonction qui va changer les states en focntion du select dans le dropdown
      * @param {*} e 
@@ -444,7 +438,7 @@ export const Dashboard = () => {
 
                     <Row>
                         <Col lg={12} className="dashboard__france--dptBar">
-                            Histogrammes
+                            <DptBar info={generalInfo}/>
                         </Col>
                     </Row>
 

@@ -38,45 +38,37 @@ import { Bar } from "react-chartjs-2";
   
 function DptBar({info}) {
     
-    let today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
-    // console.log(date);
+    let today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
 
     let newHospit = 0;
     let newRea = 0;
     let newDeaths = 0;
 
-    console.log(date);
     let yearMonth;
     yearMonth = date.substr(0, 7);
-    // console.log(typeof(info[0].jour));
-    // console.log(typeof(yearMonth));
-    //generalInfo.jour === date
-    //generalInfo.jour.includes(yearMonth)
-    // console.log(info[0].jour);
-    // console.log("TESTTT", info[0].jour);
+
+    let dataArray = [];
+
+    
     if (info.length > 0){
-        // info.filter(generalInfo => generalInfo.jour === date)
-        // .map((genInfo) => (<div>
-        //     {(() => {
-        //         console.log(genInfo);
-        //         newHospit += parseInt(genInfo.incid_hosp);
-        //         newRea += parseInt(genInfo.incid_rea);
-        //         newDeaths += parseInt(genInfo.incid_dc);
-        //     })()}
-        // </div>));
-        let cpt = 0;
-        for (let i=0; i<info.length; i++){
-            console.log(cpt);
-            if (info[i].jour.includes("2020-03")){
-                cpt++;
-                console.log(info[i].jour);
-            }
-        }
+
+      for(let i = 0 ; i< info.length-1 ;i++){
+
+          if(info[i].jour.includes(yearMonth)){
+            dataArray.push(info[i]);
+          }
+      }
+
+        dataArray.map((genInfo) => (<div>
+            {(() => {
+                newHospit += parseInt(genInfo.incid_hosp);
+                newRea += parseInt(genInfo.incid_rea);
+                newDeaths += parseInt(genInfo.incid_dc);
+            })()}
+        </div>));
     }
-    else{
-        console.log("PBBB");
-    }
+
 
     let buildGraph = (d) => {
         const inf =  {

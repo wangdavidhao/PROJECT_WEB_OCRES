@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 import './CircularGraph.css';
 
 import PropTypes from 'prop-types';
@@ -13,11 +13,11 @@ let data = [
 function hexToHSL(H) {
     // Convert hex to RGB first
     let r = 0, g = 0, b = 0;
-    if (H.length == 4) {
+    if (H.length === 4) {
       r = "0x" + H[1] + H[1];
       g = "0x" + H[2] + H[2];
       b = "0x" + H[3] + H[3];
-    } else if (H.length == 7) {
+    } else if (H.length === 7) {
       r = "0x" + H[1] + H[2];
       g = "0x" + H[3] + H[4];
       b = "0x" + H[5] + H[6];
@@ -33,11 +33,11 @@ function hexToHSL(H) {
         s = 0,
         l = 0;
   
-    if (delta == 0)
+    if (delta === 0)
       h = 0;
-    else if (cmax == r)
+    else if (cmax === r)
       h = ((g - b) / delta) % 6;
-    else if (cmax == g)
+    else if (cmax === g)
       h = (b - r) / delta + 2;
     else
       h = (r - g) / delta + 4;
@@ -48,7 +48,7 @@ function hexToHSL(H) {
       h += 360;
   
     l = (cmax + cmin) / 2;
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
   
@@ -208,6 +208,8 @@ function CircularGraph({info, color, type}) {
                             case '90':
                                 age90_ += parseInt(a.cl_age90);
                                 break;
+                            default:
+                                break;
                         };
                     })()}
                   </div>));
@@ -277,7 +279,6 @@ function CircularGraph({info, color, type}) {
                                 innerRadius="50%"
                                 outerRadius="65%"
                                 fill="url(#value)"
-                                //harmonize(colorHSL)[Math.floor(Math.random() * Math.floor(13))]
                                 dataKey="value"
                                 onMouseEnter={onPieEnter}
                             >
@@ -285,7 +286,6 @@ function CircularGraph({info, color, type}) {
                                 data.map((entry, index) => <Cell fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
                             </Pie>
-                            {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
                         </PieChart>
                     </ResponsiveContainer>
                     <h6 className="text-align-center">{type}</h6>
