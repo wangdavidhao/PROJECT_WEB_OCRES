@@ -9,6 +9,7 @@ import './Dashboard.css';
 import Navbar from './Navbar.js';
 import DptTable from './DptTable.js';
 import WorldTable from './WorldTable.js';
+import DptBar from './DptBar.js'
 
 
 import DropdownCountry from './DropdownCountry.js';
@@ -353,6 +354,9 @@ export const Dashboard = () => {
         // fetchFranceData('FranceLiveGlobalData');
         fetchFranceData('AllLiveData');
     }, []);
+    // if (generalInfo?.length > 0){
+    //     console.log(generalInfo[0].jour);
+    // }
     
 
     if(countries?.length > 0 && countriesHistoric?.length > 0){
@@ -427,7 +431,8 @@ export const Dashboard = () => {
                             <p> +{dropdownCountry.todayRecovered}</p>
                             <span>Morts : {dropdownCountry.deaths}</span>
                             <p> +{dropdownCountry.todayDeaths}</p>  
-
+                        </Col>
+                    </Row>
                     <Row>
                         <Col lg={12}>
                             {/**Graphe */}
@@ -445,7 +450,6 @@ export const Dashboard = () => {
                         <Col lg={12}>
                             {/**TableauDpt */}
                             {/* Tableau Dpt */}
-                            
                             {/* <DptTable country={france}/>  */}
                         </Col>
                     </Row>
@@ -467,7 +471,11 @@ export const Dashboard = () => {
                     </Row>
                     <Row>
                         {/**Histogrammes */}
-                        <Col lg={12}>Histogrammes</Col>
+                        <Col lg={12}>
+                            {/* Histogrammes */}
+                            {generalInfo?.length > 0 ? <DptBar info={generalInfo}/> : ""}
+                            
+                        </Col>
                             {/**Dropdown pour changer dpt */}
                             {/**Chevron pour changer de type de data */}
                     </Row>

@@ -150,8 +150,9 @@ function CircularGraph({info, color, type}) {
     let newRea = 0;
     let newDeaths = 0;
 
-    console.log(info[0]);
+    // console.log(info[0]);
     let buildGraph = function(){ return 1; };
+    // console.log(info[0].jour);
 
     switch (type) {
         case 'gender':

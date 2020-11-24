@@ -22,6 +22,7 @@ function DptTable({country}) {
     // buildDptTable(country);
     return (
         <div className="dpttable">
+        {/* {console.log(country)} */}
           {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
               <div>
               <h2 class="dpttable__name"> {dpt.nom}</h2>
