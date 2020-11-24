@@ -3,6 +3,8 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
 import './CircularGraph.css';
 
+import PropTypes from 'prop-types';
+
 let data = [
     { name: 'Hommes', value: 10, },
     { name: 'Femmes', value: 35, },
@@ -248,18 +250,16 @@ function CircularGraph({info, color, type}) {
 
             break;
         default:
-            console.log(`SORRY NOT FOUND`);
-            
+            console.log(`SORRY NOT FOUND`);  
     }
 
     return (
-        <Container fluid={true}>
+        <Container fluid={true} className="circularGraph">
             <Row>
                 <Col lg={12}>
                     <ResponsiveContainer width="99%" aspect={1}>
                         <PieChart
                             padding={10}
-                        
                         >
                             <defs>
                                 <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
@@ -274,8 +274,8 @@ function CircularGraph({info, color, type}) {
                                 data={data}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius="60%"
-                                outerRadius="80%"
+                                innerRadius="50%"
+                                outerRadius="65%"
                                 fill="url(#value)"
                                 //harmonize(colorHSL)[Math.floor(Math.random() * Math.floor(13))]
                                 dataKey="value"
@@ -284,16 +284,21 @@ function CircularGraph({info, color, type}) {
                             {   
                                 data.map((entry, index) => <Cell fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
-                            
-                            
                             </Pie>
                             {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
                         </PieChart>
                     </ResponsiveContainer>
+                    <h6 className="text-align-center">{type}</h6>
                 </Col> 
             </Row>
         </Container>
     );
+}
+
+CircularGraph.propTypes = {
+    info : PropTypes.array.isRequired,
+    color : PropTypes.string,
+    type : PropTypes.string,
 }
 
 export default CircularGraph;

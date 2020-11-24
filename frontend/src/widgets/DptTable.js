@@ -4,6 +4,8 @@ import './DptTable.css';
 import {
   ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,} from 'recharts';
 
+import PropTypes from 'prop-types';
+
 const buildDptTable = (d) => {
         const inf = [
             {name: 'Hospit.', nombre: 0,},
@@ -16,8 +18,11 @@ const buildDptTable = (d) => {
       return inf;  
   };
 
+const coloredLegendText = (value, entry) => {  
+  return <span style={{ color : "#fff" }}>{value}</span>;
+}
+
 function DptTable({country}) {
-    // buildDptTable(country);
     return (
         <div className="dpttable">
           {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
@@ -33,24 +38,19 @@ function DptTable({country}) {
                 <XAxis type="number" tick={{ fill: '#fff',}} />
                 <YAxis dataKey="name" type="category" tick={{ fill: '#fff' }}   />
                 <Tooltip />
-                <Legend />
+                <Legend formatter={coloredLegendText}/>
                 <Bar dataKey="nombre" fill="#1B9CFC" stroke="#02487e" barSize={20}/>
                 {/* <Area dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
                 {/* <Line dataKey="uv" stroke="#ff7300" /> */}
             </ComposedChart>
-              {/* <h2 class="dpttable__name"> {dpt.nom}</h2>
-                <tr>
-                    <td> <h3 class="dpttable__hospit">Hospitalisations</h3> </td>
-                    <td> <strong>{dpt.hospitalises}</strong> </td>
-                </tr>
-                <tr>
-                    <td> <h3 class="dpttable__deces"> Décès</h3> </td>
-                    <td> <strong>{dpt.deces}</strong> </td>
-                </tr> */}
               </div>
         ))};
       </div>
     );
+}
+
+DptTable.propTypes = {
+  country : PropTypes.array.isRequired,
 }
 
 export default DptTable;

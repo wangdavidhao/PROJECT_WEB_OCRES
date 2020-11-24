@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap';
 import * as GoIcons from 'react-icons/go';
+import PropTypes from 'prop-types';
 
 import './WorldTable.css';
 
@@ -21,11 +22,9 @@ export const WorldTable = ({countriesData}) => {
                         <tbody>
                             {countriesData.map( (country) => (
                                 <tr key={country.countryInfo.id}>
-                                    <td ><strong >{country.country}</strong></td>
+                                    <td >{country.country}</td>
                                     <td className="worldTable__cases">
-                                        <strong >
                                             {country.cases}
-                                        </strong>
                                         {country.previous === 'false'
                                         ? <GoIcons.GoTriangleDown size={20} className="worldTable__cases--down"/>
                                         : <GoIcons.GoTriangleUp size={20} className="worldTable__cases--up"/>
@@ -40,6 +39,10 @@ export const WorldTable = ({countriesData}) => {
             </Row>
         </Container>
     )
+}
+
+WorldTable.propTypes = {
+    countriesData : PropTypes.array.isRequired,
 }
 
 export default WorldTable;

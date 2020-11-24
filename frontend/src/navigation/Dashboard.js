@@ -44,7 +44,7 @@ export const Dashboard = () => {
 
     const [table, setTable] = useState([]);
     
-    const [selectCountry, setSelectCountry] = useState('Monde');
+    const [selectCountry, setSelectCountry] = useState('monde');
     const [type, setType] = useState('cases');
 
     //State pour dropdown
@@ -246,15 +246,12 @@ export const Dashboard = () => {
             switch (refData) {
                 case '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7':
                     setGender(franceGenderData);
-                    console.log('GENRE');
                     break;
                 case '/r/08c18e08-6780-452d-9b8c-ae244ad529b3':
                     setAge(franceGenderData);
-                    console.log('AGE');
                     break;
                 case '/r/6fadff46-9efd-4c53-942a-54aca783c30c':
                     setGeneralInfo(franceGenderData);
-                    console.log('INFOS GLOBALES');
                     break;
                 default:
                     console.log(`Sorry, we can't set any variable.`);
@@ -349,6 +346,13 @@ export const Dashboard = () => {
 
     if(countries?.length > 0 && countriesHistoric?.length > 0){
         createNewTablePrevious(countries);
+    }
+
+    if(generalInfo?.length > 0){
+        console.log('vrai');
+        console.log(generalInfo[0].jour);
+    }else{
+        console.log('faux');
     }
 
     /**

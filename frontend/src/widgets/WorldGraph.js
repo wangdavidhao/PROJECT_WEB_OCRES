@@ -11,6 +11,7 @@ import {AreaChart,
     ResponsiveContainer, 
     linearGradient} from 'recharts';
 import {Container, Row, Col} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 /**
  * Fonction qui va retourner un array de data composé de la date + du nb de cas sous forme d'objet
@@ -156,6 +157,12 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
             </Row>
         </Container>
     )
+}
+
+WorldGraph.propTypes = {
+    countrySelected : PropTypes.string.isRequired,
+    countryHistoric : PropTypes.array.isRequired,
+    type : PropTypes.string.isRequired,
 }
 
 export default WorldGraph;
