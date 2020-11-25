@@ -2,6 +2,7 @@ import React from 'react';
 import './DptTable.css';
 import {
   ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
+import {Container, Row, Col} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
@@ -23,25 +24,30 @@ const coloredLegendText = (value, entry) => {
 
 function DptTable({country}) {
     return (
-        <div className="dpttable">
-          {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
-              <div>
-              <h2 className="dpttable__name"> {dpt.nom}</h2>
-            <ComposedChart  layout="vertical" fill="#000000"
-                    width={450} height={200} data={buildDptTable(dpt)} 
-                    stroke={'red'}
-                    margin={{top: 20, right: 20, bottom: 20, left: 20,}}
+        <Container className="dpttable">
+          <Row>
+            <Col lg={12}>
+              {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
+                <>
+                    <h2 className="dpttable__name"> {dpt.nom}</h2>
+                    <ComposedChart  layout="vertical" fill="#000000"
+                        width={450} height={200} data={buildDptTable(dpt)} 
+                        stroke={'red'}
+                        margin={{top: 20, right: 20, bottom: 20, left: 20,}}
                     >
-                <CartesianGrid />
-                <XAxis type="number" tick={{ fill: '#fff',}} />
-                <YAxis dataKey="name" type="category" tick={{ fill: '#fff' }}   />
-                <Tooltip />
-                <Legend formatter={coloredLegendText}/>
-                <Bar dataKey="nombre" fill="#1B9CFC" stroke="#02487e" barSize={20}/>
-            </ComposedChart>
-              </div>
-        ))};
-      </div>
+                      <CartesianGrid />
+                      <XAxis type="number" tick={{ fill: '#fff',}} />
+                      <YAxis dataKey="name" type="category" tick={{ fill: '#fff' }}   />
+                      <Tooltip />
+                      <Legend formatter={coloredLegendText}/>
+                      <Bar dataKey="nombre" fill="#1B9CFC" stroke="#02487e" barSize={20}/>
+                    </ComposedChart>
+                </>
+              ))};
+
+            </Col>
+          </Row>
+      </Container>
     );
 }
 

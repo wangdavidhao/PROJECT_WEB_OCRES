@@ -1,14 +1,21 @@
-.map{
-    height: 40vh;
-    background-color: white;
-    margin: 1rem;
-    border-radius: 20px;
-    margin-top: 16px;
-    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+.map__popup{
+    color:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
 }
 
-.map .leaflet-container {
-  position:relative;
-  height: 100vh;
-  border-radius: 12px;
+.map__popup > img{
+    border:1px solid black;
+}
+
+.map__circle{
+    z-index: 1;
+}
+
+.map__popupContainer{
+    z-index:10000;
+    padding:1rem;
 }

@@ -55,9 +55,9 @@ export const Dashboard = () => {
 
     //Map
     const [map, setMap] = useState({
-        lat:1,
-        long:1,
-        zoom:3,
+        lat:46,
+        long:2,
+        zoom:0.8,
     })
 
 
@@ -113,6 +113,11 @@ export const Dashboard = () => {
             }else{
                 setCountry(response.data);
                 setDropdownCountry({...dropdownCountry, isWorld:false, ...response.data});
+                setMap({
+                    lat:response.data.countryInfo.lat,
+                    long:response.data.countryInfo.long,
+                    zoom:3,
+                });
             }
         }catch(error){
             if(error.response){
@@ -331,6 +336,7 @@ export const Dashboard = () => {
     
     //Charge au chargement de la page
     useEffect(() => {
+        
         fetchAllData(); //Set dropdownCountry à monde
         fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
         fetchCountriesHistoric(); //Pour create newTablePreview
@@ -364,7 +370,12 @@ export const Dashboard = () => {
         }
 
         setSelectCountry(countryIso); //On set le select du dropdown
-}
+    }
+
+
+
+
+    
 
     //Render => affichage
     return (
@@ -380,19 +391,22 @@ export const Dashboard = () => {
                         </Col>
                         <Col lg={8} md={8} sm={12} className="dashboard__global--map">
                             <h4>Map mondiale</h4> 
-                            <Map/>                          
+                            <Map {...map} countries={countries} type={type}/>                          
                         </Col>
                     </Row>
 
                     <Row className="dashboard__global--buttons">
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('cases')} className="cases">Cas</Button>
                         </Col>
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
                         </Col>
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
+                        </Col>
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
+                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
                         </Col>
                     </Row>
 
@@ -401,7 +415,7 @@ export const Dashboard = () => {
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                         </Col>
                         <Col lg={2} md={2} className="dashboard__global--dropdown">
-                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+                            
                             {!dropdownCountry.isWorld ? <img src={dropdownCountry.countryInfo.flag}></img> : ''}
                             <span>Cas : {dropdownCountry.cases}</span>
                             <p><i> +{dropdownCountry.todayCases}</i></p>

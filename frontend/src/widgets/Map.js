@@ -1,44 +1,129 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Map.css';
-// import {Map as WorldMap, MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Container, Row, Col} from 'react-bootstrap';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
+import {Circle} from 'react-leaflet';
+
+import PropTypes from 'prop-types';
 
 
-
-// const WorldMap = ReactMapboxGl({
-//     accessToken:'pk.eyJ1IjoiZGF2aWQtd2FuZzAwIiwiYSI6ImNraHdjNWhtODA4cjUycHRoaTk1MHA2YmoifQ.OdJ4_4OuO3m38R6hkxaDGQ',
-//     mapStyle:'mapbox://styles/david-wang00/ckhwggb7k0tgk19ns5w6y9zj6',
-// });
-
-const Map = () => {
+const Map = ({lat, long, zoom, countries, type}) => {
 
     const [viewport, setViewport] = useState({
-        width:'100%',
-        height:'320px',
-        latitude:37.6,
-        longitude:-95.665,
-        zoom:1
+        latitude:lat,
+        longitude:long,
+        zoom:zoom,
+        transitionDuration: 5000,
+        transitionInterpolator: new FlyToInterpolator(),
     });
+
+    const [popup, setPopup] = useState({});
+
+    //On change le viewport à chaque appel car initialState considéré comme valeur initial constructeur
+    useEffect(() => {
+        setViewport({...viewport,latitude:lat, longitude:long, zoom:zoom})
+    },[lat,long,zoom]);
+
+    //Variable pour stocker la couleur
+    let graphColor;
+    let casesType = '';
+
+    //S'il y a un bien un ype passé en props
+    if(type){
+        switch(type){
+            case 'cases':
+                graphColor = '#f7b731';
+                casesType = 'cas';
+                break;
+            case 'recovered':
+                graphColor = '#26de81';
+                casesType = 'rétablis';
+                break;
+            case 'deaths':
+                graphColor = '#eb3b5a';
+                casesType = 'morts';
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
         <Container>
             <Row>
-                <Col lg={12}>
+                <Col lg={12} md={12} sm={12} xs={12}>
                     <ReactMapGL
                         {...viewport}
+                        width="100%"
+                        height='320px'
                         mapStyle="mapbox://styles/david-wang00/ckhwnvcth01e019pk719mtl54"
-                        mapboxApiAccessToken="pk.eyJ1IjoiZGF2aWQtd2FuZzAwIiwiYSI6ImNraHdjNWhtODA4cjUycHRoaTk1MHA2YmoifQ.OdJ4_4OuO3m38R6hkxaDGQ"
-                        onViewportChange={setViewport}
-                    />
+                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                        onViewportChange={nextViewport => setViewport(nextViewport)}
+                    >
+                        {countries.map((country) => (
+                            <>
+                            <Marker key={country.countryInfo.iso2} latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
+                                <div 
+                                onClick={() => setPopup({
+                                    [country.countryInfo.iso2]:true,
+                                })}
+                                >
+                                    <svg  
+                                    className="map__circle"
+                                    style={{
+                                            height: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
+                                            width: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
+                                    }}
+                                        
+                                    fill={graphColor}
+                                    viewBox="0 0 24 24" 
+                                    stroke={graphColor} 
+                                    fillOpacity="0.4"
+                                    stroke-width="2" 
+                                    stroke-linecap="round" 
+                                    stroke-linejoin="round"
+                                    >
+                                        <circle className="map__circle" cx="12" cy="12" r="10">
+                                        </circle>
+                                    </svg>
+                                </div>
+                                
+                            </Marker>
+                            { popup[country.countryInfo.iso2] ? ( <Popup
+                                className="map__popupContainer"
+                                latitude={country.countryInfo.lat} 
+                                longitude={country.countryInfo.long}
+                                closeButton={true}
+                                closeOnClick={false}
+                                onClose={() => setPopup({})}
+                                anchor="top" 
+                                >
+                                <div className="map__popup">
+                                    <span>{country.country}</span>
+                                    <img src={country.countryInfo.flag} width="80px" height="50px"></img>
+                                    <span>{casesType} : {country[type]}</span>
+                                </div>
+                                
+                            </Popup>) : ''}
+                            
+                            </>
+                        ))}
+                    </ReactMapGL>
                 </Col>
             </Row>
         </Container>
         
     )
+}
+
+Map.propTypes = {
+    lat : PropTypes.number.isRequired,
+    long : PropTypes.number.isRequired,
+    zoom : PropTypes.number.isRequired,
+    countries : PropTypes.array.isRequired,
+    type : PropTypes.string.isRequired,
 }
 
 export default Map;
