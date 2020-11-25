@@ -371,7 +371,7 @@ export const Dashboard = () => {
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
-                <Col lg={7} className="dashboard__global">
+                <Col lg={8} className="dashboard__global">
 
                     <Row className="dashboard__global--mapContainer">
                         <Col lg={4} md={4} sm={12} className="dashboard__global--table">
@@ -379,7 +379,7 @@ export const Dashboard = () => {
                             <WorldTable countriesData={table}/>
                         </Col>
                         <Col lg={8} md={8} sm={12} className="dashboard__global--map">
-                            <h4>Map</h4> 
+                            <h4>Map mondiale</h4> 
                             <Map/>                          
                         </Col>
                     </Row>
@@ -413,7 +413,7 @@ export const Dashboard = () => {
                     </Row>
 
                 </Col>
-                <Col lg={5} className="dashboard__france">
+                <Col lg={4} className="dashboard__france">
 
                     <Row className="dashboard__france--dptTable">
                         <Col lg={12} md={12} sm={12}>
