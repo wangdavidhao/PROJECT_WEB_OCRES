@@ -1,41 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import {hexToHSL, parseHSL, harmonize} from './util.js' ;
-
-// const dataBar = {
-//     labels: ["Jul 1", "Jul 2", "Jul 3", "Jul 4", "Jul 5", "Jul 6", "Jul 7"],
-//     datasets: [
-//       {
-//         label: "Unsync Block",
-//         backgroundColor: "#FF3232",
-//         borderColor: "FF3232",
-//         borderWidth: 1,
-//         hoverBackgroundColor: "#FFB4B4",
-//         hoverBorderColor: "#FFB4B4",
-//         data: [1, 2, 3, 4, 3, 0, 1]
-//       },
-//       {
-//         label: "Uncomfirmed Block",
-//         backgroundColor: "#FF9364",
-//         borderColor: "#FF9364",
-//         borderWidth: 1,
-//         hoverBackgroundColor: "#FFCB9C",
-//         hoverBorderColor: "#FFCB9C",
-//         data: [2, 3, 4, 0, 1, 2, 3]
-//       },
-//       {
-//         label: "Slow Response",
-//         backgroundColor: "#94EB3E",
-//         borderColor: "#94EB3E",
-//         borderWidth: 1,
-//         hoverBackgroundColor: "#BEF5BE",
-//         hoverBorderColor: "#BEF5BE",
-//         data: [2, 4, 3, 2, 1, 0, 1]
-//       }
-//     ]
-//   };
-
-
   
 function DptBar({info}) {
     
@@ -58,10 +23,6 @@ function DptBar({info}) {
     let newRea4 = 0;
     let newDeaths4 = 0;
 
-    // let newHospit = [];
-    // let newRea = [];
-    // let newDeaths = [];
-
     let yearMonth;
     yearMonth = date.substr(0, 7);
 
@@ -73,11 +34,11 @@ function DptBar({info}) {
     var monthNames = ["Janvier", "Fevrier", "Mars", "Avril",
                       "Mai", "Juin", "Juillet", "Août", "Septembre",
                       "Octobre", "Novembre", "Dimanche"];
-    var d;
-    var month;
-    var year;
+    let d;
+    let month;
+    let year;
 
-    for(var i = 5; i > 0; i -= 1) {
+    for(let i = 5; i > 0; i -= 1) {
       d = new Date(today.getFullYear(), today.getMonth() - i, 1);
       month = monthNumbers[d.getMonth()];
       year = d.getFullYear().toString();
@@ -85,8 +46,6 @@ function DptBar({info}) {
       yearsMonths.push(ym);
       yearsMonthsNames.push(monthNames[d.getMonth()]);
     }
-    console.log(yearsMonths);
-    console.log(yearsMonthsNames);
     
     if (info.length > 0){
 
@@ -166,8 +125,8 @@ function DptBar({info}) {
                 borderWidth: 1,
                 hoverBackgroundColor: "#BEF5BE",
                 hoverBorderColor: "#BEF5BE",
-                data: [`${newDeaths0}`, `${newDeaths1}`, `${newDeaths2}`, `${newDeaths3}`, `${newDeaths4}`,],
-              },
+                data: [`${newDeaths0}`, `${newDeaths1}`, `${newDeaths2}`, `${newDeaths3}`, `${newDeaths4}`,]
+              }
             ]
           };
         return inf; 
