@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Bar } from "react-chartjs-2";
-import {hexToHSL, parseHSL, harmonize} from './util.js' ;
+import {Container, Row, Col} from 'react-bootstrap';
+import './DptBar.css'
   
 function DptBar({info}) {
     
     let today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
 
     let newHospit0 = 0;
     let newRea0 = 0;
@@ -23,8 +23,6 @@ function DptBar({info}) {
     let newRea4 = 0;
     let newDeaths4 = 0;
 
-    let yearMonth;
-    yearMonth = date.substr(0, 7);
 
     let dataArray = [];
     let yearsMonths = [];
@@ -132,10 +130,14 @@ function DptBar({info}) {
     };
     let data = buildGraph(info);
     return (
-        <div>
-            <h2>Données mensuelles</h2>
-            <Bar data={data} width={70} height={30} />
-        </div>
+        <Container>
+          <Row>
+            <Col lg={12}>
+                  <Bar className="dptBar" data={data} height={150} />
+            </Col>
+          </Row>
+        </Container>
+        
     );
 }
 

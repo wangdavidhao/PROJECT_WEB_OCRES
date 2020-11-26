@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const hexToHSL = (H) => {
     // Convert hex to RGB first

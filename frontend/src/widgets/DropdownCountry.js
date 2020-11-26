@@ -21,7 +21,7 @@ const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
                         >
                         <MenuItem value="monde">Monde</MenuItem>
                         {countries.map((country) => (
-                            <MenuItem value={country.countryInfo.iso2}>{country.country}</MenuItem>
+                            <MenuItem key={country.country} value={country.countryInfo.iso2}>{country.country}</MenuItem>
                         ))}
                         </Select>
                     </FormControl>

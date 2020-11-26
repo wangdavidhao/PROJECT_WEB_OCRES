@@ -1,0 +1,21 @@
+.map__popup{
+    color:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.map__popup > img{
+    border:1px solid black;
+}
+
+.map__circle{
+    z-index: 1;
+}
+
+.map__popupContainer{
+    z-index:10000;
+    padding:1rem;
+}

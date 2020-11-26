@@ -80,7 +80,8 @@
 .dashboard__global--buttons , 
 .dashboard__global--graphContainer,
 .dashboard__france--dptTable,
-.dashboard__france--circu{
+.dashboard__france--circu,
+.dashboard__france--dptBar{
     background-color: #37384B;
     margin:1rem !important;
     padding: 1rem !important;

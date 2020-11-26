@@ -13,6 +13,7 @@ import WorldGraph from './../widgets/WorldGraph.js';
 import CircularGraph from './../widgets/CircularGraph';
 import DptBar from './../widgets/DptBar.js';
 import ListData from '../widgets/ListData.js';
+import Map from './../widgets/Map.js';
 
 
 //URL de l'API mondiale
@@ -53,6 +54,13 @@ export const Dashboard = () => {
     const [dropdownCountry, setDropdownCountry] = useState({isWorld:true}); //Spread operator, par défaut: dropdown select sur le monde
     const [dropdownHistoric, setDropdownHistoric] = useState({});
 
+    //Map
+    const [map, setMap] = useState({
+        lat:46,
+        long:2,
+        zoom:0.8,
+    })
+
 
     /**
      * Fonction qui va trier le nombre de cas total par pays dans l'odre décroissant
@@ -74,6 +82,11 @@ export const Dashboard = () => {
             setWorld(response.data);
             
             setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
+            setMap({
+                lat:46,
+                long:2,
+                zoom:0.8,
+            });
         })
         .catch((error) => {
             if(error.response){
@@ -106,6 +119,11 @@ export const Dashboard = () => {
             }else{
                 setCountry(response.data);
                 setDropdownCountry({...dropdownCountry, isWorld:false, ...response.data});
+                setMap({
+                    lat:response.data.countryInfo.lat,
+                    long:response.data.countryInfo.long,
+                    zoom:3,
+                });
             }
         }catch(error){
             if(error.response){
@@ -237,14 +255,6 @@ export const Dashboard = () => {
                 });
                 franceGenderData.push(objTemp); //On l'ajoute dans l'Array final
             }
-            // if (refData = '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7'){
-            //     setGender(franceGenderData);
-            //     console.log('GENRE');
-            // }
-            // if (refData = '/r/08c18e08-6780-452d-9b8c-ae244ad529b3'){
-            //     setAge(franceGenderData);
-            //     console.log('AGE');
-            // }
             switch (refData) {
                 case '/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7':
                     setGender(franceGenderData);
@@ -280,9 +290,6 @@ export const Dashboard = () => {
         .then( (response) => {
             const fr = response.data.allLiveFranceData;
             setFrance(fr);
-            // console.log(response.data.allLiveFranceData); //Pas de state pour l'instant
-            // console.log(fr);
-            // console.log(france);
         })
         .catch(error => {
             if(error.response){
@@ -335,6 +342,7 @@ export const Dashboard = () => {
     
     //Charge au chargement de la page
     useEffect(() => {
+        
         fetchAllData(); //Set dropdownCountry à monde
         fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
         fetchCountriesHistoric(); //Pour create newTablePreview
@@ -368,14 +376,14 @@ export const Dashboard = () => {
         }
 
         setSelectCountry(countryIso); //On set le select du dropdown
-}
+    }
 
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
-                <Col lg={7} className="dashboard__global">
+                <Col lg={8} className="dashboard__global">
 
                     <Row className="dashboard__global--mapContainer">
                         <Col lg={4} md={4} sm={12} className="dashboard__global--table">
@@ -383,19 +391,23 @@ export const Dashboard = () => {
                             <WorldTable countriesData={table}/>
                         </Col>
                         <Col lg={8} md={8} sm={12} className="dashboard__global--map">
-                            <h4>Map</h4>                           
+                            <h4>Map mondiale</h4> 
+                            <Map {...map} countries={countries} type={type}/>                          
                         </Col>
                     </Row>
 
                     <Row className="dashboard__global--buttons">
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('cases')} className="cases">Cas</Button>
                         </Col>
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
                         </Col>
-                        <Col lg={4} md={4} sm={4} xs={4} className="dashboard__global--button">
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
+                        </Col>
+                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
+                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
                         </Col>
                     </Row>
 
@@ -404,7 +416,7 @@ export const Dashboard = () => {
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                         </Col>
                         <Col lg={2} md={2} className="dashboard__global--dropdown">
-                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+                            
                             {!dropdownCountry.isWorld ? <img src={dropdownCountry.countryInfo.flag}></img> : ''}
                             <span>Cas : {dropdownCountry.cases}</span>
                             <p><i> +{dropdownCountry.todayCases}</i></p>
@@ -416,7 +428,7 @@ export const Dashboard = () => {
                     </Row>
 
                 </Col>
-                <Col lg={5} className="dashboard__france">
+                <Col lg={4} className="dashboard__france">
 
                     <Row className="dashboard__france--dptTable">
                         <Col lg={12} md={12} sm={12}>
@@ -427,6 +439,9 @@ export const Dashboard = () => {
                     </Row>
 
                     <Row className="dashboard__france--circu">
+                        <Col lg={12}>
+                            <h4>Pourcentages en France</h4>
+                        </Col>
                         <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={gender} color={"#bff542"} type={"gender"} />
                         </Col>  
@@ -440,6 +455,7 @@ export const Dashboard = () => {
 
                     <Row>
                         <Col lg={12} className="dashboard__france--dptBar">
+                            <h4>Données France</h4>
                             <DptBar info={generalInfo}/>
                         </Col>
                     </Row>

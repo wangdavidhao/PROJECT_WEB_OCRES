@@ -21,7 +21,7 @@ export const WorldTable = ({countriesData}) => {
 
                         <tbody>
                             {countriesData.map( (country) => (
-                                <tr key={country.countryInfo.id}>
+                                <tr key={country.country}>
                                     <td >{country.country}</td>
                                     <td className="worldTable__cases">
                                             {country.cases}
