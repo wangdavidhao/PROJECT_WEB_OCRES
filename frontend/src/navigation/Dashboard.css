@@ -78,15 +78,24 @@
 
 .dashboard__global--mapContainer,
 .dashboard__global--buttons , 
+.dashboard__global--buttonsContainer , 
 .dashboard__global--graphContainer,
-.dashboard__france--dptTable,
-.dashboard__france--circu,
-.dashboard__france--dptBar{
+.dashboard__france--dptTableContainer,
+.dashboard__france--circuContainer,
+.dashboard__france--dptBarContainer{
+
     background-color: #37384B;
     margin:1rem !important;
     padding: 1rem !important;
-    border-radius: 3px;
     color:#fff !important;
 }
 
+.dashboard__france--dptTable,
+.dashboard__france--dptBar,
+.dashboard__france--graphCircu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 

@@ -122,7 +122,7 @@ export const Dashboard = () => {
                 setMap({
                     lat:response.data.countryInfo.lat,
                     long:response.data.countryInfo.long,
-                    zoom:3,
+                    zoom:4,
                 });
             }
         }catch(error){
@@ -396,7 +396,7 @@ export const Dashboard = () => {
                         </Col>
                     </Row>
 
-                    <Row className="dashboard__global--buttons">
+                    <Row className="dashboard__global--buttonsContainer">
                         <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
                             <Button onClick={() => setType('cases')} className="cases">Cas</Button>
                         </Col>
@@ -417,7 +417,10 @@ export const Dashboard = () => {
                         </Col>
                         <Col lg={2} md={2} className="dashboard__global--dropdown">
                             
-                            {!dropdownCountry.isWorld ? <img src={dropdownCountry.countryInfo.flag}></img> : ''}
+                            {!dropdownCountry.isWorld ? <div className="dashboard__global--dropdown">
+                                <span>{country.country}</span>
+                                <img src={dropdownCountry.countryInfo.flag}></img>
+                            </div> : 'Monde'}
                             <span>Cas : {dropdownCountry.cases}</span>
                             <p><i> +{dropdownCountry.todayCases}</i></p>
                             <span>Rétablis : {dropdownCountry.recovered}</span>
@@ -430,16 +433,16 @@ export const Dashboard = () => {
                 </Col>
                 <Col lg={4} className="dashboard__france">
 
-                    <Row className="dashboard__france--dptTable">
-                        <Col lg={12} md={12} sm={12}>
-                            <h4>Tableau des départements</h4>
+                    <Row className="dashboard__france--dptTableContainer">
+                        <Col lg={12} md={12} sm={12} className="dashboard__france--dptTable">
+                            <h4>Règles</h4>
                             {/* <DptTable country={france}/>  */}
                             <ListData isAdmin={false}/>
                         </Col>
                     </Row>
 
-                    <Row className="dashboard__france--circu">
-                        <Col lg={12}>
+                    <Row className="dashboard__france--circuContainer">
+                        <Col lg={12} className="dashboard__france--graphCircu">
                             <h4>Pourcentages en France</h4>
                         </Col>
                         <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
@@ -453,7 +456,7 @@ export const Dashboard = () => {
                         </Col>                      
                     </Row>
 
-                    <Row>
+                    <Row className="dashboard__france--dptBarContainer">
                         <Col lg={12} className="dashboard__france--dptBar">
                             <h4>Données France</h4>
                             <DptBar info={generalInfo}/>

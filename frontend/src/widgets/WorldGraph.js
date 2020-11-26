@@ -123,7 +123,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                     )}
                 </Col>
                 <Col lg={9} className="worldGraph">
-                    <h5>Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h5    >
+                    <h4>Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
                     {data?.length > 0 && (
                         <ResponsiveContainer width="100%" height={300}>
                             <AreaChart

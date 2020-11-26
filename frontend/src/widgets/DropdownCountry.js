@@ -6,6 +6,7 @@ import {
   Select,
 } from "@material-ui/core";
 import PropTypes from 'prop-types';
+import './DropdownCountry.css';
 
 const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
 
