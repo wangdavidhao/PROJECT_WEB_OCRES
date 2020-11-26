@@ -4,7 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
-import {Circle} from 'react-leaflet';
+
 
 import PropTypes from 'prop-types';
 

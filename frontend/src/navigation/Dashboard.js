@@ -81,6 +81,11 @@ export const Dashboard = () => {
             setWorld(response.data);
             
             setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
+            setMap({
+                lat:46,
+                long:2,
+                zoom:0.8,
+            });
         })
         .catch((error) => {
             if(error.response){
