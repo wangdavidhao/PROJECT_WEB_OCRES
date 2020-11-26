@@ -30,16 +30,34 @@
     cursor: pointer;
 }
 
+.navbar__row--iconDiv:hover{
+    color: #1B9CFC;
+}
+
 .navbar__row--icon{
     margin:0 1rem;
 }
 
 .navbar__row--icon:hover{
     cursor: pointer;
+    
 }
 
 .navbar__row--icon.active{
     color: #1B9CFC;
+}
+
+.navbar__row--iconText{
+    margin:0 1rem;
+}
+
+.navbar__row--iconText:hover{
+    cursor: pointer;
+}
+
+.navbar__row--iconText.active{
+    color: #1B9CFC;
+    border-bottom: 4px solid #1B9CFC;
 }
 
 
@@ -109,7 +127,7 @@
     left:0;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.3);
     z-index: 99;
 }
 

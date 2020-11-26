@@ -373,13 +373,13 @@ export const Dashboard = () => {
                         <Col lg={12} className="order-md-12">
                             <Row className="dashboard__global--buttonsContainer">
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
-                                    <Button onClick={() => setType('cases')} className="cases">Cas</Button>
+                                    <Button onClick={() => setType('cases')} className={type === 'cases' ? 'cases active' : 'cases'}>Cas</Button>
                                 </Col>
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
-                                    <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
+                                    <Button onClick={() => setType('recovered')} className={type === 'recovered' ? 'recovered active' : 'recovered'}>Rétablis</Button>
                                 </Col>
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
-                                    <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
+                                    <Button onClick={() => setType('deaths')} className={type === 'deaths' ? 'deaths active' : 'deaths'}>Décès</Button>
                                 </Col>
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
                                     <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
@@ -408,15 +408,15 @@ export const Dashboard = () => {
                         <Col lg={2} md={2} className="dashboard__global--dropdown">
                             
                             {!dropdownCountry.isWorld ? <div className="dashboard__global--dropdown">
-                                <span>{country.country}</span>
+                                <h5>{country.country}</h5>
                                 <img src={dropdownCountry.countryInfo.flag}></img>
-                            </div> : 'Monde'}
+                            </div> : <h5>Monde</h5>}
                             <span>Cas : {dropdownCountry.cases}</span>
-                            <p><i> +{dropdownCountry.todayCases}</i></p>
+                            <p className="dashboard__global--addCases"><i> +{dropdownCountry.todayCases}</i></p>
                             <span>Rétablis : {dropdownCountry.recovered}</span>
-                            <p><i> +{dropdownCountry.todayRecovered}</i></p>
+                            <p className="dashboard__global--addRecovered"><i> +{dropdownCountry.todayRecovered}</i></p>
                             <span>Morts : {dropdownCountry.deaths}</span>
-                            <p><i> +{dropdownCountry.todayDeaths}</i></p>  
+                            <p className="dashboard__global--addDeaths"><i> +{dropdownCountry.todayDeaths}</i></p>  
                         </Col>
                     </Row>
 

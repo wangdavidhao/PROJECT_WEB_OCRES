@@ -70,21 +70,21 @@ export const Navbar = ({page}) => {
                 <Col lg={6} className="navbar__row--icons ">
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./")}>
                         <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></RiAppsFill>
-                        <span className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Dashboard</span>
+                        <span className={page === 'dashboard' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Dashboard</span>
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./edit")}>
                         <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaEdit>
-                        <span className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Modifier</span>
+                        <span className={page === 'edit' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Modifier</span>
                         
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./admin")}>
                         <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaUser>
-                        <span className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Admin</span>
+                        <span className={page === 'admin' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Admin</span>
                         
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./settings")}>
                         <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></MdSettings>
-                        <span className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Réglages</span>
+                        <span className={page === 'settings' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Réglages</span>
                         
                     </div>
 

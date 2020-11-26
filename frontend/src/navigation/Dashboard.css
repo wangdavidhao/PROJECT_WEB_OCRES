@@ -1,3 +1,4 @@
+
 .dashboard{
     display:flex;
     flex-direction: column;
@@ -27,21 +28,65 @@
     align-items: center;
 }
 
+
+
 .cases{
     background-color:#f7b731 !important ;
     border:none !important;
     outline: none !important;
     outline-width: 0;
     box-shadow: none !important;
+    margin: 0.3rem 0;
+    position: relative;
 }
 
+.cases:hover{
+    font-weight: bolder;
+    background-color: #ffd32a !important;
+
+}
+
+.cases.active:after {
+    content:'';
+    position:absolute;
+    top:2.8rem;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#f7b731;
+    height:5px;
+    border-radius:10px;
+}
+
+
 .recovered{
-    background-color:#26de81 !important;
+    background-color:#20bf6b!important;
     border:none !important;
     outline: none !important;
     outline-width: 0;
     box-shadow: none !important;
+    margin: 0.3rem 0;
+    position: relative;
 }
+
+.recovered:hover{
+    font-weight:bolder;
+    background-color: #7bed9f !important;
+}
+
+.recovered.active:after {
+    content:'';
+    position:absolute;
+    top:2.8rem;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#20bf6b;
+    height:5px;
+    border-radius:10px;
+}
+
+
 
 .deaths{
     background-color: #eb3b5a !important;
@@ -49,7 +94,28 @@
     outline: none !important;
     outline-width: 0;
     box-shadow: none !important;
+    padding-bottom: 5px;
+    margin: 0.3rem 0;
+    position: relative;
 }
+
+.deaths:hover{
+    font-weight: bolder;
+    background-color:#ef5777 !important;
+}
+
+.deaths.active:after {
+    content:'';
+    position:absolute;
+    top:2.8rem;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#eb3b5a;
+    height:5px;
+    border-radius:10px;
+}
+
 
 .dashboard__global--dropdown{
     display: flex;
@@ -93,6 +159,7 @@
     margin:1rem !important;
     padding: 1rem !important;
     color:#fff !important;
+    border-radius: 3px;
 }
 
 .dashboard__france--dptTable,
@@ -104,3 +171,15 @@
     text-align: center;
 }
 
+
+.dashboard__global--addCases{
+    color:#f7b731;
+}
+
+.dashboard__global--addRecovered{
+    color:#26de81;
+}
+
+.dashboard__global--addDeaths{
+    color:#eb3b5a;
+}

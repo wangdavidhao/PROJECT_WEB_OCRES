@@ -57,7 +57,7 @@ const Map = ({lat, long, zoom, countries, type}) => {
                     <ReactMapGL
                         {...viewport}
                         width="100%"
-                        height='320px'
+                        height='40vh'
                         mapStyle="mapbox://styles/david-wang00/ckhwnvcth01e019pk719mtl54"
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onViewportChange={nextViewport => setViewport(nextViewport)}

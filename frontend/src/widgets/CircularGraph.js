@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 import './CircularGraph.css';
-import {hexToHSL, parseHSL, harmonize} from './util.js' ;
+import {hexToHSL, harmonize} from './util.js' ;
 
 import PropTypes from 'prop-types';
 
@@ -51,9 +51,9 @@ const renderActiveShape = (props) => {
         />
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} cas`}</text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-          {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        <text className="circuText" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} cas`}</text>
+        <text className="circuText" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+          {`(Ratio ${(percent * 100).toFixed(2)}%)`}
         </text>
       </g>
     );
@@ -185,10 +185,12 @@ function CircularGraph({info, color, type}) {
                 return inf; 
             };
             data = buildGraph(info);
+            break;
 
             break;
         default:
             console.log(`SORRY NOT FOUND`);  
+            break;
     }
 
     return (
@@ -197,7 +199,7 @@ function CircularGraph({info, color, type}) {
                 <Col lg={12}>
                     <ResponsiveContainer width="99%" aspect={1}>
                         <PieChart
-                            padding={10}
+                            padding={20}
                         >
                             <defs>
                                 <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">

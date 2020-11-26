@@ -106,9 +106,9 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                     <h5>Fréquences</h5>
                     <span>Cas pour 1 million: </span>
                     <span>{countrySelected.casesPerOneMillion} prs</span>
-                    <span>Mort pour 1 million: </span>
+                    <span>Mort(s) pour 1 million: </span>
                     <span>{countrySelected.deathsPerOneMillion} prs </span>
-                    <span>Rétablis pour 1 million: </span>
+                    <span>Rétabli(s) pour 1 million: </span>
                     <span>{countrySelected.recoveredPerOneMillion} prs</span>
                     {!countrySelected.isWorld && (
                         <div className="frequences">
@@ -123,7 +123,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                     )}
                 </Col>
                 <Col lg={9} className="worldGraph">
-                    <h4>Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
+                    <h4 className="mb-3">Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
                     {data?.length > 0 && (
                         <ResponsiveContainer width="100%" height={300}>
                             <AreaChart

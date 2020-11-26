@@ -2,3 +2,16 @@
     padding: 0 2rem;
 }
 
+.recharts-layer.recharts-pie{
+    z-index: 10000;
+    position: relative;
+}
+
+.recharts-layer.recharts-pie-sector > g{
+    position: absolute;
+    z-index: 10000;
+}
+
+.circuText{
+    z-index:100000;
+}
