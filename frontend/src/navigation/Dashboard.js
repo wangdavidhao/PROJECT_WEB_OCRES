@@ -383,7 +383,7 @@ export const Dashboard = () => {
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
-                <Col lg={8} className="dashboard__global">
+                <Col lg={8}  className="dashboard__global">
 
                     <Row className="dashboard__global--mapContainer">
                         <Col lg={4} md={4} sm={12} className="dashboard__global--table">

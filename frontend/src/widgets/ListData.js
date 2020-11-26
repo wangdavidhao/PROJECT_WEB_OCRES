@@ -173,14 +173,12 @@ export const ListData = ({isAdmin}) => {
     });
     setItems(updatedItems);
   };
-  console.log(isAdmin);
+
   return (
     <>
       <div className="item-app">
         <ListForm onSubmit={addItem} isAdmin={isAdmin}/>
         <List
-          // items={items}
-          // items={infoTest}
           items={items}
           completeItem={completeItem}
           removeItem={removeItem}

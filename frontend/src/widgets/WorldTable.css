@@ -1,5 +1,7 @@
 th,td{
     color:#fff;
+    font-size: 0.9rem;
+
 }
 
 .worldTable{
@@ -7,6 +9,15 @@ th,td{
     overflow-y: scroll;
     overflow-x:hidden;
     height: 400px;
+}
+
+.table-responsive{
+    display: flex !important;
+    justify-content: center;
+}
+
+.worldTable__table{
+    width: inherit !important;
 }
 
 .worldTable__cases{

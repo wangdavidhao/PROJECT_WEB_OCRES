@@ -76,6 +76,11 @@
     padding: 1rem;
 }
 
+.dashboard__global--mapContainer{
+    display: flex;
+    flex-direction: row;
+}
+
 .dashboard__global--mapContainer,
 .dashboard__global--buttons , 
 .dashboard__global--buttonsContainer , 

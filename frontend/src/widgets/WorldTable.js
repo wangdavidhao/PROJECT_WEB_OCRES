@@ -10,16 +10,16 @@ export const WorldTable = ({countriesData}) => {
     return (
         <Container className="worldTable">
             <Row>
-                <Col lg={12}>
-                    <Table striped bordered hover>
+                <Col lg={12} md={12} sm={12} xs={12} className="d-flex w-100">
+                    <Table striped bordered hover responsive className="worldTable__table">
                         <thead >
                             <tr>
-                            <th><h6>Pays</h6></th>
-                            <th><h6>Total Cas</h6></th>
+                                <th><span>Pays</span></th>
+                                <th><span>Cas total</span></th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody >
                             {countriesData.map( (country) => (
                                 <tr key={country.country}>
                                     <td >{country.country}</td>
