@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
+import {ListData} from './../widgets/ListData.js'
 
 //Local imports
 import Navbar from './Navbar.js';
@@ -11,6 +12,7 @@ const Admin = () => {
             <Row>
                 <Col>
                     <h1>Page Admin</h1>
+                    <ListData isAdmin={true}/>
                 </Col>
             </Row>
         </Container>
