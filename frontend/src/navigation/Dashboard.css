@@ -160,6 +160,8 @@
     padding: 1rem !important;
     color:#fff !important;
     border-radius: 3px;
+    display: flex;
+    justify-content: center;
 }
 
 .dashboard__france--dptTable,

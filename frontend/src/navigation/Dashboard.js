@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Container, Row, Col, Button, Spinner} from 'react-bootstrap';
 //Fetch API
 import axios from 'axios';
 
@@ -53,6 +53,13 @@ export const Dashboard = () => {
     const [dropdownCountry, setDropdownCountry] = useState({isWorld:true}); //Spread operator, par défaut: dropdown select sur le monde
     const [dropdownHistoric, setDropdownHistoric] = useState({});
 
+    //Loading
+    const [loadingMap, setLoadingMap] = useState(true);
+    const [loadingDptTable, setLoadingDptTable] = useState(true);
+    const [loadingCircu, setLoadingCircu] = useState(true);
+    const [loadingBar, setLoadingBar] = useState(true);
+    const [loadingGraph, setLoadingGraph] = useState(true);
+
     //Map
     const [map, setMap] = useState({
         lat:46,
@@ -85,7 +92,12 @@ export const Dashboard = () => {
                 long:2,
                 zoom:0.8,
             });
+
         })
+        .then(() =>{
+                setLoadingMap(false);
+        }
+        )
         .catch((error) => {
             if(error.response){
                 console.log('Erreur world ' + error.response.status);
@@ -114,6 +126,7 @@ export const Dashboard = () => {
                 setCountries(response.data);
                 const sortedTable = sortCasesDsc(response.data);
                 setTable(sortedTable);
+                setLoadingMap(false);
             }else{
                 setCountry(response.data);
                 setDropdownCountry({...dropdownCountry, isWorld:false, ...response.data});
@@ -122,6 +135,7 @@ export const Dashboard = () => {
                     long:response.data.countryInfo.long,
                     zoom:4,
                 });
+                setLoadingMap(false);
             }
         }catch(error){
             if(error.response){
@@ -172,11 +186,13 @@ export const Dashboard = () => {
             if(country === 'all'){
                 setWorldHistoric(response.data);
                 setDropdownHistoric(response.data);
+                setLoadingGraph(false);
             }else if(!country){
                 setCountriesHistoric(response.data);
             }else{
                 setCountryHistoric(response.data);
                 setDropdownHistoric(response.data.timeline);
+                setLoadingGraph(false);
             }
         }catch(error){
             if(error.response){
@@ -260,6 +276,9 @@ export const Dashboard = () => {
                     console.log(`Sorry, we can't set any variable.`);
                     break;
             }
+
+            setLoadingCircu(false);
+            setLoadingBar(false);
         }catch(error){
             if(error.response){
                 console.log('Erreur fetching gouv' + error.response.status);
@@ -280,6 +299,9 @@ export const Dashboard = () => {
         .then( (response) => {
             const fr = response.data.allLiveFranceData;
             setFrance(fr);
+        })
+        .then(()=> {
+            setLoadingDptTable(false);
         })
         .catch(error => {
             if(error.response){
@@ -369,7 +391,8 @@ export const Dashboard = () => {
             <Navbar page="dashboard"/>
             <Row>
                 <Col lg={8}  className="dashboard__global">
-                    <Row>
+                    {!loadingMap ? <Row>
+                        
                         <Col lg={12} className="order-md-12">
                             <Row className="dashboard__global--buttonsContainer">
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
@@ -399,9 +422,12 @@ export const Dashboard = () => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Row>
+                    </Row> : <Spinner animation="grow" variant="primary" />}
+                    
 
                     <Row className="dashboard__global--graphContainer">
+                        {!loadingGraph ? 
+                        <>
                         <Col lg={10} md={8} sm={12} className="dashboard__global--graph">
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                         </Col>
@@ -418,6 +444,8 @@ export const Dashboard = () => {
                             <span>Morts : {dropdownCountry.deaths}</span>
                             <p className="dashboard__global--addDeaths"><i> +{dropdownCountry.todayDeaths}</i></p>  
                         </Col>
+                        </> : <Spinner animation="grow" variant="primary" />}
+                        
                     </Row>
 
                 </Col>
@@ -432,6 +460,9 @@ export const Dashboard = () => {
                     </Row>
 
                     <Row className="dashboard__france--circuContainer">
+                    {!loadingCircu ? 
+
+                        <>
                         <Col lg={12} className="dashboard__france--graphCircu">
                             <h4>Pourcentages en France</h4>
                         </Col>
@@ -443,14 +474,19 @@ export const Dashboard = () => {
                         </Col>
                         <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={generalInfo} color={"#fa0400"} type={"generalInfo"}/> 
-                        </Col>                      
-                    </Row>
+                        </Col>         
+                        </>             
+                    : <Spinner animation="grow" variant="primary" />}
+                    </Row> 
+                    
 
                     <Row className="dashboard__france--dptBarContainer">
+                        {!loadingBar ? 
                         <Col lg={12} className="dashboard__france--dptBar">
                             <h4>Données France</h4>
                             <DptBar info={generalInfo}/>
-                        </Col>
+                        </Col> : <Spinner animation="grow" variant="primary" /> }
+                        
                     </Row>
 
                 </Col>

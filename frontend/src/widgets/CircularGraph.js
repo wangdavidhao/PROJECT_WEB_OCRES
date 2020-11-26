@@ -186,8 +186,6 @@ function CircularGraph({info, color, type}) {
             };
             data = buildGraph(info);
             break;
-
-            break;
         default:
             console.log(`SORRY NOT FOUND`);  
             break;

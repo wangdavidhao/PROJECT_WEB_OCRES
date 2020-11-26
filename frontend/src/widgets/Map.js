@@ -55,9 +55,10 @@ const Map = ({lat, long, zoom, countries, type}) => {
             <Row>
                 <Col lg={12} md={12} sm={12} xs={12}>
                     <ReactMapGL
+                        className="map"
                         {...viewport}
                         width="100%"
-                        height='40vh'
+                        height='45vh'
                         mapStyle="mapbox://styles/david-wang00/ckhwnvcth01e019pk719mtl54"
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onViewportChange={nextViewport => setViewport(nextViewport)}

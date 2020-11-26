@@ -69,21 +69,21 @@ export const Navbar = ({page}) => {
                 </Col>
                 <Col lg={6} className="navbar__row--icons ">
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./")}>
-                        <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></RiAppsFill>
+                        <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} fontSize={20}></RiAppsFill>
                         <span className={page === 'dashboard' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Dashboard</span>
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./edit")}>
-                        <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaEdit>
+                        <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} fontSize={20}></FaEdit>
                         <span className={page === 'edit' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Modifier</span>
                         
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./admin")}>
-                        <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaUser>
+                        <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} fontSize={20}></FaUser>
                         <span className={page === 'admin' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Admin</span>
                         
                     </div>
                     <div className="navbar__row--iconDiv" onClick={() => redirect("./settings")}>
-                        <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></MdSettings>
+                        <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} fontSize={20}></MdSettings>
                         <span className={page === 'settings' ? 'navbar__row--iconText active' : 'navbar__row--iconText'}>Réglages</span>
                         
                     </div>

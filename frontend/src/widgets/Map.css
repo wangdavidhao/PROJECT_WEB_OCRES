@@ -13,9 +13,18 @@
 
 .map__circle{
     z-index: 1;
+    cursor: pointer;
+}
+
+.map__circle:hover{
+    fill-opacity: 1;
 }
 
 .map__popupContainer{
     z-index:10000;
     padding:1rem;
+}
+
+.map{
+    border-radius: 5px;
 }
