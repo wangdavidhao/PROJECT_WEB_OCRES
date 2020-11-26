@@ -12,6 +12,7 @@ import DropdownCountry from './../widgets/DropdownCountry.js';
 import WorldGraph from './../widgets/WorldGraph.js';
 import CircularGraph from './../widgets/CircularGraph';
 import DptBar from './../widgets/DptBar.js';
+import ListData from '../widgets/ListData.js';
 import Map from './../widgets/Map.js';
 
 
@@ -432,7 +433,8 @@ export const Dashboard = () => {
                     <Row className="dashboard__france--dptTable">
                         <Col lg={12} md={12} sm={12}>
                             <h4>Tableau des départements</h4>
-                            <DptTable country={france}/> 
+                            {/* <DptTable country={france}/>  */}
+                            <ListData isAdmin={false}/>
                         </Col>
                     </Row>
 

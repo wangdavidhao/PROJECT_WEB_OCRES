@@ -86,8 +86,7 @@ function DptBar({info}) {
                 break;
                 default:
                   console.log("Dans aucun des cas");
-              }
-                
+              }   
             })()}
         </div>));
     }
