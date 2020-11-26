@@ -9,6 +9,7 @@
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
     "leaflet": "^1.7.1",
+    "mapbox-gl": "^1.13.0",
     "moment": "^2.29.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.4.0",
@@ -16,6 +17,8 @@
     "react-dom": "^16.11.0",
     "react-icons": "^3.11.0",
     "react-leaflet": "^3.0.2",
+    "react-map-gl": "^5.2.10",
+    "react-mapbox-gl": "^5.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0",
     "recharts": "^1.8.5"
