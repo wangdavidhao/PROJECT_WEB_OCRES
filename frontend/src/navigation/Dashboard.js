@@ -15,7 +15,6 @@ import DptBar from './../widgets/DptBar.js';
 import ListData from '../widgets/ListData.js';
 import Map from './../widgets/Map.js';
 
-
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
 
@@ -60,7 +59,6 @@ export const Dashboard = () => {
         long:2,
         zoom:0.8,
     })
-
 
     /**
      * Fonction qui va trier le nombre de cas total par pays dans l'odre décroissant
@@ -163,7 +161,6 @@ export const Dashboard = () => {
         }     
     }
 
-
     /**
      * Fonction qui va get toute la data du monde, d'un pays ou de tous les pays concernant l'historique du dernier mois
      * @param {String} country 
@@ -190,9 +187,7 @@ export const Dashboard = () => {
                 console.log('Erreur fetching historic ' + error.message);
             }
         }
-
     }
-
 
     /**
      * Fonction qui va récup un fichier CSV (COMMA SEPARATED VALUE) et retourner sous forme d'objet JS
@@ -224,12 +219,10 @@ export const Dashboard = () => {
 
                 const csvData = splitedCsv[i];
                 const csvDataArray = csvData.split(';');
-                
 
                 //Chaque tour de boucle on clear le tableau et l'objet temporaire
                 const csvDataArrayTemp = [];
                 const objTemp = {};
-
                 
                 for(let j=0 ; j< csvDataArray.length ; j++){
                     
@@ -245,8 +238,6 @@ export const Dashboard = () => {
                         const data = csvDataArray[j]; //Sinon on fait rien
                         csvDataArrayTemp.push(data);
                     }
-                    
-                    
                 }   
                 //On parcourt chaque element du tableau pour le rendre en key dans l'objet 
                 //data = index, incrémentation car forEach(item, index, arr) item=title index=data
@@ -267,8 +258,8 @@ export const Dashboard = () => {
                     break;
                 default:
                     console.log(`Sorry, we can't set any variable.`);
+                    break;
             }
-
         }catch(error){
             if(error.response){
                 console.log('Erreur fetching gouv' + error.response.status);
@@ -278,7 +269,6 @@ export const Dashboard = () => {
                 console.log('Erreur fetching gouv ' + error.message);
             }
         }
-
     }
 
     /**
@@ -300,7 +290,6 @@ export const Dashboard = () => {
                 console.log('Erreur  ' + error.message);
             }
         })
-
     }
 
     /**
@@ -332,9 +321,7 @@ export const Dashboard = () => {
             if(countriesTemp2){
                 countriesTemp2["previous"] = diffLast > diffLast2 ? 'true' : 'false'; //Ajout d'un attribut previous 
                 countriesTemp3.push(countriesTemp2); //Push dans un tableau
-            }
-
-            
+            } 
         }
         return countriesTemp3;
         
@@ -342,7 +329,6 @@ export const Dashboard = () => {
     
     //Charge au chargement de la page
     useEffect(() => {
-        
         fetchAllData(); //Set dropdownCountry à monde
         fetchCountriesData();  //Pour create newTablePrevious, liste dropdown et sorted Table
         fetchCountriesHistoric(); //Pour create newTablePreview
@@ -374,7 +360,6 @@ export const Dashboard = () => {
             fetchCountriesData(`${countryIso}`);
             fetchCountriesHistoric(`${countryIso}`);
         }
-
         setSelectCountry(countryIso); //On set le select du dropdown
     }
 
@@ -384,30 +369,35 @@ export const Dashboard = () => {
             <Navbar page="dashboard"/>
             <Row>
                 <Col lg={8}  className="dashboard__global">
+                    <Row>
+                        <Col lg={12} className="order-md-12">
+                            <Row className="dashboard__global--buttonsContainer">
+                                <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
+                                    <Button onClick={() => setType('cases')} className="cases">Cas</Button>
+                                </Col>
+                                <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
+                                    <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
+                                </Col>
+                                <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
+                                    <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
+                                </Col>
+                                <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">
+                                    <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+                                </Col>
+                            </Row>
 
-                    <Row className="dashboard__global--mapContainer">
-                        <Col lg={4} md={4} sm={12} className="dashboard__global--table">
-                            <h4>Tableau mondial des cas</h4>
-                            <WorldTable countriesData={table}/>
                         </Col>
-                        <Col lg={8} md={8} sm={12} className="dashboard__global--map">
-                            <h4>Map mondiale</h4> 
-                            <Map {...map} countries={countries} type={type}/>                          
-                        </Col>
-                    </Row>
-
-                    <Row className="dashboard__global--buttonsContainer">
-                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
-                            <Button onClick={() => setType('cases')} className="cases">Cas</Button>
-                        </Col>
-                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
-                            <Button onClick={() => setType('recovered')} className="recovered">Rétablis</Button>
-                        </Col>
-                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
-                            <Button onClick={() => setType('deaths')} className="deaths">Décès</Button>
-                        </Col>
-                        <Col lg={3} md={4} sm={4} xs={4} className="dashboard__global--button">
-                            <DropdownCountry countries={countries} selectCountry={selectCountry} handleCountrySelect={handleCountrySelect} />
+                        <Col lg={12} className="order-md-1">
+                            <Row className="dashboard__global--mapContainer">
+                                <Col lg={4} md={4} sm={12} className="dashboard__global--table">
+                                    <h4>Tableau mondial des cas</h4>
+                                    <WorldTable countriesData={table}/>
+                                </Col>
+                                <Col lg={8} md={8} sm={12} className="dashboard__global--map">
+                                    <h4>Map mondiale</h4> 
+                                    <Map {...map} countries={countries} type={type}/>                          
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
 

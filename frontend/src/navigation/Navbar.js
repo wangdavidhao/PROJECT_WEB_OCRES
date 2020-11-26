@@ -35,10 +35,25 @@ export const Navbar = ({page}) => {
             <nav className={openSidebar ? 'navbar__sidebar active' : 'navbar__sidebar'}>
                 <MdIcons.MdClose size={24} onClick={showSidebar}/>
                 <ul className="navbar__sidebar--menu">
-                    <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./")}></RiAppsFill>
-                    <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./edit")}></FaEdit>
-                    <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./admin")}></FaUser>
-                    <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./settings")}></MdSettings>
+                    <div className="sidebar__row--iconDiv" onClick={() => redirect("./")}>
+                        <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></RiAppsFill>
+                        <span className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Dashboard</span>
+                    </div>
+                    <div className="sidebar__row--iconDiv" onClick={() => redirect("./edit")}>
+                        <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaEdit>
+                        <span className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Modifier</span>
+                        
+                    </div>
+                    <div className="sidebar__row--iconDiv" onClick={() => redirect("./admin")}>
+                        <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaUser>
+                        <span className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Admin</span>
+                        
+                    </div>
+                    <div className="sidebar__row--iconDiv" onClick={() => redirect("./settings")}>
+                        <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></MdSettings>
+                        <span className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Réglages</span>
+                        
+                    </div>
                 </ul>
             </nav>
             <Container fluid={true} className="navbar">
@@ -52,11 +67,27 @@ export const Navbar = ({page}) => {
                         <FiIcons.FiMenu size={24}/>
                     </button>
                 </Col>
-                <Col lg={6} className="navbar__row--icons d-none d-md-block">
-                    <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./")}></RiAppsFill>
-                    <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./edit")}></FaEdit>
-                    <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./admin")}></FaUser>
-                    <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} onClick={() => redirect("./settings")}></MdSettings>
+                <Col lg={6} className="navbar__row--icons ">
+                    <div className="navbar__row--iconDiv" onClick={() => redirect("./")}>
+                        <RiAppsFill className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></RiAppsFill>
+                        <span className={page === 'dashboard' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Dashboard</span>
+                    </div>
+                    <div className="navbar__row--iconDiv" onClick={() => redirect("./edit")}>
+                        <FaEdit className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaEdit>
+                        <span className={page === 'edit' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Modifier</span>
+                        
+                    </div>
+                    <div className="navbar__row--iconDiv" onClick={() => redirect("./admin")}>
+                        <FaUser className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></FaUser>
+                        <span className={page === 'admin' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Admin</span>
+                        
+                    </div>
+                    <div className="navbar__row--iconDiv" onClick={() => redirect("./settings")}>
+                        <MdSettings className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'} ></MdSettings>
+                        <span className={page === 'settings' ? 'navbar__row--icon active' : 'navbar__row--icon'}>Réglages</span>
+                        
+                    </div>
+
                 </Col>
                 <Col lg={3} className="navbar__row--authors d-none d-lg-block">
                     <span> SADOUN Benjamin WANG David - &copy; 2020</span>
