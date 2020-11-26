@@ -219,7 +219,7 @@ function CircularGraph({info, color, type}) {
                                 onMouseEnter={onPieEnter}
                             >
                             {   
-                                data.map((entry, index) => <Cell fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
+                                data.map((entry, index) => <Cell key={index} fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
                             </Pie>
                         </PieChart>

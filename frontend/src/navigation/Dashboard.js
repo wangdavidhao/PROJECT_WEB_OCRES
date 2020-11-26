@@ -377,11 +377,6 @@ export const Dashboard = () => {
         setSelectCountry(countryIso); //On set le select du dropdown
     }
 
-
-
-
-    
-
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
@@ -442,6 +437,9 @@ export const Dashboard = () => {
                     </Row>
 
                     <Row className="dashboard__france--circu">
+                        <Col lg={12}>
+                            <h4>Pourcentages en France</h4>
+                        </Col>
                         <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={gender} color={"#bff542"} type={"gender"} />
                         </Col>  
@@ -455,6 +453,7 @@ export const Dashboard = () => {
 
                     <Row>
                         <Col lg={12} className="dashboard__france--dptBar">
+                            <h4>Données France</h4>
                             <DptBar info={generalInfo}/>
                         </Col>
                     </Row>

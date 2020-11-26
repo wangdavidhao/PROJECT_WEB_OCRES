@@ -63,11 +63,11 @@ const Map = ({lat, long, zoom, countries, type}) => {
                         onViewportChange={nextViewport => setViewport(nextViewport)}
                     >
                         {countries.map((country) => (
-                            <>
-                            <Marker key={country.countryInfo.iso2} latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
+                            <React.Fragment key={country.country}>
+                            <Marker  latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
                                 <div 
                                 onClick={() => setPopup({
-                                    [country.countryInfo.iso2]:true,
+                                    [country.country]:true,
                                 })}
                                 >
                                     <svg  
@@ -81,9 +81,9 @@ const Map = ({lat, long, zoom, countries, type}) => {
                                     viewBox="0 0 24 24" 
                                     stroke={graphColor} 
                                     fillOpacity="0.4"
-                                    stroke-width="2" 
-                                    stroke-linecap="round" 
-                                    stroke-linejoin="round"
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
                                     >
                                         <circle className="map__circle" cx="12" cy="12" r="10">
                                         </circle>
@@ -91,7 +91,7 @@ const Map = ({lat, long, zoom, countries, type}) => {
                                 </div>
                                 
                             </Marker>
-                            { popup[country.countryInfo.iso2] ? ( <Popup
+                            { popup[country.country] ? ( <Popup
                                 className="map__popupContainer"
                                 latitude={country.countryInfo.lat} 
                                 longitude={country.countryInfo.long}
@@ -108,7 +108,7 @@ const Map = ({lat, long, zoom, countries, type}) => {
                                 
                             </Popup>) : ''}
                             
-                            </>
+                            </React.Fragment>
                         ))}
                     </ReactMapGL>
                 </Col>

@@ -28,8 +28,8 @@ function DptTable({country}) {
           <Row>
             <Col lg={12}>
               {country.filter(depart => depart.code.includes('DEP')).map((dpt) => (
-                <>
-                    <h2 className="dpttable__name"> {dpt.nom}</h2>
+                <React.Fragment key={dpt.code}>
+                    <h5 className="dpttable__name"> {dpt.nom} - {dpt.code}</h5>
                     <ComposedChart  layout="vertical" fill="#000000"
                         width={450} height={200} data={buildDptTable(dpt)} 
                         stroke={'red'}
@@ -42,7 +42,7 @@ function DptTable({country}) {
                       <Legend formatter={coloredLegendText}/>
                       <Bar dataKey="nombre" fill="#1B9CFC" stroke="#02487e" barSize={20}/>
                     </ComposedChart>
-                </>
+                </React.Fragment>
               ))};
 
             </Col>
