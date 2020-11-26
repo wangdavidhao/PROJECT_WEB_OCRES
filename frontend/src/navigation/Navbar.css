@@ -52,7 +52,8 @@
     min-height: 100vh;
     width: 30vw;
     transition: 550ms ease-in-out;
-    background-color:#fff;
+    background-color:#37384B;
+    color: white;
     z-index: 100;
     display:flex;
     flex-direction: column;
@@ -77,6 +78,10 @@
     font-size: 1.2rem;
 }
 
+.navbar__sidebar--menu > .navbar__row--icon{
+    margin: 1rem 0;
+}
+
 .backdrop{
     position:fixed;
     top:0;
@@ -93,5 +98,11 @@
         align-items: center;
         justify-content: center;
         display: none;
+    }
+}
+
+@media screen and (max-width:450px){
+    .navbar__sidebar{
+        width: 80vw;
     }
 }
