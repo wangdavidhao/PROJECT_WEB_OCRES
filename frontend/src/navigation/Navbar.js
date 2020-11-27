@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import './Navbar.css';
 
 import {Container, Row, Col} from 'react-bootstrap';
@@ -26,8 +26,18 @@ export const Navbar = ({page}) => {
     }
 
     const [openSidebar, setOpenSidebar] = useState(false);
+    const [timeStamp, setTimeStamp] = useState(Date.now());
+    const [time, setTime] = useState(new Date(timeStamp).toUTCString());
 
     const showSidebar = () => setOpenSidebar(prev => !prev);
+
+    useEffect(() => {
+        let time = setTimeout(() => {
+            setTimeStamp(Date.now());
+            setTime(new Date(timeStamp).toISOString());
+        }, 1000);
+        return () => clearTimeout(time);
+    });
 
     return (
         <Container fluid={true} className="sidebar">
@@ -60,7 +70,7 @@ export const Navbar = ({page}) => {
             
             <Row className="w-100 navbar__row">
                 <Col lg={3} className="navbar__row--name d-none d-lg-block">
-                    <span>COVID DASHBOARD 2020 UTC/GMT +1</span>
+                    <span>COVID DASHBOARD {time}</span>
                 </Col>
                 <Col sm={12} xs={12} className="navbar__burger">
                     <button className="navbar__burger--button" onClick={showSidebar} >

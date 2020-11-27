@@ -60,6 +60,8 @@ export const Dashboard = () => {
     const [loadingBar, setLoadingBar] = useState(true);
     const [loadingGraph, setLoadingGraph] = useState(true);
 
+    
+
     //Map
     const [map, setMap] = useState({
         lat:46,
@@ -84,6 +86,7 @@ export const Dashboard = () => {
 
         axios.get(`${API_URL}/all`)
         .then( (response) => {
+            console.log(response.data);
             setWorld(response.data);
             
             setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
@@ -385,6 +388,11 @@ export const Dashboard = () => {
         setSelectCountry(countryIso); //On set le select du dropdown
     }
 
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const yesterday = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear().toString().substr(-2);
+    date.setDate(date.getDate()-1);
+    const twoDaysAgo = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear().toString().substr(-2);
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
@@ -422,7 +430,7 @@ export const Dashboard = () => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Row> : <Spinner animation="grow" variant="primary" />}
+                    </Row> : <Spinner animation="grow" variant="secondary" />}
                     
 
                     <Row className="dashboard__global--graphContainer">
@@ -438,13 +446,19 @@ export const Dashboard = () => {
                                 <img src={dropdownCountry.countryInfo.flag}></img>
                             </div> : <h5>Monde</h5>}
                             <span>Cas : {dropdownCountry.cases}</span>
-                            <p className="dashboard__global--addCases"><i> +{dropdownCountry.todayCases}</i></p>
+                            <p className="dashboard__global--addCases">
+                            <i> +{dropdownCountry.todayCases === 0 ? dropdownHistoric.cases[yesterday] - dropdownHistoric.cases[twoDaysAgo] : dropdownCountry.todayCases}
+                            </i></p>
                             <span>Rétablis : {dropdownCountry.recovered}</span>
-                            <p className="dashboard__global--addRecovered"><i> +{dropdownCountry.todayRecovered}</i></p>
+                            <p className="dashboard__global--addRecovered">
+                            <i> +{dropdownCountry.todayRecovered === 0 ? dropdownHistoric.recovered[yesterday] - dropdownHistoric.recovered[twoDaysAgo] : dropdownCountry.todayRecovered}
+                            </i></p>
                             <span>Morts : {dropdownCountry.deaths}</span>
-                            <p className="dashboard__global--addDeaths"><i> +{dropdownCountry.todayDeaths}</i></p>  
+                            <p className="dashboard__global--addDeaths">
+                            <i> +{dropdownCountry.todayDeaths === 0 ? dropdownHistoric.deaths[yesterday] - dropdownHistoric.deaths[twoDaysAgo] : dropdownCountry.todayDeaths}
+                            </i></p>  
                         </Col>
-                        </> : <Spinner animation="grow" variant="primary" />}
+                        </> : <Spinner animation="grow" variant="secondary" />}
                         
                     </Row>
 
@@ -476,7 +490,7 @@ export const Dashboard = () => {
                             <CircularGraph info ={generalInfo} color={"#fa0400"} type={"generalInfo"}/> 
                         </Col>         
                         </>             
-                    : <Spinner animation="grow" variant="primary" />}
+                    : <Spinner animation="grow" variant="secondary" />}
                     </Row> 
                     
 
@@ -485,7 +499,7 @@ export const Dashboard = () => {
                         <Col lg={12} className="dashboard__france--dptBar">
                             <h4>Données France</h4>
                             <DptBar info={generalInfo}/>
-                        </Col> : <Spinner animation="grow" variant="primary" /> }
+                        </Col> : <Spinner animation="grow" variant="secondary" /> }
                         
                     </Row>
 

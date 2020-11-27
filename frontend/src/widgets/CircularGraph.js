@@ -224,7 +224,7 @@ function CircularGraph({info, color, type}) {
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
-                    <h6 className="text-align-center">{type}</h6>
+                    <h6 className="text-align-center">{type.toUpperCase()}</h6>
                 </Col> 
             </Row>
         </Container>
