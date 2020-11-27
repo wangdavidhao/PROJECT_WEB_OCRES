@@ -28,7 +28,7 @@ function DptBar({info}) {
     var monthNumbers = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     var monthNames = ["Janvier", "Fevrier", "Mars", "Avril",
                       "Mai", "Juin", "Juillet", "Août", "Septembre",
-                      "Octobre", "Novembre", "Dimanche"];
+                      "Octobre", "Novembre", "Décembre"];
     let d;
     let month;
     let year;
@@ -121,8 +121,8 @@ function DptBar({info}) {
         const inf = (canvas) => {
           const ctx = canvas.getContext("2d");
           const gradientBlue = ctx.createLinearGradient(0, 0, 0, 130);
-          gradientBlue.addColorStop(0, 'rgba(74,105,189,1)');   
-          gradientBlue.addColorStop(1, 'rgba(24,44,97,0.6)');
+          gradientBlue.addColorStop(0, 'rgba(30,144,255,1)');   
+          gradientBlue.addColorStop(1, 'rgba(55,66,250,0.6)');
 
           const gradientPurple = ctx.createLinearGradient(0,0,0,10);
           gradientPurple.addColorStop(0, 'rgba(130,88,159,1)');   
@@ -138,7 +138,7 @@ function DptBar({info}) {
               `${yearsMonthsNames[3]}`],
               datasets: [
                 {
-                  label: "Nouv. hosp",
+                  label: "Hosp",
                   backgroundColor: gradientBlue,
                   borderColor: gradientBlue,
                   borderWidth: 1,
@@ -147,7 +147,7 @@ function DptBar({info}) {
                   data: [`${newHospit0}`, `${newHospit1}`, `${newHospit2}`, `${newHospit3}`, ],
                 },
                 {
-                  label: "Nouv.réa",
+                  label: "Réa",
                   backgroundColor: gradientPurple,
                   borderColor: gradientPurple,
                   borderWidth: 1,
@@ -156,7 +156,7 @@ function DptBar({info}) {
                   data: [`${newRea0}`, `${newRea1}`, `${newRea2}`, `${newRea3}`, ],
                 },
                 {
-                  label: "Nouv. décès",
+                  label: "Décès",
                   backgroundColor: gradientRed,
                   borderColor: gradientRed,
                   borderWidth: 1,
