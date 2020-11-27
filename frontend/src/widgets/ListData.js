@@ -59,7 +59,6 @@ function ListForm(props) {
     });
     setInput('');
   };
-  // console.log(props.isAdmin);
 
   return (
     <form onSubmit={handleSubmit} className='item-form'>
@@ -148,7 +147,6 @@ export const ListData = ({isAdmin}) => {
     }
     const newItems = [item, ...items];
     setItems(newItems);
-    // console.log(...items);
   };
 
   const updateItem = (itemId, newValue) => {
@@ -190,4 +188,4 @@ export const ListData = ({isAdmin}) => {
   );
 }
 
-export default ListData;
+export default React.memo(ListData);

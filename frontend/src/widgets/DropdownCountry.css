@@ -30,3 +30,13 @@
 .MuiSelect-icon {
     color:#fff !important;
 }
+
+.MuiInputBase-root .MuiOutlinedInput-root .Mui-focused .Mui-focused .MuiInputBase-formControl{
+    color:#fff !important;
+}
+
+.dropdown__select{
+    color:#fff !important;
+    border-color: #fff !important;
+    outline: #fff !important;
+}

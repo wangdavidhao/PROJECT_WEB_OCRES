@@ -8,6 +8,14 @@ import {
 import PropTypes from 'prop-types';
 import './DropdownCountry.css';
 
+const styles = theme => ({
+  select: {
+    "&:before": {
+      borderColor: "red"
+    }
+  }
+});
+
 const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
 
     return (
@@ -16,9 +24,11 @@ const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
                 <Col lg={12} className="d-flex justify-content-center">
                     <FormControl>
                         <Select
+                        className="dropdown__select"
                         variant="outlined"
                         value={selectCountry}
                         onChange={handleCountrySelect}
+                        labelStyle={{ color: 'green' }}
                         >
                         <MenuItem value="monde">Monde</MenuItem>
                         {countries.map((country) => (
@@ -38,6 +48,6 @@ DropdownCountry.propTypes = {
     handleCountrySelect : PropTypes.func,
 }
 
-export default DropdownCountry;
+export default React.memo(DropdownCountry);
 
 

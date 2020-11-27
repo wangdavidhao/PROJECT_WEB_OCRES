@@ -79,7 +79,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
     let graphColor;
     let casesType = '';
 
-    //S'il y a un bien un ype passé en props
+    //S'il y a un bien un type passé en props
     if(type){
         switch(type){
             case 'cases':
@@ -88,7 +88,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                 break;
             case 'recovered':
                 graphColor = '#26de81';
-                casesType = 'rétablis';
+                casesType = 'retablis';
                 break;
             case 'deaths':
                 graphColor = '#eb3b5a';
@@ -98,6 +98,18 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                 break;
         }
     }
+
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+            <div className="customTooltip">
+                <p >{label} : <span className={`customTooltip__label ${casesType}`}>{payload[0].value}</span></p>
+            </div>
+            );
+        }
+
+        return null;
+    };
 
     return (
         <Container>
@@ -139,13 +151,14 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                         <CartesianGrid strokeDasharray="4 4" />
                         <XAxis dataKey="date" />
                         <YAxis dataKey="nbCas"/>
-                        <Tooltip />
+                        <Tooltip  content={<CustomTooltip />}/>
                         <Legend payload={
                             [
                                 { id: 'nbCas', value: casesType, type: 'square', color: graphColor},
                             ]
                         }
                         layout="horizontal" verticalAlign="bottom" align="center" 
+                       
                         />
                         <Area type="monotone" dataKey="nbCas" strokeWidth={1.5} stroke={graphColor} fillOpacity={1} fill="url(#nbCas)"/>
                     </AreaChart>

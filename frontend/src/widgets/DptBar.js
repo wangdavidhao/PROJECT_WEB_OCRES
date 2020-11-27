@@ -3,9 +3,9 @@ import { Bar } from "react-chartjs-2";
 import {Container, Row, Col} from 'react-bootstrap';
 import './DptBar.css'
   
-function DptBar({info}) {
+const DptBar = ({info}) => {
     
-    let today = new Date();
+    const today = new Date();
 
     let newHospit0 = 0;
     let newRea0 = 0;
@@ -25,62 +25,61 @@ function DptBar({info}) {
     let yearsMonths = [];
     let yearsMonthsNames = [];
 
-    var monthNumbers = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-    var monthNames = ["Janvier", "Fevrier", "Mars", "Avril",
+    let monthNumbers = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+    let monthNames = ["Janvier", "Fevrier", "Mars", "Avril",
                       "Mai", "Juin", "Juillet", "Août", "Septembre",
                       "Octobre", "Novembre", "Décembre"];
-    let d;
-    let month;
-    let year;
 
     for(let i = 4; i > 0; i -= 1) {
-      d = new Date(today.getFullYear(), today.getMonth() - i, 1);
-      month = monthNumbers[d.getMonth()];
-      year = d.getFullYear().toString();
-      let ym = year + '-' + month;
+      const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      const month = monthNumbers[d.getMonth()];
+      const year = d.getFullYear().toString();
+      const ym = year + '-' + month;
       yearsMonths.push(ym);
       yearsMonthsNames.push(monthNames[d.getMonth()]);
     }
     
-    if (info.length > 0){
+    if (info?.length > 0){
 
       for(let i = 0 ; i< info.length-1 ;i++){
 
           if(info[i].jour.includes(yearsMonths[0]) || info[i].jour.includes(yearsMonths[1])
           || info[i].jour.includes(yearsMonths[2])|| info[i].jour.includes(yearsMonths[3])
           ){
-            dataArray.push(info[i]);
+              dataArray.push(info[i]);
           }
       }
-        dataArray.map((genInfo) => (<div>
-            {(() => {
-              let dateInfo = genInfo.jour.substr(0, 7);
+        dataArray.forEach((genInfo) => {
+
+          const dateInfo = genInfo.jour.substr(0, 7);
               switch (dateInfo){
                 case `${yearsMonths[0]}`:
                   newHospit0 += parseInt(genInfo.incid_hosp);
                   newRea0 += parseInt(genInfo.incid_rea);
                   newDeaths0 += parseInt(genInfo.incid_dc);
-                break;
+                  break;
                 case `${yearsMonths[1]}`:
                   newHospit1 += parseInt(genInfo.incid_hosp);
                   newRea1 += parseInt(genInfo.incid_rea);
                   newDeaths1 += parseInt(genInfo.incid_dc);
-                break;
+                  break;
                 case `${yearsMonths[2]}`:
                   newHospit2 += parseInt(genInfo.incid_hosp);
                   newRea2 += parseInt(genInfo.incid_rea);
                   newDeaths2 += parseInt(genInfo.incid_dc);
-                break;
+                  break;
                 case `${yearsMonths[3]}`:
                   newHospit3 += parseInt(genInfo.incid_hosp);
                   newRea3 += parseInt(genInfo.incid_rea);
                   newDeaths3 += parseInt(genInfo.incid_dc);
-                break;
+                  break;
                 default:
                   console.log("Dans aucun des cas");
-              }   
-            })()}
-        </div>));
+                  break;
+              }
+        })
+        
+
     }
 
     const options = {
@@ -183,5 +182,5 @@ function DptBar({info}) {
     );
 }
 
-export default DptBar;
+export default React.memo(DptBar);
 

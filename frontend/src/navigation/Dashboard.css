@@ -156,12 +156,13 @@
 .dashboard__france--dptBarContainer{
 
     background-color: #37384B;
-    margin:1rem !important;
+    margin:1.2rem !important;
     padding: 1rem !important;
     color:#fff !important;
     border-radius: 3px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .dashboard__france--dptTable,

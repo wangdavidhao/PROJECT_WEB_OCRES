@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Button, Spinner} from 'react-bootstrap';
+import {LinearProgress} from '@material-ui/core';
 //Fetch API
 import axios from 'axios';
 
@@ -34,7 +35,7 @@ export const Dashboard = () => {
     const [countries, setCountries] = useState([]);
     const [continent, setContinent] = useState({});
     const [continents, setContinents] = useState([]);
-    const [france, setFrance] = useState([]);
+    // const [france, setFrance] = useState([]);
 
     const [worldHistoric, setWorldHistoric] = useState({});
     const [countryHistoric, setCountryHistoric] = useState({});
@@ -86,9 +87,7 @@ export const Dashboard = () => {
 
         axios.get(`${API_URL}/all`)
         .then( (response) => {
-            console.log(response.data);
             setWorld(response.data);
-            
             setDropdownCountry({...dropdownCountry, isWorld:true, ...response.data});
             setMap({
                 lat:46,
@@ -293,29 +292,29 @@ export const Dashboard = () => {
         }
     }
 
-    /**
-     * Fonction qui va récup des datas + précises concernant la FRANCE
-     * @param {String} route 
-     */
-    const fetchFranceData = async (route='') => {
-        axios.get(`${API_URL_FRANCE}/${route}`)
-        .then( (response) => {
-            const fr = response.data.allLiveFranceData;
-            setFrance(fr);
-        })
-        .then(()=> {
-            setLoadingDptTable(false);
-        })
-        .catch(error => {
-            if(error.response){
-                console.log('Erreur  ' + error.response.status);
-            }else if(error.request){
-                console.log('Erreur  ' + error.request);
-            }else{
-                console.log('Erreur  ' + error.message);
-            }
-        })
-    }
+    // /**
+    //  * Fonction qui va récup des datas + précises concernant la FRANCE
+    //  * @param {String} route 
+    //  */
+    // const fetchFranceData = async (route='') => {
+    //     axios.get(`${API_URL_FRANCE}/${route}`)
+    //     .then( (response) => {
+    //         const fr = response.data.allLiveFranceData;
+    //         setFrance(fr);
+    //     })
+    //     .then(()=> {
+    //         setLoadingDptTable(false);
+    //     })
+    //     .catch(error => {
+    //         if(error.response){
+    //             console.log('Erreur  ' + error.response.status);
+    //         }else if(error.request){
+    //             console.log('Erreur  ' + error.request);
+    //         }else{
+    //             console.log('Erreur  ' + error.message);
+    //         }
+    //     })
+    // }
 
     /**
      * Fonction qui va comparer le nombre de cas aujourd'hui et le comparer à celui d'hier et retourner un nouveau tableau 
@@ -361,7 +360,7 @@ export const Dashboard = () => {
         fetchGouvData('/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7');
         fetchGouvData('/r/08c18e08-6780-452d-9b8c-ae244ad529b3');
         fetchGouvData('/r/6fadff46-9efd-4c53-942a-54aca783c30c');
-        fetchFranceData('AllLiveData');
+        // fetchFranceData('AllLiveData');
     }, []);
     
 
@@ -393,6 +392,7 @@ export const Dashboard = () => {
     const yesterday = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear().toString().substr(-2);
     date.setDate(date.getDate()-1);
     const twoDaysAgo = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear().toString().substr(-2);
+
     //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
@@ -445,15 +445,15 @@ export const Dashboard = () => {
                                 <h5>{country.country}</h5>
                                 <img src={dropdownCountry.countryInfo.flag}></img>
                             </div> : <h5>Monde</h5>}
-                            <span>Cas : {dropdownCountry.cases}</span>
+                            <span><strong>Cas :</strong> {dropdownCountry.cases}</span>
                             <p className="dashboard__global--addCases">
                             <i> +{dropdownCountry.todayCases === 0 ? dropdownHistoric.cases[yesterday] - dropdownHistoric.cases[twoDaysAgo] : dropdownCountry.todayCases}
                             </i></p>
-                            <span>Rétablis : {dropdownCountry.recovered}</span>
+                            <span><strong>Rétablis :</strong> {dropdownCountry.recovered}</span>
                             <p className="dashboard__global--addRecovered">
                             <i> +{dropdownCountry.todayRecovered === 0 ? dropdownHistoric.recovered[yesterday] - dropdownHistoric.recovered[twoDaysAgo] : dropdownCountry.todayRecovered}
                             </i></p>
-                            <span>Morts : {dropdownCountry.deaths}</span>
+                            <span><strong>Morts :</strong>{dropdownCountry.deaths}</span>
                             <p className="dashboard__global--addDeaths">
                             <i> +{dropdownCountry.todayDeaths === 0 ? dropdownHistoric.deaths[yesterday] - dropdownHistoric.deaths[twoDaysAgo] : dropdownCountry.todayDeaths}
                             </i></p>  
@@ -467,8 +467,7 @@ export const Dashboard = () => {
 
                     <Row className="dashboard__france--dptTableContainer">
                         <Col lg={12} md={12} sm={12} className="dashboard__france--dptTable">
-                            <h4>Règles</h4>
-                            {/* <DptTable country={france}/>  */}
+                            <h4>Règles gouvernement</h4>
                             <ListData isAdmin={false}/>
                         </Col>
                     </Row>

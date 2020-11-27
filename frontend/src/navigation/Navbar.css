@@ -57,6 +57,7 @@
 
 .navbar__row--iconText.active{
     color: #1B9CFC;
+    font-weight: bolder;
     border-bottom: 4px solid #1B9CFC;
 }
 

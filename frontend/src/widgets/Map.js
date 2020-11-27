@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import './Map.css';
 import {Container, Row, Col} from 'react-bootstrap';
-// import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
 
-
 import PropTypes from 'prop-types';
-
 
 const Map = ({lat, long, zoom, countries, type}) => {
 
@@ -30,7 +27,7 @@ const Map = ({lat, long, zoom, countries, type}) => {
     let graphColor;
     let casesType = '';
 
-    //S'il y a un bien un ype passé en props
+    //S'il y a un bien un type passé en props
     if(type){
         switch(type){
             case 'cases':
@@ -63,54 +60,53 @@ const Map = ({lat, long, zoom, countries, type}) => {
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onViewportChange={nextViewport => setViewport(nextViewport)}
                     >
-                        {countries.map((country) => (
-                            <React.Fragment key={country.country}>
-                            <Marker  latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
-                                <div 
-                                onClick={() => setPopup({
-                                    [country.country]:true,
-                                })}
+                    {countries.map((country) => (
+                        <React.Fragment key={country.country}>
+                        <Marker  latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
+                            <div 
+                            onClick={() => setPopup({
+                                [country.country]:true,
+                            })}
+                            >
+                                <svg  
+                                className="map__circle"
+                                style={{
+                                        height: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
+                                        width: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
+                                }}
+                                    
+                                fill={graphColor}
+                                viewBox="0 0 24 24" 
+                                stroke={graphColor} 
+                                fillOpacity="0.4"
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
                                 >
-                                    <svg  
-                                    className="map__circle"
-                                    style={{
-                                            height: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
-                                            width: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
-                                    }}
-                                        
-                                    fill={graphColor}
-                                    viewBox="0 0 24 24" 
-                                    stroke={graphColor} 
-                                    fillOpacity="0.4"
-                                    strokeWidth="2" 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round"
-                                    >
-                                        <circle className="map__circle" cx="12" cy="12" r="10">
-                                        </circle>
-                                    </svg>
-                                </div>
-                                
-                            </Marker>
-                            { popup[country.country] ? ( <Popup
-                                className="map__popupContainer"
-                                latitude={country.countryInfo.lat} 
-                                longitude={country.countryInfo.long}
-                                closeButton={true}
-                                closeOnClick={false}
-                                onClose={() => setPopup({})}
-                                anchor="top" 
-                                >
-                                <div className="map__popup">
-                                    <span>{country.country}</span>
-                                    <img src={country.countryInfo.flag} width="80px" height="50px"></img>
-                                    <span>{casesType} : {country[type]}</span>
-                                </div>
-                                
-                            </Popup>) : ''}
+                                    <circle className="map__circle" cx="12" cy="12" r="10">
+                                    </circle>
+                                </svg>
+                            </div>
                             
-                            </React.Fragment>
-                        ))}
+                        </Marker>
+                        { popup[country.country] ? ( <Popup
+                            className="map__popupContainer"
+                            latitude={country.countryInfo.lat} 
+                            longitude={country.countryInfo.long}
+                            closeButton={true}
+                            closeOnClick={false}
+                            onClose={() => setPopup({})}
+                            anchor="top" 
+                            >
+                            <div className="map__popup">
+                                <span>{country.country}</span>
+                                <img src={country.countryInfo.flag} width="80px" height="50px"></img>
+                                <span>{casesType} : {country[type]}</span>
+                            </div>
+                            
+                        </Popup>) : ''}
+                        </React.Fragment>
+                    ))}
                     </ReactMapGL>
                 </Col>
             </Row>

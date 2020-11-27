@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import * as FiIcons from 'react-icons/fi';
 import * as MdIcons from 'react-icons/md';
 
+import PropTypes from 'prop-types';
+
 //Icons
 import {FaUser, FaEdit } from 'react-icons/fa';
 import {RiAppsFill} from 'react-icons/ri';
@@ -26,15 +28,17 @@ export const Navbar = ({page}) => {
     }
 
     const [openSidebar, setOpenSidebar] = useState(false);
+    //State pour afficher le temps en temps réel
     const [timeStamp, setTimeStamp] = useState(Date.now());
     const [time, setTime] = useState(new Date(timeStamp).toUTCString());
 
     const showSidebar = () => setOpenSidebar(prev => !prev);
 
+    //Gérer les intervalles => toutes les 1 secondes
     useEffect(() => {
         let time = setTimeout(() => {
-            setTimeStamp(Date.now());
-            setTime(new Date(timeStamp).toISOString());
+            setTimeStamp(Date.now()); //Au format number
+            setTime(new Date(timeStamp).toUTCString()); //Au format Date
         }, 1000);
         return () => clearTimeout(time);
     });
@@ -107,6 +111,14 @@ export const Navbar = ({page}) => {
         </Container>
         
     )
+}
+
+Navbar.propTypes = {
+    page : PropTypes.string,
+}
+
+Backdrop.propTypes = {
+    hideSidebar : PropTypes.func.isRequired,
 }
 
 export default Navbar;
