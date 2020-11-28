@@ -1,34 +1,64 @@
-# Projet de fin de semestre
+# DASHBOARD SUR LA COVID-19/COVID-19 DASHBOARD
+![version](https://img.shields.io/badge/version-1.0-blue)
+[![GitHub issues](https://img.shields.io/github/issues/wangdavidhao/PROJECT_WEB_OCRES)](https://github.com/wangdavidhao/PROJECT_WEB_OCRES/issues)
 
-A lire impérativement avant de commencer quoi que ce soit, ce sont les règles que vous devrez appliquer tout au long du semestre:
+Dashboard qui va récolter différentes données pertinentes sur la covid-19 en France et dans le monde en temps réel et les afficher sous formes graphiques.
 
-<p align="center">
- <a href="https://gitlab.com/Adrien_Kourganoff/instructions_web_ocres_ing4/-/blob/master/README.md">Règles pour le semestre</a>
-</p>
+A dashboard that will collect some COVID-19 data and display them into charts.
 
-## --PROJET DASHBOARD SUR LA COVID-19--
-Dashboard qui va récolter différentes données pertinentes sur la covid-19 en temps réel.
+![](app_preview/dashboard.gif)
 
-## --COLLABORATEURS--
+## Table des matières/Table of contents
+* 🚧 [Installation](#installation)
+* 👀 [Etat du projet/Status of the project](#etat-du-projet)
+* 🤝 [Outils de gestion de projet/Projet management's tool](#outils-de-gestion-projet)
+* 📂 [API réferences/API references](#api-réferences)
+* 💻 [Technologies](#technologies)
+* 👨🏻‍🤝‍👨🏻 [Collaborateurs/Collaborators](#collaborateurs)
+* 🧩 [Annexes](#annexes)
 
-SADOUN Benjamin : benjamin.sadoun@edu.ece.fr
-WANG David : david.wang@edu.ece.fr
+## Installation
 
-## --Maquette--
-![](mockup_image/dashboard.JPG)
+Cloner le projet dans un répertoire puis lancer la commande:
+__npm install && npm start__ pour tout de suite lancer l'application.
 
-## Introduction
+Clone/fork the project and run :
+__npm install && npm start__ to launch the application.
 
-Ce repo git contient deux repertoires. L'un concerne la partie backend et l'autre la partie frontend.
+```bash
+$ npm install && npm start
+```
 
-Les deux repertoires ont été initialisé pour vous aider à démarrer le projet dans les meilleures conditions.
+## Etat du projet/Status of the project
 
-Chacun de ces repertoires contient un README.md qui vous pouvez vous approprier. Nous vous encourageons à le faire en y mettant toute les informations nécessaires à la compréhension de votre projet
+Il s'agit pour l'instant de la partie front-end. La partie back-end est en développement.
 
-## Instructions
+It's only the front of the project. The back is still in development.
 
-Les instructions sont à retrouver dans le pdf instruction.pdf.
+## Outils de gestion projet/Project management's tool
 
-**Le non respect de ces instructions entraînera des pertes de points alors prenez le temps de tout lire et de poser des questions si vous ne comprenez pas**
+- Trello:
+https://trello.com/b/M4wvzsn0/projet-web
 
-Pour rappel, la probabilité de recevoir une réponse à un mail envoyé quelques heures avant le rendu est très proche de 0.
+## API réferences/API references
+
+- Données mondiale/World data: https://disease.sh/v3/covid-19/all
+- Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
+- Données gouvernement Français/French government data : https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
+
+## Technologies
+
+- React JS - Router - Mapbox
+- Axios HTTP Request
+- Bootstrap 4
+- Recharts - Chart JS
+- Storybook
+- CSS
+
+## Collaborateurs/Collaborators
+
+- SADOUN Benjamin : benjamin.sadoun@edu.ece.fr https://github.com/wangdavidhao
+- WANG David : david.wang@edu.ece.fr https://github.com/BenjaminSadoun
+
+## Annexes
+![](app_preview/preview1.PNG)
