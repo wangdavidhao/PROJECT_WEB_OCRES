@@ -31,7 +31,7 @@ const renderActiveShape = (props) => {
 
     return (
     <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
         <Sector
             cx={cx}
             cy={cy}
@@ -203,7 +203,7 @@ const CircularGraph = ({info, color, type}) => {
         <Container fluid={true} className="circularGraph">
             <Row>
                 <Col lg={12}>
-                    <ResponsiveContainer width="99%" aspect={1}>
+                    <ResponsiveContainer width="100%" aspect={1}>
                         <PieChart
                             padding={2}
                         >

@@ -119,8 +119,8 @@ const List = ({ items, completeItem, removeItem, updateItem, isAdmin}) => {
       className={item.isComplete ? 'item-row complete' : 'item-row'}
       key={index}
     >
-      <div key={item.id} onClick={() => completeItem(item.id)}>
-        {item.text}
+      <div className="textDiv w-100" key={item.id} onClick={() => completeItem(item.id)}>
+        <p>{item.text}</p>
       </div>
       {(isAdmin || isAdmin === undefined) &&
       <div className='icons'>

@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
 }
 
-.worldGraph > h5{
+.worldGraph > h4{
     text-align: center;
 }
 
@@ -13,6 +14,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.frequences__info{
+    color:#1B9CFC !important;
 }
 
 .customTooltip{
@@ -39,6 +44,12 @@
 @media screen and (max-width:425px){
     .recharts-wrapper{
         height: 300px !important;
+    }
+}
+
+@media screen and (max-width:768px){
+    .frequences{
+        display: none;
     }
 }
 

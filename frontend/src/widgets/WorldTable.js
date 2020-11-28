@@ -12,11 +12,11 @@ export const WorldTable = ({countriesData}) => {
         <Container fluid={true} className="worldTable">
             <Row>
                 <Col lg={12} md={12} sm={12} xs={12} className="d-flex w-100">
-                    <Table striped bordered hover responsive className="worldTable__table">
+                    <Table striped bordered hover responsive  className="worldTable__table">
                         <thead >
                             <tr>
-                                <th><span>Pays</span></th>
-                                <th><span>Cas total</span></th>
+                                <th className="sticky-top"><span>Pays</span></th>
+                                <th className="sticky-top"><span>Cas total</span></th>
                             </tr>
                         </thead>
 

@@ -174,7 +174,7 @@ const DptBar = ({info}) => {
         <Container>
           <Row>
             <Col lg={12}>
-                  <Bar className="dptBar" data={data} height={180} options={options} />
+                  <Bar className="dptBar" data={data} height={185} options={options} />
             </Col>
           </Row>
         </Container>

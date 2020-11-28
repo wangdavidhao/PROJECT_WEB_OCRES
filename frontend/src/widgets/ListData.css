@@ -91,3 +91,9 @@
 .edit-icon {
     color: #fff;
 }
+
+.textDiv{
+    display:flex;
+    justify-content: center;
+    text-align: center;
+}

@@ -1,5 +1,21 @@
+
+.map__popupContainer{
+
+    z-index:10000;
+    padding:1rem;
+}
+
+.mapboxgl-popup-content{
+    background-color : #37384B !important;
+    border-radius: 3px;
+}
+.mapboxgl-popup-tip{
+    border-bottom-color : #37384B !important;
+}
+
 .map__popup{
-    color:black;
+    background-color : #37384B;
+    color:#fff ;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +24,7 @@
 }
 
 .map__popup > img{
-    border:1px solid black;
+    border:0.1px solid white;
 }
 
 .map__circle{
@@ -18,11 +34,6 @@
 
 .map__circle:hover{
     fill-opacity: 1;
-}
-
-.map__popupContainer{
-    z-index:10000;
-    padding:1rem;
 }
 
 .map{

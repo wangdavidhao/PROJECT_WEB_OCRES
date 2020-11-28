@@ -479,13 +479,13 @@ export const Dashboard = () => {
                         <Col lg={12} className="dashboard__france--graphCircu">
                             <h4>Pourcentages en France</h4>
                         </Col>
-                        <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
+                        <Col lg={4} md={4} sm={4} xs={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={gender} color={"#bff542"} type={"gender"} />
                         </Col>  
-                        <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
+                        <Col lg={4} md={4} sm={4} xs={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={age} color={"#0022ff"} type={"age"}/>
                         </Col>
-                        <Col lg={4} md={4} sm={12} className="dashboard__france--graphCircu">
+                        <Col lg={4} md={4} sm={4} xs={12} className="dashboard__france--graphCircu">
                             <CircularGraph info ={generalInfo} color={"#fa0400"} type={"generalInfo"}/> 
                         </Col>         
                         </>             

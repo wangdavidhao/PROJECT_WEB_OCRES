@@ -157,11 +157,11 @@
 
     background-color: #37384B;
     margin:1.2rem !important;
-    padding: 1rem !important;
-    color:#fff !important;
+    padding: 0.8rem !important;
+    color:#fff ;
     border-radius: 3px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -185,4 +185,11 @@
 
 .dashboard__global--addDeaths{
     color:#eb3b5a;
+}
+
+
+@media screen and (max-width:425px){
+    .dashboard__global--button > button{
+        font-size:0.8rem;
+    }
 }

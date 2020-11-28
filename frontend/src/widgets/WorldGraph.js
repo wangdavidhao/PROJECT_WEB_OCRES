@@ -114,27 +114,27 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
     return (
         <Container>
             <Row>
-                <Col lg={3} className="frequences">
+                <Col lg={3} md={3} sm={12} className="frequences">
                     <h5>Fréquences</h5>
                     <span>Cas pour 1 million: </span>
-                    <span>{countrySelected.casesPerOneMillion} prs</span>
+                    <span className="frequences__info">{countrySelected.casesPerOneMillion} prs</span>
                     <span>Mort(s) pour 1 million: </span>
-                    <span>{countrySelected.deathsPerOneMillion} prs </span>
+                    <span className="frequences__info">{countrySelected.deathsPerOneMillion} prs </span>
                     <span>Rétabli(s) pour 1 million: </span>
-                    <span>{countrySelected.recoveredPerOneMillion} prs</span>
+                    <span className="frequences__info">{countrySelected.recoveredPerOneMillion} prs</span>
                     {!countrySelected.isWorld && (
                         <div className="frequences">
                             <span>Un cas tous les:</span>
-                            <span>{countrySelected.oneCasePerPeople} prs</span>
+                            <span className="frequences__info">{countrySelected.oneCasePerPeople} prs</span>
                             <span>Un mort tous les:</span>
-                            <span>{countrySelected.oneDeathPerPeople} prs</span>
+                            <span className="frequences__info">{countrySelected.oneDeathPerPeople} prs</span>
                             <span>Un test tous les:</span>
-                            <span>{countrySelected.oneTestPerPeople} prs</span>
+                            <span className="frequences__info">{countrySelected.oneTestPerPeople} prs</span>
                         </div>
                         
                     )}
                 </Col>
-                <Col lg={9} className="worldGraph">
+                <Col lg={9} md={9} sm={12} className="worldGraph">
                     <h4 className="mb-3">Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
                     {data?.length > 0 && (
                         <ResponsiveContainer width="100%" height={300}>
