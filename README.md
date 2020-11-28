@@ -2,6 +2,7 @@
 ![version](https://img.shields.io/badge/version-1.0-blue)
 
 Dashboard qui va récolter différentes données pertinentes sur la covid-19 en France et dans le monde en temps réel et les afficher sous formes graphiques.
+
 ![](app_preview/dashboard.gif)
 
 ## Table des matières
