@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Map.css';
 import {Container, Row, Col} from 'react-bootstrap';
-import 'mapbox-gl/dist/mapbox-gl.css';
+// import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
 
