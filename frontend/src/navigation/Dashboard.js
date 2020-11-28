@@ -393,14 +393,13 @@ export const Dashboard = () => {
     date.setDate(date.getDate()-1);
     const twoDaysAgo = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear().toString().substr(-2);
 
-    //Render => affichage
     return (
         <Container fluid={true} className="dashboard">
             <Navbar page="dashboard"/>
             <Row>
                 <Col lg={8}  className="dashboard__global">
                     {!loadingMap ? <Row>
-                        
+
                         <Col lg={12} className="order-md-12">
                             <Row className="dashboard__global--buttonsContainer">
                                 <Col lg={3} md={3} sm={3} xs={3} className="dashboard__global--button">

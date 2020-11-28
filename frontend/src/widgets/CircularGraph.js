@@ -104,37 +104,36 @@ const CircularGraph = ({info, color, type}) => {
             infoType = 'age';
             info.filter(age => ((age.jour === date)))
                 .forEach((a) => {
-
                     switch (a.cl_age90){
                             case '09':
-                                age1_9 += parseInt(a.cl_age90);
+                                age1_9 += parseInt(a.hosp);
                                 break;
                             case '19':
-                                age9_19 += parseInt(a.cl_age90);
+                                age9_19 += parseInt(a.hosp);
                                 break;
                             case '29':
-                                age19_29 += parseInt(a.cl_age90);
+                                age19_29 += parseInt(a.hosp);
                                 break;
                             case '39':
-                                age29_39 += parseInt(a.cl_age90);
+                                age29_39 += parseInt(a.hosp);
                                 break;
                             case '49':
-                                age39_49 += parseInt(a.cl_age90);
+                                age39_49 += parseInt(a.hosp);
                                 break;
                             case '59':
-                                age49_59 += parseInt(a.cl_age90);
+                                age49_59 += parseInt(a.hosp);
                                 break;
                             case '69':
-                                age59_69 += parseInt(a.cl_age90);
+                                age59_69 += parseInt(a.hosp);
                                 break;
                             case '79':
-                                age69_79 += parseInt(a.cl_age90);
+                                age69_79 += parseInt(a.hosp);
                                 break;
                             case '89':
-                                age79_89 += parseInt(a.cl_age90);
+                                age79_89 += parseInt(a.hosp);
                                 break;
                             case '90':
-                                age90_ += parseInt(a.cl_age90);
+                                age90_ += parseInt(a.hosp);
                                 break;
                             default:
                                 break;
