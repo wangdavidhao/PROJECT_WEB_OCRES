@@ -19,10 +19,7 @@ const renderActiveShape = (props) => {
     const {cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
     fill, payload, percent, value,
     } = props;
-    const sin = Math.sin(-RADIAN * midAngle);
-    const cos = Math.cos(-RADIAN * midAngle);
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
+
 
     return (
     <g>
