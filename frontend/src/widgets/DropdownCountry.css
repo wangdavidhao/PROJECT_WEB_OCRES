@@ -1,0 +1,42 @@
+.MuiFormControl-root {
+    color: white !important;
+}
+
+.MuiInputBase-root {
+    color:#fff !important;
+    font-family: inherit !important;
+    outline: none !important;
+    outline-width: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.MuiOutlinedInput-root {
+    color:#fff !important;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+    color:#fff !important;
+}
+
+.MuiSelect-select.MuiSelect-select {
+    color:#fff !important;
+}
+
+.MuiSelect-iconOutlined {
+    color:#fff !important;
+}
+
+.MuiSelect-icon {
+    color:#fff !important;
+}
+
+.MuiInputBase-root .MuiOutlinedInput-root .Mui-focused .Mui-focused .MuiInputBase-formControl{
+    color:#fff !important;
+}
+
+.dropdown__select{
+    color:#fff !important;
+    border-color: #fff !important;
+    outline: #fff !important;
+}

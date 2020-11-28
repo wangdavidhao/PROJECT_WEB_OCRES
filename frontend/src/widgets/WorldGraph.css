@@ -1,0 +1,40 @@
+.worldGraph{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.worldGraph > h4{
+    text-align: center;
+}
+
+
+.customTooltip{
+    background-color: #37384B;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 3px;
+    border:0.5px solid white;
+}
+
+.customTooltip__label.cas{
+    color:#f7b731 !important;
+}
+
+.customTooltip__label.retablis{
+    color:#26de81;
+}
+
+.customTooltip__label.morts{
+    color:#eb3b5a;
+}
+
+
+@media screen and (max-width:425px){
+    .recharts-wrapper{
+        height: 300px !important;
+    }
+}
+
+

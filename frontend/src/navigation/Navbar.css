@@ -1,0 +1,154 @@
+.navbar{
+    background-color:#37384B;
+    color:#e8e8e8;
+}
+
+.navbar__row{
+    padding:0.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar__row--name ,.navbar__row--icons ,.navbar__row--authors{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navbar__row--icons{
+    display: flex;
+    flex-direction: row !important;
+}
+
+
+.navbar__row--iconDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 1rem;
+    cursor: pointer;
+}
+
+.navbar__row--iconDiv:hover{
+    color: #1B9CFC;
+}
+
+.navbar__row--icon{
+    margin:0 1rem;
+}
+
+.navbar__row--icon:hover{
+    cursor: pointer;
+    
+}
+
+.navbar__row--icon.active{
+    color: #1B9CFC;
+}
+
+.navbar__row--iconText{
+    margin:0 1rem;
+}
+
+.navbar__row--iconText:hover{
+    cursor: pointer;
+}
+
+.navbar__row--iconText.active{
+    color: #1B9CFC;
+    font-weight: bolder;
+    border-bottom: 4px solid #1B9CFC;
+}
+
+
+.navbar__burger--button{
+        margin:1rem;
+        color:#fff;
+        border:0;
+        text-decoration: none;
+        outline: none !important;
+        outline-width: 0;
+        border-radius: 3px;
+        border:none;
+        background-color: transparent;
+}
+
+.sidebar{
+    position: relative;
+}
+
+.sidebar__row--iconDiv{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.navbar__sidebar{
+    position: fixed;
+    top:0;
+    left:-100%;
+    min-height: 100vh;
+    width: 40vw;
+    transition: 550ms ease-in-out;
+    background-color:#37384B;
+    color: white;
+    z-index: 100;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.navbar__sidebar.active{
+    left:0;
+    transition:350ms ease-in-out;
+    z-index: 100;
+    -webkit-transform: translateZ(0); /*Hide the lines*/
+}
+
+.navbar__sidebar--menu{
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+.navbar__sidebar--menu > .navbar__row--icon{
+    margin: 1rem 0;
+}
+
+.backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 99;
+}
+
+@media screen and (min-width:768px){
+    .navbar__burger{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: none;
+    }
+}
+
+@media screen and (max-width:768px){
+    .navbar__row--icons{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width:500px){
+    .navbar__sidebar{
+        width: 80vw;
+    }
+}

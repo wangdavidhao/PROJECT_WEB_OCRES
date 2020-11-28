@@ -1,0 +1,60 @@
+.circularGraph{
+    padding: 0 2rem;
+}
+
+.recharts-responsive-container{
+    
+}
+.recharts-wrapper{
+    
+}
+
+.recharts-layer.recharts-pie{
+    z-index: 10000;
+    position: relative;
+    overflow: scroll !important;
+}
+
+.recharts-layer.recharts-pie-sector > g{
+    position: absolute;
+    z-index: 10000;
+    
+}
+
+.recharts-surface{
+    overflow:scroll!important;
+}
+
+.circuText{
+    z-index:100000;
+    position: fixed;
+    fill:white !important;
+    overflow:scroll !important;
+}
+
+.circuTextCenter{
+    font-size: 0.7rem;
+}
+
+.customTooltip{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #37384B;
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 3px;
+    border:0.5px solid white;
+}
+
+@media screen and (max-width:1200px){
+    .circuTextCenter{
+        font-size: 0.5rem !important;
+    }
+}
+
+@media screen and (max-width:992px){
+    .circuTextCenter{
+        font-size: 1rem !important;
+    }
+}

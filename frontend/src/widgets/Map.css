@@ -1,0 +1,40 @@
+.map__popupContainer{
+
+    z-index:10000;
+    padding:1rem;
+}
+
+.mapboxgl-popup-content{
+    background-color : #37384B !important;
+    border-radius: 3px;
+}
+.mapboxgl-popup-tip{
+    border-bottom-color : #37384B !important;
+}
+
+.map__popup{
+    background-color : #37384B;
+    color:#fff ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.map__popup > img{
+    border:0.1px solid white;
+}
+
+.map__circle{
+    z-index: 1;
+    cursor: pointer;
+}
+
+.map__circle:hover{
+    fill-opacity: 1;
+}
+
+.map{
+    border-radius: 5px;
+}

@@ -1,25 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import {Container} from 'react-bootstrap';
+
+//Local imports
+import Routing from './Routing.js';
+
+
+//App container qui va regrouper tous les autres components ( widgets n)
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container fluid={true} className="app">
+      <Routing/>
+    </Container>
   );
 }
 

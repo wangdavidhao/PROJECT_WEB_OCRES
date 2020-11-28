@@ -1,0 +1,31 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "react-app",
+        "prettier"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine":"auto",
+                "trailingComma": "es5",
+                "singleQuote": true,
+                "bracketSpacing": true,
+                "tabWidth": 2,
+                "printWidth": 120
+            }
+        ],
+        "react-hooks/exhaustive-deps": 0
+    }
+}
