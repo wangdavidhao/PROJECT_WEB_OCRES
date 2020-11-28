@@ -23,7 +23,7 @@ const renderActiveShape = (props) => {
 
     return (
     <g>
-        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name} : {`(${(percent * 100).toFixed(2)}%)`}</text>
+        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}> {payload.name} : {`(${(percent * 100).toFixed(2)}%)`}</text>
         <Sector
             cx={cx}
             cy={cy}
@@ -42,6 +42,7 @@ const renderActiveShape = (props) => {
             outerRadius={outerRadius + 10}
             fill={fill}
         />
+        
     </g>
     );
 };
