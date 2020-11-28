@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import './Map.css';
 import {Container, Row, Col} from 'react-bootstrap';
 
+import CountryMarker from './CountryMarker.js';
+
 import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
 
 import PropTypes from 'prop-types';
@@ -12,40 +14,14 @@ const Map = ({lat, long, zoom, countries, type}) => {
         latitude:lat,
         longitude:long,
         zoom:zoom,
-        transitionDuration: 5000,
+        transitionDuration: 4000,
         transitionInterpolator: new FlyToInterpolator(),
     });
-
-    const [popup, setPopup] = useState({});
 
     //On change le viewport à chaque appel car initialState considéré comme valeur initial constructeur
     useEffect(() => {
         setViewport({...viewport,latitude:lat, longitude:long, zoom:zoom})
     },[lat,long,zoom]);
-
-    //Variable pour stocker la couleur
-    let graphColor;
-    let casesType = '';
-
-    //S'il y a un bien un type passé en props
-    if(type){
-        switch(type){
-            case 'cases':
-                graphColor = '#f7b731';
-                casesType = 'cas';
-                break;
-            case 'recovered':
-                graphColor = '#26de81';
-                casesType = 'rétablis';
-                break;
-            case 'deaths':
-                graphColor = '#eb3b5a';
-                casesType = 'morts';
-                break;
-            default:
-                break;
-        }
-    }
 
     return (
         <Container>
@@ -60,53 +36,7 @@ const Map = ({lat, long, zoom, countries, type}) => {
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onViewportChange={nextViewport => setViewport(nextViewport)}
                     >
-                    {countries.map((country) => (
-                        <React.Fragment key={country.country}>
-                        <Marker  latitude={country.countryInfo.lat} longitude={country.countryInfo.long}>
-                            <div 
-                            onClick={() => setPopup({
-                                [country.country]:true,
-                            })}
-                            >
-                                <svg  
-                                className="map__circle"
-                                style={{
-                                        height: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
-                                        width: `${Math.sqrt(country[type])/100 * (viewport.zoom)+5}px`,
-                                }}
-                                    
-                                fill={graphColor}
-                                viewBox="0 0 24 24" 
-                                stroke={graphColor} 
-                                fillOpacity="0.4"
-                                strokeWidth="2" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round"
-                                >
-                                    <circle className="map__circle" cx="12" cy="12" r="10">
-                                    </circle>
-                                </svg>
-                            </div>
-                            
-                        </Marker>
-                        { popup[country.country] ? ( <Popup
-                            className="map__popupContainer"
-                            latitude={country.countryInfo.lat} 
-                            longitude={country.countryInfo.long}
-                            closeButton={true}
-                            closeOnClick={false}
-                            onClose={() => setPopup({})}
-                            anchor="top" 
-                            >
-                            <div className="map__popup">
-                                <span>{country.country}</span>
-                                <img src={country.countryInfo.flag} width="80px" height="50px"></img>
-                                <span>{casesType} : {country[type]}</span>
-                            </div>
-                            
-                        </Popup>) : ''}
-                        </React.Fragment>
-                    ))}
+                        <CountryMarker countries={countries} type={type}/>
                     </ReactMapGL>
                 </Col>
             </Row>
@@ -123,4 +53,4 @@ Map.propTypes = {
     type : PropTypes.string.isRequired,
 }
 
-export default Map;
+export default React.memo(Map);

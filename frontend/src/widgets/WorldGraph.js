@@ -138,7 +138,6 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                             ]
                         }
                         layout="horizontal" verticalAlign="bottom" align="center" 
-                       
                         />
                         <Area type="monotone" dataKey="nbCas" strokeWidth={1.5} stroke={graphColor} fillOpacity={1} fill="url(#nbCas)"/>
                     </AreaChart>
@@ -158,4 +157,4 @@ WorldGraph.propTypes = {
     type : PropTypes.string.isRequired,
 }
 
-export default WorldGraph;
+export default React.memo(WorldGraph);

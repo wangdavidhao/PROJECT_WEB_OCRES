@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Button, Spinner} from 'react-bootstrap';
-import {LinearProgress} from '@material-ui/core';
 //Fetch API
 import axios from 'axios';
 
 //Local imports
 import './Dashboard.css';
 import Navbar from './Navbar.js';
-import DptTable from './../widgets/DptTable.js';
+// import DptTable from './../widgets/DptTable.js';
 import WorldTable from './../widgets/WorldTable.js';
 import DropdownCountry from './../widgets/DropdownCountry.js';
 import WorldGraph from './../widgets/WorldGraph.js';
@@ -34,8 +33,8 @@ export const Dashboard = () => {
     const [world, setWorld] = useState({});
     const [country, setCountry] = useState({});
     const [countries, setCountries] = useState([]);
-    const [continent, setContinent] = useState({});
-    const [continents, setContinents] = useState([]);
+    // const [continent, setContinent] = useState({});
+    // const [continents, setContinents] = useState([]);
     // const [france, setFrance] = useState([]);
 
     const [worldHistoric, setWorldHistoric] = useState({});
@@ -57,7 +56,7 @@ export const Dashboard = () => {
 
     //Loading
     const [loadingMap, setLoadingMap] = useState(true);
-    const [loadingDptTable, setLoadingDptTable] = useState(true);
+    // const [loadingDptTable, setLoadingDptTable] = useState(true);
     const [loadingCircu, setLoadingCircu] = useState(true);
     const [loadingBar, setLoadingBar] = useState(true);
     const [loadingGraph, setLoadingGraph] = useState(true);
@@ -136,7 +135,7 @@ export const Dashboard = () => {
                 setMap({
                     lat:response.data.countryInfo.lat,
                     long:response.data.countryInfo.long,
-                    zoom:4,
+                    zoom:3,
                 });
                 setLoadingMap(false);
             }
@@ -151,32 +150,32 @@ export const Dashboard = () => {
         }
     }
 
-    /**
-     * Fonction qui va get toute la data de tous les continents par défaut si continent non spécifié
-     * Puis sauvegarde dans les states
-     * @param {String} continent 
-     */
-    const fetchContinentsData = async (continent='') => {
+    // /**
+    //  * Fonction qui va get toute la data de tous les continents par défaut si continent non spécifié
+    //  * Puis sauvegarde dans les states
+    //  * @param {String} continent 
+    //  */
+    // const fetchContinentsData = async (continent='') => {
 
-        try{
-            //Get la reponse
-            const response = await axios.get(`${API_URL}/continents/${continent}`);
-            //Si continent spécifié alors tableau sinon objet
-            if(!continent){
-                setContinents(response.data);
-            }else{
-                setContinent(response.data);
-            }
-        }catch(error){
-            if(error.response){
-                console.log('Erreur fetching continent ' + error.response.status);
-            }else if(error.request){
-                console.log('Erreur fetching continent ' + error.request);
-            }else{
-                console.log('Erreur fetching continent ' + error.message);
-            }
-        }     
-    }
+    //     try{
+    //         //Get la reponse
+    //         const response = await axios.get(`${API_URL}/continents/${continent}`);
+    //         //Si continent spécifié alors tableau sinon objet
+    //         if(!continent){
+    //             setContinents(response.data);
+    //         }else{
+    //             setContinent(response.data);
+    //         }
+    //     }catch(error){
+    //         if(error.response){
+    //             console.log('Erreur fetching continent ' + error.response.status);
+    //         }else if(error.request){
+    //             console.log('Erreur fetching continent ' + error.request);
+    //         }else{
+    //             console.log('Erreur fetching continent ' + error.message);
+    //         }
+    //     }     
+    // }
 
     /**
      * Fonction qui va get toute la data du monde, d'un pays ou de tous les pays concernant l'historique du dernier mois

@@ -2,6 +2,8 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import './Frequences.css';
 
+import PropTypes from 'prop-types';
+
 const Frequences = ({countrySelected}) => {
     return (
         <Container fluid={true}>
@@ -30,4 +32,8 @@ const Frequences = ({countrySelected}) => {
     )
 }
 
-export default Frequences;
+Frequences.propTypes = {
+    countrySelected : PropTypes.object.isRequired,
+}
+
+export default React.memo(Frequences);

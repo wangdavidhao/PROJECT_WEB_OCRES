@@ -8,14 +8,6 @@ import {
 import PropTypes from 'prop-types';
 import './DropdownCountry.css';
 
-const styles = theme => ({
-  select: {
-    "&:before": {
-      borderColor: "red"
-    }
-  }
-});
-
 const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
 
     return (
@@ -28,7 +20,6 @@ const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
                         variant="outlined"
                         value={selectCountry}
                         onChange={handleCountrySelect}
-                        labelStyle={{ color: 'green' }}
                         >
                         <MenuItem value="monde">Monde</MenuItem>
                         {countries.map((country) => (
