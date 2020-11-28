@@ -36,6 +36,16 @@
     font-size: 0.7rem;
 }
 
+.customTooltip{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #37384B;
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 3px;
+    border:0.5px solid white;
+}
 
 @media screen and (max-width:1200px){
     .circuTextCenter{

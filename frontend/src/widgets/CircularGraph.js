@@ -183,6 +183,18 @@ const CircularGraph = ({info, color, type}) => {
             break;
     }
 
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+            <div className="customTooltip">
+                <p >{payload[0].name} : {payload[0].value}</p>
+            </div>
+            );
+        }
+
+        return null;
+    };
+
     return (
         <Container fluid={true} className="circularGraph">
             <Row>
@@ -214,7 +226,7 @@ const CircularGraph = ({info, color, type}) => {
                                 data.map((entry, index) => <Cell key={index} fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
                             </Pie>
-                            <Tooltip/>
+                        <Tooltip content={<CustomTooltip/>}/>
                         </PieChart>
                     </ResponsiveContainer>
                     <h6 className="text-align-center">{infoType.toUpperCase()}</h6>
