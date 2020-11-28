@@ -7,13 +7,13 @@ Dashboard qui va récolter différentes données pertinentes sur la covid-19 en 
 ![](app_preview/dashboard.gif)
 
 ## Table des matières
-* [Installation](#installation)
-* [Etat du projet](#etat-du-projet)
-* [Outils de gestion de projet](#outils-de-gestion-projet)
-* [API réferences](#api-réferences)
-* [Technologies](#technologies)
-* [Collaborateurs](#collaborateurs)
-* [Annexes](#annexes)
+* 🚧 [Installation](#installation)
+* 👀 [Etat du projet](#etat-du-projet)
+* 🤝 [Outils de gestion de projet](#outils-de-gestion-projet)
+* 📂 [API réferences](#api-réferences)
+* 💻 [Technologies](#technologies)
+* 👨🏻‍🤝‍👨🏻 [Collaborateurs](#collaborateurs)
+* 🧩 [Annexes](#annexes)
 
 ## Installation
 
