@@ -66,7 +66,7 @@ function ListForm(props) {
       props.edit ? (
         <>
           <input
-            placeholder='Update your item'
+            placeholder='Modifier une règle'
             value={input}
             onChange={handleChange}
             name='text'
@@ -74,13 +74,13 @@ function ListForm(props) {
             className='item-input edit'
           />
           <button onClick={handleSubmit} className='item-button edit'>
-            Update
+            Modifier
           </button>
         </>
       ) : (
         <>
           <input
-            placeholder='Add an item'
+            placeholder='Ajouter une règle'
             value={input}
             onChange={handleChange}
             name='text'
@@ -88,7 +88,7 @@ function ListForm(props) {
             ref={inputRef}
           />
           <button onClick={handleSubmit} className='item-button'>
-            Add item
+            Ajouter
           </button>
         </>
       )) : ""}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-import {hexToHSL, harmonize} from './util.js' ;
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip} from 'recharts';
+import {hexToHSL, harmonize} from '../util.js' ;
 
 import PropTypes from 'prop-types';
 
@@ -31,7 +31,7 @@ const renderActiveShape = (props) => {
 
     return (
     <g>
-        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name} : {`(${(percent * 100).toFixed(2)}%)`}</text>
         <Sector
             cx={cx}
             cy={cy}
@@ -50,12 +50,6 @@ const renderActiveShape = (props) => {
             outerRadius={outerRadius + 10}
             fill={fill}
         />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text className="circuText" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} cas`}</text>
-        <text className="circuText" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-          {`(Ratio ${(percent * 100).toFixed(2)}%)`}
-        </text>
     </g>
     );
 };
@@ -81,7 +75,6 @@ const CircularGraph = ({info, color, type}) => {
     let male = 0;
     let female = 0;
 
-    let age1 = 0;
     let age1_9 = 0;
     let age9_19 = 0;
     let age19_29 = 0;
@@ -105,8 +98,8 @@ const CircularGraph = ({info, color, type}) => {
 
             const buildGender = (d) => {
                 const inf = [
-                    { name : 'Hommes', value: male, },
-                    { name : 'Femmes', value: female,},
+                    { name : 'H', value: male, },
+                    { name : 'F', value: female,},
                 ];
                 return inf;  
             };
@@ -118,9 +111,6 @@ const CircularGraph = ({info, color, type}) => {
                 .forEach((a) => {
 
                     switch (a.cl_age90){
-                            case '0':
-                                age1 += parseInt(a.cl_age90);
-                                break;
                             case '09':
                                 age1_9 += parseInt(a.cl_age90);
                                 break;
@@ -158,16 +148,15 @@ const CircularGraph = ({info, color, type}) => {
                 
                 const buildAge = (d) => {
                 const inf = [
-                    { name : '<1 an', value: age1, },
-                    { name : '1-9 ans', value: age1_9,},
-                    { name : '10-19 ans', value: age9_19, },
-                    { name : '20-29 ans', value: age19_29,},
-                    { name : '29-39 ans', value: age29_39, },
-                    { name : '39-49 ans', value: age39_49,},
-                    { name : '49-59 ans', value: age49_59, },
-                    { name : '59-69 ans', value: age59_69,},
-                    { name : '69-79 ans', value: age69_79, },
-                    { name : '79-89 ans', value: age79_89,},
+                    { name : '1-9 ', value: age1_9,},
+                    { name : '10-19 ', value: age9_19, },
+                    { name : '20-29 ', value: age19_29,},
+                    { name : '29-39 ', value: age29_39, },
+                    { name : '39-49 ', value: age39_49,},
+                    { name : '49-59 ', value: age49_59, },
+                    { name : '59-69 ', value: age59_69,},
+                    { name : '69-79 ', value: age69_79, },
+                    { name : '79-89 ', value: age79_89,},
                     { name : '>90 ans', value: age90_, },
                 ];
                 return inf; 
@@ -187,7 +176,7 @@ const CircularGraph = ({info, color, type}) => {
             const buildGraph = (d) => {
                 const inf = [
                     { name : 'Hospit.', value: newHospit, },
-                    { name : 'Rea cas', value: newRea,},
+                    { name : 'Rea ', value: newRea,},
                     { name : 'Morts', value: newDeaths, },
                 ];
                 return inf; 
@@ -220,7 +209,7 @@ const CircularGraph = ({info, color, type}) => {
                                 data={data}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius="50%"
+                                innerRadius="45%"
                                 outerRadius="65%"
                                 fill="url(#value)"
                                 dataKey="value"
@@ -230,6 +219,7 @@ const CircularGraph = ({info, color, type}) => {
                                 data.map((entry, index) => <Cell key={index} fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
                             </Pie>
+                            <Tooltip/>
                         </PieChart>
                     </ResponsiveContainer>
                     <h6 className="text-align-center">{infoType.toUpperCase()}</h6>

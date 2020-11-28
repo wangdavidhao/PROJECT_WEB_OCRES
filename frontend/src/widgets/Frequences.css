@@ -1,0 +1,16 @@
+.frequences{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.frequences__info{
+    color:#1B9CFC !important;
+}
+
+@media screen and (max-width:768px){
+    .frequences{
+        display: none;
+    }
+}

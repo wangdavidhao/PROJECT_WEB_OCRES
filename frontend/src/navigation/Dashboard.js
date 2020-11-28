@@ -15,6 +15,7 @@ import CircularGraph from './../widgets/CircularGraph';
 import DptBar from './../widgets/DptBar.js';
 import ListData from '../widgets/ListData.js';
 import Map from './../widgets/Map.js';
+import Frequences from '../widgets/Frequences';
 
 //URL de l'API mondiale
 const API_URL = 'https://disease.sh/v3/covid-19';
@@ -436,7 +437,11 @@ export const Dashboard = () => {
                     <Row className="dashboard__global--graphContainer">
                         {!loadingGraph ? 
                         <>
-                        <Col lg={10} md={8} sm={12} className="dashboard__global--graph">
+                        <Col lg={2} md={2} className="dashboard__global--frequences">
+                            <h4>Fréquences</h4>
+                            <Frequences countrySelected={dropdownCountry}/> 
+                        </Col>
+                        <Col lg={8} md={8} sm={12} className="dashboard__global--graph">
                             <WorldGraph countrySelected={dropdownCountry} countryHistoric={dropdownHistoric} type={type}/>
                         </Col>
                         <Col lg={2} md={2} className="dashboard__global--dropdown">

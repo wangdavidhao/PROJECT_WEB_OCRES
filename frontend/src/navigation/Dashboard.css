@@ -167,7 +167,8 @@
 
 .dashboard__france--dptTable,
 .dashboard__france--dptBar,
-.dashboard__france--graphCircu{
+.dashboard__france--graphCircu,
+.dashboard__global--frequences{
     display: flex;
     flex-direction: column;
     align-items: center;
