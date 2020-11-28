@@ -7,24 +7,25 @@ import './WorldTable.css';
 
 export const WorldTable = ({countriesData}) => {
 
+
     return (
-        <Container className="worldTable">
+        <Container fluid={true} className="worldTable">
             <Row>
-                <Col lg={12}>
-                    <Table striped bordered hover>
+                <Col lg={12} md={12} sm={12} xs={12} className="d-flex w-100">
+                    <Table striped bordered hover responsive  className="worldTable__table">
                         <thead >
                             <tr>
-                            <th><h6>Pays</h6></th>
-                            <th><h6>Total Cas</h6></th>
+                                <th className="sticky-top"><span>Pays</span></th>
+                                <th className="sticky-top"><span>Cas total</span></th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody >
                             {countriesData.map( (country) => (
                                 <tr key={country.country}>
                                     <td >{country.country}</td>
                                     <td className="worldTable__cases">
-                                            {country.cases}
+                                        {country.cases}
                                         {country.previous === 'false'
                                         ? <GoIcons.GoTriangleDown size={20} className="worldTable__cases--down"/>
                                         : <GoIcons.GoTriangleUp size={20} className="worldTable__cases--up"/>

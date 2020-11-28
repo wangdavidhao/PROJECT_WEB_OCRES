@@ -55,4 +55,4 @@ DptTable.propTypes = {
   country : PropTypes.array.isRequired,
 }
 
-export default DptTable;
+export default React.memo(DptTable);

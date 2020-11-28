@@ -1,28 +1,19 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-}
-
 .item-app {
     display: flex;
     flex-direction: column;
     justify-content: start;
     min-width: 200px;
-    min-height: 200px;
     background-color: #161a2b;
     text-align: center;
     margin-top: auto;
     border-radius: 10px;
     padding-top: 20px;
     padding-bottom: 32px;
-    max-height : 300px;
+    max-height : 35vh;
     overflow-y : scroll;
     
 }
-  
+
 .complete {
     text-decoration: line-through;
     opacity: 0.4;
@@ -31,14 +22,13 @@
 .item-form {
     padding-bottom : 20px;
 }
-  
+
 .item-input {
     padding: 10px;
     border-radius: 4px 0 0 4px;
     outline: none;
-    width: 320px;
+    width: 400px;
     border: 2px solid #15b815;
-    /* background: transparent; */
     color: #000000;
 }
 
@@ -92,12 +82,18 @@
     align-items: center;
     font-size: 24px;
 }
-  
+
 .delete-icon {
     margin-right: 5px;
     color: #fff;
 }
-  
+
 .edit-icon {
     color: #fff;
+}
+
+.textDiv{
+    display:flex;
+    justify-content: center;
+    text-align: center;
 }

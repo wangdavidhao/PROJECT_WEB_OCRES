@@ -16,6 +16,7 @@ const DropdownCountry = ({countries, selectCountry, handleCountrySelect}) => {
                 <Col lg={12} className="d-flex justify-content-center">
                     <FormControl>
                         <Select
+                        className="dropdown__select"
                         variant="outlined"
                         value={selectCountry}
                         onChange={handleCountrySelect}
@@ -38,6 +39,6 @@ DropdownCountry.propTypes = {
     handleCountrySelect : PropTypes.func,
 }
 
-export default DropdownCountry;
+export default React.memo(DropdownCountry);
 
 

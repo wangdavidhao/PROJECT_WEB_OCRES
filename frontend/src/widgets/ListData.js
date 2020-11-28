@@ -59,7 +59,6 @@ function ListForm(props) {
     });
     setInput('');
   };
-  // console.log(props.isAdmin);
 
   return (
     <form onSubmit={handleSubmit} className='item-form'>
@@ -67,7 +66,7 @@ function ListForm(props) {
       props.edit ? (
         <>
           <input
-            placeholder='Update your item'
+            placeholder='Modifier une règle'
             value={input}
             onChange={handleChange}
             name='text'
@@ -75,13 +74,13 @@ function ListForm(props) {
             className='item-input edit'
           />
           <button onClick={handleSubmit} className='item-button edit'>
-            Update
+            Modifier
           </button>
         </>
       ) : (
         <>
           <input
-            placeholder='Add an item'
+            placeholder='Ajouter une règle'
             value={input}
             onChange={handleChange}
             name='text'
@@ -89,7 +88,7 @@ function ListForm(props) {
             ref={inputRef}
           />
           <button onClick={handleSubmit} className='item-button'>
-            Add item
+            Ajouter
           </button>
         </>
       )) : ""}
@@ -120,8 +119,8 @@ const List = ({ items, completeItem, removeItem, updateItem, isAdmin}) => {
       className={item.isComplete ? 'item-row complete' : 'item-row'}
       key={index}
     >
-      <div key={item.id} onClick={() => completeItem(item.id)}>
-        {item.text}
+      <div className="textDiv w-100" key={item.id} onClick={() => completeItem(item.id)}>
+        <p>{item.text}</p>
       </div>
       {(isAdmin || isAdmin === undefined) &&
       <div className='icons'>
@@ -148,7 +147,6 @@ export const ListData = ({isAdmin}) => {
     }
     const newItems = [item, ...items];
     setItems(newItems);
-    // console.log(...items);
   };
 
   const updateItem = (itemId, newValue) => {
@@ -173,14 +171,12 @@ export const ListData = ({isAdmin}) => {
     });
     setItems(updatedItems);
   };
-  console.log(isAdmin);
+
   return (
     <>
       <div className="item-app">
         <ListForm onSubmit={addItem} isAdmin={isAdmin}/>
         <List
-          // items={items}
-          // items={infoTest}
           items={items}
           completeItem={completeItem}
           removeItem={removeItem}
@@ -192,4 +188,4 @@ export const ListData = ({isAdmin}) => {
   );
 }
 
-export default ListData;
+export default React.memo(ListData);

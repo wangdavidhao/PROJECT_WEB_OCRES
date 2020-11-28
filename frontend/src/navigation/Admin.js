@@ -2,6 +2,7 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import {ListData} from './../widgets/ListData.js'
 
+
 //Local imports
 import Navbar from './Navbar.js';
 
@@ -18,5 +19,6 @@ const Admin = () => {
         </Container>
     )
 }
+
 
 export default Admin;

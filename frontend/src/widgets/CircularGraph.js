@@ -1,80 +1,75 @@
 import React, {useState} from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-import './CircularGraph.css';
-import {hexToHSL, parseHSL, harmonize} from './util.js' ;
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip} from 'recharts';
+import {hexToHSL, harmonize} from '../util.js' ;
 
 import PropTypes from 'prop-types';
 
-let data = [
-    { name: 'Hommes', value: 10, },
-    { name: 'Femmes', value: 35, },
-  ];
+import './CircularGraph.css';
 
+//Tableau de data qui passer dans la piechart
+let data = [];
 
+/**
+ * Fonction qui va dessiner les formes
+ * @param {*} props 
+ */
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
-    const {
-      cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-      fill, payload, percent, value,
+    const {cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
+    fill, payload, percent, value,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
     const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-    const ey = my;
-    const textAnchor = cos >= 0 ? 'start' : 'end';
-  
+
     return (
-      <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+    <g>
+        <text className="circuTextCenter" x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name} : {`(${(percent * 100).toFixed(2)}%)`}</text>
         <Sector
-          cx={cx}
-          cy={cy}
-          innerRadius={innerRadius}
-          outerRadius={outerRadius}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          fill={fill}
+            cx={cx}
+            cy={cy}
+            innerRadius={innerRadius}
+            outerRadius={outerRadius}
+            startAngle={startAngle}
+            endAngle={endAngle}
+            fill={fill}
         />
         <Sector
-          cx={cx}
-          cy={cy}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          innerRadius={outerRadius + 6}
-          outerRadius={outerRadius + 10}
-          fill={fill}
+            cx={cx}
+            cy={cy}
+            startAngle={startAngle}
+            endAngle={endAngle}
+            innerRadius={outerRadius + 6}
+            outerRadius={outerRadius + 10}
+            fill={fill}
         />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} cas`}</text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-          {`(Rate ${(percent * 100).toFixed(2)}%)`}
-        </text>
-      </g>
+    </g>
     );
 };
 
 
-function CircularGraph({info, color, type}) {
+const CircularGraph = ({info, color, type}) => {
 
+    //Transfrome en HSL
     const colorHSL = hexToHSL(color);
 
+    //String du type : gender, age, generalInfo
+    let infoType;
+
+    //Hover d'un secteur du pieChart
     const [active, setActive] = useState(0);
     const onPieEnter = (data, index) => {
         setActive(index);
     };
 
-    let today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
+    const today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
+    
     let male = 0;
     let female = 0;
 
-    let age1 = 0;
     let age1_9 = 0;
     let age9_19 = 0;
     let age19_29 = 0;
@@ -90,30 +85,27 @@ function CircularGraph({info, color, type}) {
     let newRea = 0;
     let newDeaths = 0;
 
-    let buildGraph = function(){ return 1; };
-
     switch (type) {
         case 'gender':
+            infoType = 'genre';
             info.filter(gender => ((gender.jour === date) && (gender.sexe !== "0") ))
-                .map((gdr) => (gdr.sexe === "1" ? male += parseInt(gdr.hosp) : female += parseInt(gdr.hosp)));
+                .forEach((gdr) => (gdr.sexe === "1" ? male += parseInt(gdr.hosp) : female += parseInt(gdr.hosp)));
 
-            buildGraph = (d) => {
+            const buildGender = (d) => {
                 const inf = [
-                    { name : 'Hommes', value: male, },
-                    { name : 'Femmes', value: female,},
+                    { name : 'H', value: male, },
+                    { name : 'F', value: female,},
                 ];
-            return inf;  
+                return inf;  
             };
-            data = buildGraph(info);
+            data = buildGender(info);
             break;
         case 'age':
+            infoType = 'age';
             info.filter(age => ((age.jour === date)))
-                .map((a) => (<div>
-                    {(() => {
-                        switch (a.cl_age90){
-                            case '0':
-                                age1 += parseInt(a.cl_age90);
-                                break;
+                .forEach((a) => {
+
+                    switch (a.cl_age90){
                             case '09':
                                 age1_9 += parseInt(a.cl_age90);
                                 break;
@@ -147,57 +139,69 @@ function CircularGraph({info, color, type}) {
                             default:
                                 break;
                         };
-                    })()}
-                  </div>));
-            buildGraph = (d) => {
+                })
+                
+                const buildAge = (d) => {
                 const inf = [
-                    { name : '<1 an', value: age1, },
-                    { name : '1-9 ans', value: age1_9,},
-                    { name : '10-19 ans', value: age9_19, },
-                    { name : '20-29 ans', value: age19_29,},
-                    { name : '29-39 ans', value: age29_39, },
-                    { name : '39-49 ans', value: age39_49,},
-                    { name : '49-59 ans', value: age49_59, },
-                    { name : '59-69 ans', value: age59_69,},
-                    { name : '69-79 ans', value: age69_79, },
-                    { name : '79-89 ans', value: age79_89,},
+                    { name : '1-9 ', value: age1_9,},
+                    { name : '10-19 ', value: age9_19, },
+                    { name : '20-29 ', value: age19_29,},
+                    { name : '29-39 ', value: age29_39, },
+                    { name : '39-49 ', value: age39_49,},
+                    { name : '49-59 ', value: age49_59, },
+                    { name : '59-69 ', value: age59_69,},
+                    { name : '69-79 ', value: age69_79, },
+                    { name : '79-89 ', value: age79_89,},
                     { name : '>90 ans', value: age90_, },
                 ];
                 return inf; 
             };
-            data = buildGraph(info);
+            data = buildAge(info);
             break;
             case 'generalInfo':
+            infoType = 'general';
             info.filter(generalInfo => ((generalInfo.jour === date)))
-                .map((genInfo) => (<div>
-                    {(() => {
-                        newHospit += parseInt(genInfo.incid_hosp);
-                        newRea += parseInt(genInfo.incid_rea);
-                        newDeaths += parseInt(genInfo.incid_dc);
-                    })()}
-                  </div>));
-            buildGraph = (d) => {
+                .forEach((genInfo) => {
+
+                    newHospit += parseInt(genInfo.incid_hosp);
+                    newRea += parseInt(genInfo.incid_rea);
+                    newDeaths += parseInt(genInfo.incid_dc);
+            })
+
+            const buildGraph = (d) => {
                 const inf = [
                     { name : 'Hospit.', value: newHospit, },
-                    { name : 'Rea cas', value: newRea,},
+                    { name : 'Rea ', value: newRea,},
                     { name : 'Morts', value: newDeaths, },
                 ];
                 return inf; 
             };
             data = buildGraph(info);
-
             break;
         default:
-            console.log(`SORRY NOT FOUND`);  
+            console.log(`Erreur graphe circulaire`);  
+            break;
     }
+
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+            <div className="customTooltip">
+                <p >{payload[0].name} : {payload[0].value}</p>
+            </div>
+            );
+        }
+
+        return null;
+    };
 
     return (
         <Container fluid={true} className="circularGraph">
             <Row>
                 <Col lg={12}>
-                    <ResponsiveContainer width="99%" aspect={1}>
+                    <ResponsiveContainer width="100%" aspect={1}>
                         <PieChart
-                            padding={10}
+                            padding={2}
                         >
                             <defs>
                                 <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
@@ -212,7 +216,7 @@ function CircularGraph({info, color, type}) {
                                 data={data}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius="50%"
+                                innerRadius="45%"
                                 outerRadius="65%"
                                 fill="url(#value)"
                                 dataKey="value"
@@ -222,9 +226,10 @@ function CircularGraph({info, color, type}) {
                                 data.map((entry, index) => <Cell key={index} fill={harmonize(colorHSL)[index % harmonize(colorHSL).length]}/>)
                             }
                             </Pie>
+                        <Tooltip content={<CustomTooltip/>}/>
                         </PieChart>
                     </ResponsiveContainer>
-                    <h6 className="text-align-center">{type}</h6>
+                    <h6 className="text-align-center">{infoType.toUpperCase()}</h6>
                 </Col> 
             </Row>
         </Container>
@@ -237,4 +242,4 @@ CircularGraph.propTypes = {
     type : PropTypes.string,
 }
 
-export default CircularGraph;
+export default React.memo(CircularGraph);

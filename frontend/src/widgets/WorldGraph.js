@@ -79,7 +79,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
     let graphColor;
     let casesType = '';
 
-    //S'il y a un bien un ype passé en props
+    //S'il y a un bien un type passé en props
     if(type){
         switch(type){
             case 'cases':
@@ -88,7 +88,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                 break;
             case 'recovered':
                 graphColor = '#26de81';
-                casesType = 'rétablis';
+                casesType = 'retablis';
                 break;
             case 'deaths':
                 graphColor = '#eb3b5a';
@@ -99,31 +99,23 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
         }
     }
 
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+            <div className="customTooltip">
+                <p >{label} : <span className={`customTooltip__label ${casesType}`}>{payload[0].value}</span></p>
+            </div>
+            );
+        }
+
+        return null;
+    };
+
     return (
         <Container>
             <Row>
-                <Col lg={3} className="frequences">
-                    <h5>Fréquences</h5>
-                    <span>Cas pour 1 million: </span>
-                    <span>{countrySelected.casesPerOneMillion} prs</span>
-                    <span>Mort pour 1 million: </span>
-                    <span>{countrySelected.deathsPerOneMillion} prs </span>
-                    <span>Rétablis pour 1 million: </span>
-                    <span>{countrySelected.recoveredPerOneMillion} prs</span>
-                    {!countrySelected.isWorld && (
-                        <div className="frequences">
-                            <span>Un cas tous les:</span>
-                            <span>{countrySelected.oneCasePerPeople} prs</span>
-                            <span>Un mort tous les:</span>
-                            <span>{countrySelected.oneDeathPerPeople} prs</span>
-                            <span>Un test tous les:</span>
-                            <span>{countrySelected.oneTestPerPeople} prs</span>
-                        </div>
-                        
-                    )}
-                </Col>
-                <Col lg={9} className="worldGraph">
-                    <h4>Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
+                <Col lg={12} md={12} sm={12} className="worldGraph">
+                    <h4 className="mb-3">Graphique des {casesType} pour {countrySelected.isWorld ? 'monde' : countrySelected.country}</h4>
                     {data?.length > 0 && (
                         <ResponsiveContainer width="100%" height={300}>
                             <AreaChart
@@ -139,7 +131,7 @@ const WorldGraph = ({countrySelected, countryHistoric, type}) => {
                         <CartesianGrid strokeDasharray="4 4" />
                         <XAxis dataKey="date" />
                         <YAxis dataKey="nbCas"/>
-                        <Tooltip />
+                        <Tooltip  content={<CustomTooltip />}/>
                         <Legend payload={
                             [
                                 { id: 'nbCas', value: casesType, type: 'square', color: graphColor},
@@ -165,4 +157,4 @@ WorldGraph.propTypes = {
     type : PropTypes.string.isRequired,
 }
 
-export default WorldGraph;
+export default React.memo(WorldGraph);
