@@ -1,5 +1,6 @@
 # DASHBOARD SUR LA COVID-19
 ![version](https://img.shields.io/badge/version-1.0-blue)
+[![GitHub issues](https://img.shields.io/github/issues/wangdavidhao/PROJECT_WEB_OCRES)](https://github.com/wangdavidhao/PROJECT_WEB_OCRES/issues)
 
 Dashboard qui va récolter différentes données pertinentes sur la covid-19 en France et dans le monde en temps réel et les afficher sous formes graphiques.
 
