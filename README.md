@@ -10,11 +10,11 @@ A dashboard that will collect some COVID-19 data and display them into charts.
 
 ## Table des matières/Table of contents
 * 🚧 [Installation](#installation)
-* 👀 [Etat du projet/Status of the project](#etat-du-projet/#status-of-the-project)
-* 🤝 [Outils de gestion de projet/Project management's tool](#outils-de-gestion-projet/project-management's-tool)
-* 📂 [API réferences/API references](#api-réferences/api-references)
+* 👀 [Etat du projet](#etat-du-projet)
+* 🤝 [Outils de gestion de projet/Project management's tool](#outils-de-gestion-projet)
+* 📂 [API réferences](#api-réferences)
 * 💻 [Technologies](#technologies)
-* 👨🏻‍🤝‍👨🏻 [Collaborateurs/Collaborators](#collaborateurs/collaborators)
+* 👨🏻‍🤝‍👨🏻 [Collaborateurs](#collaborateurs)
 * 🧩 [Annexes](#annexes)
 
 ## Installation
