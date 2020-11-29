@@ -2,7 +2,7 @@ import React from 'react';
 import CircularGraph from '../widgets/CircularGraph.js';
 
 export default{
-    title : 'CircularGraph',
+    title : 'Dashboard/CircularGraph',
     component : CircularGraph,
 }
 

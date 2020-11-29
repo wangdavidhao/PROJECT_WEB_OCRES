@@ -2,7 +2,7 @@ import React from 'react';
 import WorldTable from '../widgets/WorldTable.js';
 
 export default{
-    title : 'WorldTable',
+    title : 'Dashboard/WorldTable',
     component : WorldTable,
 }
 

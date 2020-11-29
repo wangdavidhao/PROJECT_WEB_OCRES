@@ -2,7 +2,7 @@ import React from 'react';
 import WorldGraph from '../widgets/WorldGraph.js';
 
 export default{
-    title : 'WorldGraph',
+    title : 'Dashboard/WorldGraph',
     component : WorldGraph,
 }
 

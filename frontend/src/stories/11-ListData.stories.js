@@ -2,7 +2,7 @@ import React from 'react';
 import ListData from '../widgets/ListData.js';
 
 export default{
-    title : 'ListData',
+    title : 'Dashboard/ListData',
     component : ListData,
 }
 
