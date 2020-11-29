@@ -6,15 +6,24 @@ Dashboard qui va récolter différentes données pertinentes sur la covid-19 en 
 
 A dashboard that will collect some COVID-19 data and display them into charts.
 
+Widgets :
+
+- Tableau mondial des cas / Table of cases in the world
+- Carte mondiale / Worldwide map
+- Graphique / Graph
+- Règles gouvernement / Government's rules
+- Poucentages / Percentages
+- Données hospitalières en France / French hospital data
+
 ![](app_preview/dashboard.gif)
 
 ## Table des matières/Table of contents
 * 🚧 [Installation](#installation)
-* 👀 [Etat du projet/Status of the project](#etat-du-projet)
-* 🤝 [Outils de gestion de projet/Projet management's tool](#outils-de-gestion-projet)
-* 📂 [API réferences/API references](#api-réferences)
+* 👀 [Etat du projet](#etat-du-projet)
+* 🤝 [Outils de gestion de projet/Project management's tool](#outils-de-gestion-projet)
+* 📂 [API réferences](#api-réferences)
 * 💻 [Technologies](#technologies)
-* 👨🏻‍🤝‍👨🏻 [Collaborateurs/Collaborators](#collaborateurs)
+* 👨🏻‍🤝‍👨🏻 [Collaborateurs](#collaborateurs)
 * 🧩 [Annexes](#annexes)
 
 ## Installation
@@ -29,18 +38,18 @@ __npm install && npm start__ to launch the application.
 $ npm install && npm start
 ```
 
-## Etat du projet/Status of the project
+## Etat du projet
 
 Il s'agit pour l'instant de la partie front-end. La partie back-end est en développement.
 
 It's only the front of the project. The back is still in development.
 
-## Outils de gestion projet/Project management's tool
+## Outils de gestion projet
 
 - Trello:
 https://trello.com/b/M4wvzsn0/projet-web
 
-## API réferences/API references
+## API réferences
 
 - Données mondiale/World data: https://disease.sh/v3/covid-19/all
 - Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
@@ -55,7 +64,7 @@ https://trello.com/b/M4wvzsn0/projet-web
 - Storybook
 - CSS
 
-## Collaborateurs/Collaborators
+## Collaborateurs
 
 - SADOUN Benjamin : benjamin.sadoun@edu.ece.fr https://github.com/wangdavidhao
 - WANG David : david.wang@edu.ece.fr https://github.com/BenjaminSadoun
