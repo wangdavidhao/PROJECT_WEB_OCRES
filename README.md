@@ -6,6 +6,15 @@ Dashboard qui va récolter différentes données pertinentes sur la covid-19 en 
 
 A dashboard that will collect some COVID-19 data and display them into charts.
 
+Widgets :
+
+- Tableau mondial des cas / Table of cases in the world
+- Carte mondiale / Worldwide map
+- Graphique / Graph
+- Règles gouvernement / Government's rules
+- Poucentages / Percentages
+- Données hospitalières en France / French hospital data
+
 ![](app_preview/dashboard.gif)
 
 ## Table des matières/Table of contents
