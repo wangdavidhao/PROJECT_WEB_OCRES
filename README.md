@@ -29,18 +29,18 @@ __npm install && npm start__ to launch the application.
 $ npm install && npm start
 ```
 
-## Etat du projet/Status of the project
+## Etat du projet
 
 Il s'agit pour l'instant de la partie front-end. La partie back-end est en développement.
 
 It's only the front of the project. The back is still in development.
 
-## Outils de gestion projet/Project management's tool
+## Outils de gestion projet
 
 - Trello:
 https://trello.com/b/M4wvzsn0/projet-web
 
-## API réferences/API references
+## API réferences
 
 - Données mondiale/World data: https://disease.sh/v3/covid-19/all
 - Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
@@ -55,7 +55,7 @@ https://trello.com/b/M4wvzsn0/projet-web
 - Storybook
 - CSS
 
-## Collaborateurs/Collaborators
+## Collaborateurs
 
 - SADOUN Benjamin : benjamin.sadoun@edu.ece.fr https://github.com/wangdavidhao
 - WANG David : david.wang@edu.ece.fr https://github.com/BenjaminSadoun
