@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Marker, Popup} from 'react-map-gl';
 import PropTypes from 'prop-types';
 
-const CountryMarker = ({countries,type}) => {
+const CountryMarker = React.memo(({countries,type}) => {
 
     const [popup, setPopup] = useState({});
 
@@ -83,7 +83,7 @@ const CountryMarker = ({countries,type}) => {
             
         </div>
     )
-}
+});
 
 CountryMarker.propTypes = {
     countries : PropTypes.array.isRequired,
