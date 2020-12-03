@@ -63,7 +63,16 @@ const CircularGraph = ({info, color, type}) => {
     };
 
     const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() - 1);
+
+    let day = (today.getDate() - 1).toString();
+    if (day.length === 1)
+        day = `0${day}`;
+
+    let month = (today.getMonth() + 1).toString();
+    if (month.length === 1)
+        month = `0${month}`;
+
+    const date = today.getFullYear() + '-' + (month) + '-' + (day);
     
     let male = 0;
     let female = 0;
@@ -86,9 +95,8 @@ const CircularGraph = ({info, color, type}) => {
     switch (type) {
         case 'gender':
             infoType = 'genre';
-            info.filter(gender => ((gender.jour === date) && (gender.sexe !== "0") ))
+            info.filter(gender => ((gender.jour === date) && (gender.sexe !== "0")  ))
                 .forEach((gdr) => (gdr.sexe === "1" ? male += parseInt(gdr.hosp) : female += parseInt(gdr.hosp)));
-
             const buildGender = (d) => {
                 const inf = [
                     { name : 'H', value: male, },
