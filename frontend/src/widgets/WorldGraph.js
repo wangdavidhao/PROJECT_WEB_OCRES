@@ -65,6 +65,7 @@ const fillData = (historic,type) => {
 const WorldGraph = ({countrySelected, countryHistoric, type}) => {
 
 
+
     let data = [];
     //Si c monde ou pas
     if(countrySelected.isWorld){

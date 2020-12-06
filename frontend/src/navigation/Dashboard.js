@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Container, Row, Col, Button, Spinner} from 'react-bootstrap';
 //Fetch API
 import axios from 'axios';
@@ -372,7 +372,7 @@ export const Dashboard = () => {
      * Fonction qui va changer les states en focntion du select dans le dropdown
      * @param {*} e 
      */
-    const handleCountrySelect = (e) => {
+    const handleCountrySelect = useCallback((e) => {
 
         //On get le numéro iso2 du pays ou le string 'monde' grâce à la value dans MenuItem
         const countryIso = e.target.value;
@@ -385,7 +385,7 @@ export const Dashboard = () => {
             fetchCountriesHistoric(`${countryIso}`);
         }
         setSelectCountry(countryIso); //On set le select du dropdown
-    }
+    },[selectCountry]);
 
     const date = new Date();
     date.setDate(date.getDate() - 1);
