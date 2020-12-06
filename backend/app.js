@@ -13,10 +13,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //Imports différentes routes
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
 
 //Différentes routes
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 
 //Port
 app.listen(port, () => {
