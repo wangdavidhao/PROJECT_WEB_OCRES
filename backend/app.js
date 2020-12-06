@@ -1,19 +1,26 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+//Imports
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require('helmet');
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+//Import database
+const db = require('./db/index');
 
-var app = express();
+//Config
+const app = express();
+const port = process.env.PORT || 3000;
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//Imports différentes routes
+const usersRouter = require('./routes/users');
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//Différentes routes
+app.use('/users', usersRouter);
+
+//Port
+app.listen(port, () => {
+    console.log(`run on port ${port}`);
+})
 
 module.exports = app;
