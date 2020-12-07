@@ -24,9 +24,11 @@ app.use(bodyParser.json()); //Format JSON dans le body
 
 //Imports différentes routes
 const userRouter = require('./routes/user');
+const ruleRouter = require('./routes/rule');
 
 //Différentes routes
 app.use('/user', userRouter);
+app.use('/rule', ruleRouter);
 
 //Port
 app.listen(port, () => {

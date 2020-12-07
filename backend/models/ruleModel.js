@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 const rule = mongoose.Schema({
     content : String,
-
-
+    debutDate: Date,
+    endDate: Date,
 },{
-    timestamps: true,
+    timestamps: true, //Pour createdAt et updatedAt
 }
 , {
     collection:'rules',

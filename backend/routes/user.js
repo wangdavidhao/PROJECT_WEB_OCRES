@@ -5,6 +5,7 @@ const UserModel = require('.././models/userModel');
 
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 /**
  * Schéma de validation de notre modèle User
@@ -62,20 +63,25 @@ router.post('/register', async (req, res) => {
 //Connexion user
 router.post('/login', async (req, res) => {
 
-  const {error} = schema.validate(req.body); //On récupère l'objet de validation, data depuis le body
+    const {error} = schema.validate(req.body); //On récupère l'objet de validation, data depuis le body
 
-  if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
 
-  //Vérification mail
-  const user = await UserModel.findOne({mail: req.body.mail});
-  if(!user) return res.status(400).send('Mail incorrect');
+    //Vérification mail
+    const user = await UserModel.findOne({mail: req.body.mail});
+    if(!user) return res.status(400).send('Mail incorrect');
 
-  //Vérification mdp
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if(!validPassword) return res.status(400).send('Mdp incorrect');
+    //Vérification mdp
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if(!validPassword) return res.status(400).send('Mdp incorrect');
 
-  res.status(200).send('Connexion réussie !');
-  
+    //Attribution d'un token
+    const authToken = jwt.sign({_id: user._id}, process.env.AUTH_TOKEN);
+    res.header('auth-token', authToken).send(authToken);
+    
+
+    res.status(200).send('Connexion réussie !');
+    
 
 });
 
