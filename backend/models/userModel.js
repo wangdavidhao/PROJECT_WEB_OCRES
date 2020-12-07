@@ -20,8 +20,10 @@ const user = mongoose.Schema({
         type:Number,
         required: true,
     }
-})
+}, {
+    collection: 'users'
+});
 
-const userModel = mongoose.model('user', user);
+const userModel = mongoose.model('users', user); 
 
 module.exports = userModel;
