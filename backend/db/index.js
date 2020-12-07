@@ -15,7 +15,7 @@ mongoose.connect(db_url, {
 const db = mongoose.connection;
 
 db.once('open', () => {
-    console.log('Connexion réussie');
+    console.log('Connexion database réussie');
 });
 
 module.exports = db;
