@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
  * Mdp: string, require, minimum 6 caractères
  */
 const schema = Joi.object({
-    mail: Joi.string().required().email(),
+    mail: Joi.string().required().email().lowercase(),
     password: Joi.string().required().min(6),
     order: Joi.number().max(5),
   }

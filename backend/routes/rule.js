@@ -5,6 +5,8 @@ const ruleModel = require('.././models/ruleModel');
 
 const Joi = require('joi');
 
+const userAuth = require('.././auth/authValidation'); 
+
 const schema = Joi.object({
     content: Joi.string().required().max(500),
     debutDate: Joi.date(),
@@ -14,7 +16,7 @@ const schema = Joi.object({
 })
 
 //CRUD
-router.get('/', (req, res) => {
+router.get('/', userAuth, (req, res) => {
     ruleModel.find((err, data) => {
         if(err){
             res.status(500).send(err);
@@ -24,7 +26,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', userAuth, (req, res) => {
     const rule = req.body;
 
     const newRule = new ruleModel(rule);
