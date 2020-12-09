@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+
+const userAuth = require('.././auth/authValidation'); 
+
+const ruleController = require('../controllers/ruleController');
+
+//CRUD
+router.get('/', userAuth, ruleController.getAllRules);
+
+router.post('/', userAuth, ruleController.postNewRule);
+
+module.exports = router;

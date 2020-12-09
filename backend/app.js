@@ -1,19 +1,38 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+//Imports
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require('helmet');
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+//ENV
+require('dotenv').config();
 
-var app = express();
+//Import database
+const db = require('./db/index');
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//Config
+const app = express();
+const port = process.env.PORT || 9000;
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//Middlewares
+// app.use(cors()); test plus tard avec React
+app.use(morgan('common'));
+app.use(helmet());
+
+app.use(bodyParser.json()); //Format JSON dans le body
+
+//Imports différentes routes
+const userRouter = require('./routes/user');
+const ruleRouter = require('./routes/rule');
+
+//Différentes routes
+app.use('/user', userRouter);
+app.use('/rule', ruleRouter);
+
+//Port
+app.listen(port, () => {
+    console.log(`run on port ${port}`);
+})
 
 module.exports = app;
