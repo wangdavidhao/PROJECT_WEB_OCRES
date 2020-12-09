@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 9000;
 
 //Middlewares
-// app.use(cors()); test plus tard avec React
+app.use(cors()); 
 app.use(morgan('common'));
 app.use(helmet());
 
