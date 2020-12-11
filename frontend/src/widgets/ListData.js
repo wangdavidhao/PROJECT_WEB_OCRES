@@ -60,13 +60,15 @@ const ListForm = (props) => {
     {(props.isAdmin || props.isAdmin === undefined)? (
       props.edit ? (
         <>
-          <input
-            placeholder='Modifier une règle'
+          <textarea
+            placeholder='Ajouter une règle'
             value={input}
             onChange={(e) => setInput(e.target.value)}
             name='text'
+            className='item-input'
+            rows="5" cols="30"
+            maxlength = "255"
             ref={inputRef}
-            className='item-input edit'
           />
           
           <button onClick={updateRule} className='item-button edit'>
@@ -83,6 +85,7 @@ const ListForm = (props) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
+            maxlength = "255"
             ref={inputRef}
           />
               <label>Date début : </label>
@@ -127,8 +130,9 @@ const List = ({ items,isAdmin}) => {
         key={index}
       >
         <div className="textDiv w-100" key={item._id}>
-          <p>{item.content.toUpperCase()}</p>
-          <span><i>Valable du {item.debutDate.substring(0,10)} au {item.endDate.substring(0,10)}</i></span>
+          <p style={{fontWeight:'bolder'}}>{item.content.toUpperCase()}</p>
+          <span ><i>Valable du <span style={{color:"#ffd32a"}}>{item.debutDate.substring(0,10)} 
+          </span> au <span style={{color:"#ffd32a"}}>{item.endDate.substring(0,10)}</span></i></span>
         </div>
         {(isAdmin || isAdmin === undefined) &&
         <div className='icons'>
