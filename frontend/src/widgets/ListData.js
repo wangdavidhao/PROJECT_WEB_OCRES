@@ -4,6 +4,7 @@ import { TiEdit } from 'react-icons/ti';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ListData.css';
+import {FaUser } from 'react-icons/fa';
 
 import axios from '../axios';
 
@@ -75,12 +76,13 @@ const ListForm = (props) => {
       ) : (
         <>
           <label>Règle : </label>
-          <input
+          <textarea
             placeholder='Ajouter une règle'
             value={input}
             onChange={(e) => setInput(e.target.value)}
             name='text'
             className='item-input'
+            rows="5" cols="30"
             ref={inputRef}
           />
               <label>Date début : </label>
@@ -117,7 +119,8 @@ const List = ({ items,isAdmin}) => {
 
   return( 
     <div>
-      <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank">cliquez-ici</a></p>
+      {!isAdmin ? <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank">cliquez-ici</a></p> : ''}
+      
       {items.map((item, index) => (
       <div
         className={item.isComplete ? 'item-row complete' : 'item-row'}
@@ -171,7 +174,11 @@ export const ListData = ({isAdmin}) => {
   return (
     <>
       <div className={isAdmin ? 'item-appAdmin' : 'item-app'}>
-        {isAdmin ? <h3 style={{color:'#fff'}} className="my-4">Page admin</h3> :''}
+        {isAdmin ? <div className="d-flex flex-row align-items-center justify-content-center">
+          <h3 style={{color:'#fff'}} className="my-4">Page admin</h3>
+          <FaUser fontSize={24} color={'white'} className="mx-3"/>
+          </div> 
+          :''}
         <ListForm isAdmin={isAdmin}/>
         <List
           items={items}

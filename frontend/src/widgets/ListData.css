@@ -46,7 +46,6 @@ label{
     padding: 0.5rem;
     border-radius: 3px;
     outline: none;
-    width: 400px;
     color: #000000;
 }
 
@@ -66,6 +65,10 @@ label{
     outline: none;
     color: #000000;
     text-transform: capitalize;
+}
+
+.item-button:hover{
+    color: white;
 }
 
 .item-button.edit {
