@@ -50,8 +50,21 @@ const ListForm = (props) => {
 
   const updateRule = async (e) => {
     e.preventDefault();
+    console.log("notre id : ", props.edit._id);
     if(input){
-
+      try{
+        const response = await axios.put(`/rule/${props.edit._id}`, {
+          content:input,
+        }, {
+          headers: {
+            'auth-token':sessionStorage.getItem("token"),
+          }
+        });
+        //On réinitialise les valeurs à l'état initial
+        setInput('');
+      }catch(error){
+        console.log(error);
+      }
     }
   }
 
@@ -109,12 +122,25 @@ const List = ({ items,isAdmin}) => {
     value: ''
   });
 
-  const submitUpdate = value => {
+  const submitUpdate = (value) => {
     setEdit({
       _id: null,
       value: ''
     });
   };
+
+  const removeItem = async (id) => {
+    console.log("notre id : ", items);
+    try{
+      const response = await axios.delete(`/rule/${id}`, {
+        headers: {
+          'auth-token':sessionStorage.getItem("token"),
+        }
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
 
   if (edit._id) {
     return <ListForm edit={edit} onSubmit={submitUpdate} />;
@@ -137,7 +163,7 @@ const List = ({ items,isAdmin}) => {
         {(isAdmin || isAdmin === undefined) &&
         <div className='icons'>
           <RiCloseCircleLine
-            // onClick={() => removeItem(item._id)}
+            onClick={() => removeItem(item._id)}
             className='delete-icon'
           />
           <TiEdit
@@ -159,7 +185,6 @@ const List = ({ items,isAdmin}) => {
 export const ListData = ({isAdmin}) => {
   const [items, setItems] = useState([]);
 
-
   //Fonction qui va get les règles depuis le backend
   const fetchRules = async () => {
       try{
@@ -170,6 +195,7 @@ export const ListData = ({isAdmin}) => {
       }
   };
 
+  
   useEffect(() => {
     fetchRules();
   }, []);
@@ -183,7 +209,10 @@ export const ListData = ({isAdmin}) => {
           <FaUser fontSize={24} color={'white'} className="mx-3"/>
           </div> 
           :''}
-        <ListForm isAdmin={isAdmin}/>
+        <ListForm 
+          isAdmin={isAdmin}
+          items={items}
+          />
         <List
           items={items}
           isAdmin={isAdmin}
