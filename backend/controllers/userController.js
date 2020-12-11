@@ -70,12 +70,14 @@ const userController = {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if(!validPassword) return res.status(400).send('Mdp incorrect');
 
-        //Attribution d'un token
-        const authToken = jwt.sign({_id: user._id}, process.env.AUTH_TOKEN);
-        res.header('auth-token', authToken).send(authToken);
+        try{
+            //Attribution d'un token
+            const authToken = jwt.sign({_id: user._id}, process.env.AUTH_TOKEN);
+            res.header('auth-token', authToken).send(authToken);
+        }catch(err){
+            console.log(err);
+        }
         
-
-        res.status(200).send('Connexion réussie !');
     }
 };
 

@@ -1,45 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './ListData.css';
 
-const infoTest = [
-  {
-    id : 1,
-    text : "Interdiction d'ouvrir pour les bars et restaurants",
-  },
-  {
-    id : 2,
-    text : "Les sorties sont limitées à 1 heure",
-  },
-  {
-    id : 3,
-    text : "Interdiction d'ouvrir pour les bars et restaurants",
-  },
-  {
-    id : 4,
-    text : "Les sorties sont limitées à 1 heure",
-  },
-  {
-    id : 5,
-    text : "Interdiction d'ouvrir pour les bars et restaurants",
-  },
-  {
-    id : 6,
-    text : "Les sorties sont limitées à 1 heure",
-  },
-  {
-    id : 7,
-    text : "Interdiction d'ouvrir pour les bars et restaurants",
-  },
-  {
-    id : 8,
-    text : "Les sorties sont limitées à 1 heure",
-  },
-];
+import axios from '../axios';
 
-function ListForm(props) {
+///LISTFORM
+
+const ListForm = (props) => {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -51,17 +26,40 @@ function ListForm(props) {
     setInput(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const addRule = async (e) => {
     e.preventDefault();
-    props.onSubmit({
-      id: Math.floor(Math.random() * 10000),  //Maniere de trouver un id très contestable
-      text: input
-    });
-    setInput('');
+    //On vérifie s'il y a un contenu
+    if(input){
+        try{
+        const response = await axios.post('/rule', {
+          content:input,
+          debutDate:startDate.toISOString().split('T')[0],
+          endDate:endDate.toISOString().split('T')[0]
+        }, {
+          headers: {
+            'auth-token':sessionStorage.getItem("token"),
+          }
+        });
+        //On réinitialise les valeurs à l'état initial
+        setInput('');
+        setStartDate(new Date());
+        setEndDate(new Date());
+      }catch(error){
+        console.log(error);
+      }
+    }
+
   };
 
+  const updateRule = async (e) => {
+    e.preventDefault();
+    if(input){
+
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit} className='item-form'>
+    <form onSubmit={addRule} className='item-form'>
     {(props.isAdmin || props.isAdmin === undefined)? (
       props.edit ? (
         <>
@@ -73,12 +71,14 @@ function ListForm(props) {
             ref={inputRef}
             className='item-input edit'
           />
-          <button onClick={handleSubmit} className='item-button edit'>
+          
+          <button onClick={updateRule} className='item-button edit'>
             Modifier
           </button>
         </>
       ) : (
         <>
+          <label>Règle : </label>
           <input
             placeholder='Ajouter une règle'
             value={input}
@@ -87,7 +87,11 @@ function ListForm(props) {
             className='item-input'
             ref={inputRef}
           />
-          <button onClick={handleSubmit} className='item-button'>
+              <label>Date début : </label>
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+              <label>Date fin : </label>
+              <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+          <button onClick={addRule} className='item-button'>
             Ajouter
           </button>
         </>
@@ -96,21 +100,22 @@ function ListForm(props) {
   );
 }
 
-const List = ({ items, completeItem, removeItem, updateItem, isAdmin}) => {
+///LIST
+
+const List = ({ items,isAdmin}) => {
   const [edit, setEdit] = useState({
-    id: null,
+    _id: null,
     value: ''
   });
 
   const submitUpdate = value => {
-    updateItem(edit.id, value);
     setEdit({
-      id: null,
+      _id: null,
       value: ''
     });
   };
 
-  if (edit.id) {
+  if (edit._id) {
     return <ListForm edit={edit} onSubmit={submitUpdate} />;
   }
 
@@ -119,17 +124,18 @@ const List = ({ items, completeItem, removeItem, updateItem, isAdmin}) => {
       className={item.isComplete ? 'item-row complete' : 'item-row'}
       key={index}
     >
-      <div className="textDiv w-100" key={item.id} onClick={() => completeItem(item.id)}>
-        <p>{item.text}</p>
+      <div className="textDiv w-100" key={item._id}>
+        <p>{item.content.toUpperCase()}</p>
+        <span><i>Valable du {item.debutDate.substring(0,10)} au {item.endDate.substring(0,10)}</i></span>
       </div>
       {(isAdmin || isAdmin === undefined) &&
       <div className='icons'>
         <RiCloseCircleLine
-          onClick={() => removeItem(item.id)}
+          // onClick={() => removeItem(item._id)}
           className='delete-icon'
         />
         <TiEdit
-          onClick={() => setEdit({ id: item.id, value: item.text })}
+          onClick={() => setEdit({ _id: item._id, value: item.content })}
           className='edit-icon'
         />
       </div>
@@ -138,49 +144,35 @@ const List = ({ items, completeItem, removeItem, updateItem, isAdmin}) => {
   ));
 };
 
+
+///LISTDATA
+
 export const ListData = ({isAdmin}) => {
-  const [items, setItems] = useState(infoTest);
+  const [items, setItems] = useState([]);
 
-  const addItem = (item) => {
-    if (!item.text || /^\s*$/.test(item.text)) {
-      return;
-    }
-    const newItems = [item, ...items];
-    setItems(newItems);
-  };
 
-  const updateItem = (itemId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
-    }
-    setItems(prev => prev.map(item => (item.id === itemId ? newValue : item)));
-  };
-
-  const removeItem = id => {
-    const removedArr = [...items].filter(item => item.id !== id);
-
-    setItems(removedArr);
-  };
-
-  const completeItem = (id) => {
-    let updatedItems = items.map(item => {
-      if (item.id === id) {
-        item.isComplete = !item.isComplete;
+  //Fonction qui va get les règles depuis le backend
+  const fetchRules = async () => {
+      try{
+        const response = await axios.get('/rule');
+        setItems(response.data);
+      }catch(error){
+        console.log(error);
       }
-      return item;
-    });
-    setItems(updatedItems);
   };
+
+  useEffect(() => {
+    fetchRules();
+  }, []);
+
 
   return (
     <>
-      <div className="item-app">
-        <ListForm onSubmit={addItem} isAdmin={isAdmin}/>
+      <div className={isAdmin ? 'item-appAdmin' : 'item-app'}>
+        {isAdmin ? <h3 style={{color:'#fff'}} className="my-4">Page admin</h3> :''}
+        <ListForm isAdmin={isAdmin}/>
         <List
           items={items}
-          completeItem={completeItem}
-          removeItem={removeItem}
-          updateItem={updateItem}
           isAdmin={isAdmin}
         />
       </div>

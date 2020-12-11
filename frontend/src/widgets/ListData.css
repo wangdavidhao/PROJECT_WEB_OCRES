@@ -1,3 +1,23 @@
+label{
+    color:#fff;
+    margin: 0 1rem;
+}
+
+.item-appAdmin {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-width: 200px;
+    background-color: #161a2b;
+    text-align: center;
+    margin:1rem;
+    border-radius: 5px;
+    max-height : 35vh;
+    overflow-y : scroll;
+    min-height: 100vh;
+    
+}
+
 .item-app {
     display: flex;
     flex-direction: column;
@@ -11,24 +31,22 @@
     padding-bottom: 32px;
     max-height : 35vh;
     overflow-y : scroll;
+    width: 95%;
+
     
 }
 
-.complete {
-    text-decoration: line-through;
-    opacity: 0.4;
-}
-
-.item-form {
-    padding-bottom : 20px;
+.item-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .item-input {
-    padding: 10px;
-    border-radius: 4px 0 0 4px;
+    padding: 0.5rem;
+    border-radius: 3px;
     outline: none;
     width: 400px;
-    border: 2px solid #15b815;
     color: #000000;
 }
 
@@ -39,23 +57,20 @@
 
 
 .item-button {
+    margin:1rem;
     background-color: #15b815;
-    padding: 12px;
+    padding: 0.6rem;
     border: none;
-    border-radius: 0 4px 4px 0;
+    border-radius: 5px;
     cursor: pointer;
     outline: none;
     color: #000000;
     text-transform: capitalize;
 }
 
-.item-input.edit {
-    border: 2px solid #ffd414;
-}
-
 .item-button.edit {
     background-color: #ffd414;
-    padding: 12px 22px;
+    padding: 0.5rem;
 }
 
 .item-container {
@@ -74,21 +89,18 @@
     border-color: lightslategray;
     padding: 15px;
     border-radius: 5px;
-    width: 90%;
+    width: 85%;
 }
 
 .icons {
     display: flex;
     align-items: center;
     font-size: 24px;
+    cursor: pointer;
 }
 
-.delete-icon {
-    margin-right: 5px;
-    color: #fff;
-}
-
-.edit-icon {
+.delete-icon, .edit-icon {
+    margin:0.2rem;
     color: #fff;
 }
 
@@ -96,4 +108,6 @@
     display:flex;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
+    align-items: center;
 }

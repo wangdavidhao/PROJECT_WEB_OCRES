@@ -27,10 +27,13 @@ const postNewRule = (req, res) => {
     const rule = req.body;
 
     const newRule = new ruleModel(rule);
-    newRule.save((err, date) => {
-        res.status(200).send(newRule);
+    newRule.save((err, data) => {
+        if(err){
+            res.status(500).send(err);
+        }else{
+            res.status(200).send(newRule);
+        }
     })
-    res.send(rule);
 };
 
 module.exports = {

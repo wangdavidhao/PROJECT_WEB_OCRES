@@ -6,7 +6,7 @@ const userAuth = require('.././auth/authValidation');
 const ruleController = require('../controllers/ruleController');
 
 //CRUD
-router.get('/', userAuth, ruleController.getAllRules);
+router.get('/', ruleController.getAllRules);
 
 router.post('/', userAuth, ruleController.postNewRule);
 

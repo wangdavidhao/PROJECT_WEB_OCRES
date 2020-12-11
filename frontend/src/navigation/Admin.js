@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import {ListData} from './../widgets/ListData.js'
 
@@ -13,25 +13,44 @@ import Navbar from './Navbar.js';
 
 const Admin = () => {
 
-    const [isLogged, setIsLogged] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
+    const [authToken, setAuthToken] = useState('');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSignIn = async (e) => {
+
         e.preventDefault();
         await axios.post('/user/login', {
             mail: email,
             password: password
         })
-        .then(function (response) {
-            console.log(response);
+        .then((response) => {
+            setAuthToken(response.data);
+            setEmail('');
+            setPassword('');
+            sessionStorage.setItem("token", response.data);
+            setIsLogged(true);
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
-
     };
+
+    
+
+    //Vérifie s'il y a un token dans le localeStorage
+    const checkToken = () => {
+        let token = sessionStorage.getItem("token");
+        if(token === null) setIsLogged(false);
+        else setIsLogged(true);
+    }
+
+    //On le vérifie à chaque fois que le state Token change
+    useEffect(() => {
+        checkToken();
+    }, [authToken]);
 
     return (
         <Container fluid={true} className="admin">
@@ -39,12 +58,12 @@ const Admin = () => {
             <Row>
                 <Col>
                     
-                    {isLogged ? 
+                    {!isLogged ? 
                         <form className="admin__signIn" onSubmit={handleSignIn}>
                             <h1>Connexion</h1>
-                            <label for="email">Email : </label>
+                            <label htmlFor="email">Email : </label>
                             <input type="email" name="email" placeholder="Mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                            <label for="password">Mot de passe : </label>
+                            <label htmlFor="password">Mot de passe : </label>
                             <input type="password" name="password" placeholder="Mdp" value={password} onChange={(e) => setPassword(e.target.value)}/>
                             <button type="submit">Connexion</button>
                         </form> 
