@@ -9,7 +9,6 @@ import {FaUser } from 'react-icons/fa';
 import axios from '../axios';
 
 ///LISTFORM
-
 const ListForm = (props) => {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
@@ -24,11 +23,9 @@ const ListForm = (props) => {
   });
 
   const addRule = async (e) => {
-    e.preventDefault();
     //On vérifie s'il y a un contenu
     if(input){
-        try{
-        const response = await axios.post('/rule', {
+        await axios.post('/rule', {
           content:input,
           debutDate:startDate.toISOString().split('T')[0],
           endDate:endDate.toISOString().split('T')[0]
@@ -36,21 +33,22 @@ const ListForm = (props) => {
           headers: {
             'auth-token':sessionStorage.getItem("token"),
           }
-        });
-        //On réinitialise les valeurs à l'état initial
-        setInput('');
-        setStartDate(new Date());
-        setEndDate(new Date());
-      }catch(error){
+        })
+        .then(() => {
+            //On réinitialise les valeurs à l'état initial
+            setInput('');
+            setStartDate(new Date());
+            setEndDate(new Date());
+            props.fetchRules();
+        })
+      .catch((error) =>{
         console.log(error);
-      }
+      })
     }
 
   };
 
   const updateRule = async (e) => {
-    e.preventDefault();
-    console.log("notre id : ", props.edit._id);
     if(input){
       try{
         const response = await axios.put(`/rule/${props.edit._id}`, {
@@ -62,6 +60,7 @@ const ListForm = (props) => {
         });
         //On réinitialise les valeurs à l'état initial
         setInput('');
+        props.fetchRules();
       }catch(error){
         console.log(error);
       }
@@ -69,18 +68,18 @@ const ListForm = (props) => {
   }
 
   return (
-    <form onSubmit={addRule} className='item-form'>
+    <form  className='item-form'>
     {(props.isAdmin || props.isAdmin === undefined)? (
       props.edit ? (
         <>
           <textarea
-            placeholder='Ajouter une règle'
+            placeholder='Modifier une règle'
             value={input}
             onChange={(e) => setInput(e.target.value)}
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxlength = "255"
+            maxLength = "255"
             ref={inputRef}
           />
           
@@ -98,7 +97,7 @@ const ListForm = (props) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxlength = "255"
+            maxLength = "255"
             ref={inputRef}
           />
               <label>Date début : </label>
@@ -116,7 +115,7 @@ const ListForm = (props) => {
 
 ///LIST
 
-const List = ({ items,isAdmin}) => {
+const List = ({ items,isAdmin, removeItem}) => {
   const [edit, setEdit] = useState({
     _id: null,
     value: ''
@@ -129,18 +128,7 @@ const List = ({ items,isAdmin}) => {
     });
   };
 
-  const removeItem = async (id) => {
-    console.log("notre id : ", items);
-    try{
-      const response = await axios.delete(`/rule/${id}`, {
-        headers: {
-          'auth-token':sessionStorage.getItem("token"),
-        }
-      });
-    }catch(error){
-      console.log(error);
-    }
-  }
+  
 
   if (edit._id) {
     return <ListForm edit={edit} onSubmit={submitUpdate} />;
@@ -195,11 +183,25 @@ export const ListData = ({isAdmin}) => {
       }
   };
 
-  
   useEffect(() => {
     fetchRules();
   }, []);
-
+  
+  const removeItem = (id) => {
+    
+    axios.delete(`/rule/${id}`, {
+      headers: {
+        'auth-token':sessionStorage.getItem("token"),
+      }
+    })
+    .then(() => {
+        fetchRules();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    
+  }
 
   return (
     <>
@@ -212,10 +214,12 @@ export const ListData = ({isAdmin}) => {
         <ListForm 
           isAdmin={isAdmin}
           items={items}
+          fetchRules={fetchRules}
           />
         <List
           items={items}
           isAdmin={isAdmin}
+          removeItem={removeItem}
         />
       </div>
     </>
