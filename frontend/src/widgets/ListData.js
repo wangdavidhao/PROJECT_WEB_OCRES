@@ -22,10 +22,6 @@ const ListForm = (props) => {
       inputRef.current.focus();
   });
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
-
   const addRule = async (e) => {
     e.preventDefault();
     //On vérifie s'il y a un contenu
@@ -66,7 +62,7 @@ const ListForm = (props) => {
           <input
             placeholder='Modifier une règle'
             value={input}
-            onChange={handleChange}
+            onChange={(e) => setInput(e.target.value)}
             name='text'
             ref={inputRef}
             className='item-input edit'
@@ -82,7 +78,7 @@ const ListForm = (props) => {
           <input
             placeholder='Ajouter une règle'
             value={input}
-            onChange={handleChange}
+            onChange={(e) => setInput(e.target.value)}
             name='text'
             className='item-input'
             ref={inputRef}
