@@ -51,7 +51,7 @@ const ListForm = (props) => {
   const updateRule = async (e) => {
     if(input){
       try{
-        const response = await axios.put(`/rule/${props.edit._id}`, {
+        await axios.put(`/rule/${props.edit._id}`, {
           content:input,
         }, {
           headers: {
@@ -135,12 +135,12 @@ const List = ({ items,isAdmin, removeItem}) => {
   }
 
   return( 
-    <div>
-      {!isAdmin ? <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank">cliquez-ici</a></p> : ''}
+    <div className="item-container">
+      {!isAdmin ? <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank" rel="noopener noreferrer">cliquez-ici</a></p> : ''}
       
       {items.map((item, index) => (
       <div
-        className={item.isComplete ? 'item-row complete' : 'item-row'}
+        className='item-row'
         key={index}
       >
         <div className="textDiv w-100" key={item._id}>

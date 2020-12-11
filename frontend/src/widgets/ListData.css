@@ -79,19 +79,19 @@ label{
 
 .item-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .item-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 4px auto;
     color: #fff;
     background-color: #37384B;
     border: solid;
     border-color: lightslategray;
-    padding: 15px;
+    padding: 1rem;
+    margin: 0.5rem 0;
     border-radius: 5px;
     width: 85%;
 }
@@ -106,6 +106,10 @@ label{
 .delete-icon, .edit-icon {
     margin:0.2rem;
     color: #fff;
+}
+
+.delete-icon:hover, .edit-icon:hover{
+    color:lightgray;
 }
 
 .textDiv{
