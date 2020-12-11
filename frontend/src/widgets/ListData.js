@@ -115,29 +115,35 @@ const List = ({ items,isAdmin}) => {
     return <ListForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  return items.map((item, index) => (
-    <div
-      className={item.isComplete ? 'item-row complete' : 'item-row'}
-      key={index}
-    >
-      <div className="textDiv w-100" key={item._id}>
-        <p>{item.content.toUpperCase()}</p>
-        <span><i>Valable du {item.debutDate.substring(0,10)} au {item.endDate.substring(0,10)}</i></span>
-      </div>
-      {(isAdmin || isAdmin === undefined) &&
-      <div className='icons'>
-        <RiCloseCircleLine
-          // onClick={() => removeItem(item._id)}
-          className='delete-icon'
-        />
-        <TiEdit
-          onClick={() => setEdit({ _id: item._id, value: item.content })}
-          className='edit-icon'
-        />
-      </div>
-      }
+  return( 
+    <div>
+      <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank">cliquez-ici</a></p>
+      {items.map((item, index) => (
+      <div
+        className={item.isComplete ? 'item-row complete' : 'item-row'}
+        key={index}
+      >
+        <div className="textDiv w-100" key={item._id}>
+          <p>{item.content.toUpperCase()}</p>
+          <span><i>Valable du {item.debutDate.substring(0,10)} au {item.endDate.substring(0,10)}</i></span>
+        </div>
+        {(isAdmin || isAdmin === undefined) &&
+        <div className='icons'>
+          <RiCloseCircleLine
+            // onClick={() => removeItem(item._id)}
+            className='delete-icon'
+          />
+          <TiEdit
+            onClick={() => setEdit({ _id: item._id, value: item.content })}
+            className='edit-icon'
+          />
+        </div>
+        }
+      </div>))}
+
     </div>
-  ));
+    
+  );
 };
 
 
