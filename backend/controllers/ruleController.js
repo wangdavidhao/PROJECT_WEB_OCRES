@@ -36,7 +36,35 @@ const postNewRule = (req, res) => {
     })
 };
 
+const putExistingRule = (req, res) => {
+    const {id} = req.params;
+    const rule = req.body.content;
+    ruleModel.findByIdAndUpdate(id, {content : rule}, (err, data) =>{
+        if (err){
+            res.send(err);
+        }
+        else{
+            res.send(data);
+        }
+    });
+}
+
+const deleteExistingRule = (req, res) => {
+    const {id} = req.params;
+    ruleModel.findByIdAndDelete(id, (err, data) =>{
+        if (err){
+            res.send(err);
+        }
+        else{
+            res.send(data);
+        }
+    });
+}
+
+
 module.exports = {
     getAllRules,
     postNewRule,
+    putExistingRule,
+    deleteExistingRule,
 }
