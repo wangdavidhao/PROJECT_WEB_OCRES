@@ -38,8 +38,10 @@ const postNewRule = (req, res) => {
 
 const putExistingRule = (req, res) => {
     const {id} = req.params;
-    const rule = req.body.content;
-    ruleModel.findByIdAndUpdate(id, {content : rule}, (err, data) =>{
+    const content = req.body.content;
+    const debutDate = req.body.debutDate;
+    const endDate = req.body.endDate;
+    ruleModel.findByIdAndUpdate(id, {'content': content, 'debutDate': debutDate, 'endDate': endDate}, (err, data) =>{
         if (err){
             res.send(err);
         }

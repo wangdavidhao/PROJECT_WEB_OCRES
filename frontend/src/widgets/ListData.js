@@ -15,6 +15,9 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
+  const [editSdate, setEditSdate] = useState(edit ? new Date(edit.debutDate): '');
+  const [editEdate, setEditEdate] = useState(edit ? new Date(edit.endDate): '');
+
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -54,6 +57,8 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
     if(input){
         await axios.put(`/rule/${edit._id}`, {
           content:input,
+          debutDate:editSdate.toISOString().split('T')[0],
+          endDate:editEdate.toISOString().split('T')[0]
         }, {
           headers: {
             'auth-token':sessionStorage.getItem("token"),
@@ -69,6 +74,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
       })
     }
   }
+
 
   return (
     <form  className='item-form'>
@@ -87,6 +93,10 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
             ref={inputRef}
             onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />
+          <label>Date début : </label>
+          <DatePicker selected={editSdate} onChange={date => setEditSdate(date)} />
+          <label>Date fin : </label>
+          <DatePicker selected={editEdate} onChange={date => setEditEdate(date)} />
           
           <button onClick={updateRule} className='item-button edit'>
             Modifier
@@ -128,7 +138,9 @@ const List = ({ items,isAdmin, removeItem, fetchRules}) => {
     const submitUpdate = () => {
       setEdit({
         id: null,
-        content: ''
+        content: '',
+        debutDate:'',
+        endDate:''
       });
       fetchRules();
     };
@@ -165,7 +177,7 @@ const List = ({ items,isAdmin, removeItem, fetchRules}) => {
             className='delete-icon'
           />
           <TiEdit
-            onClick={() => setEdit({ _id: item._id, content: item.content })}
+            onClick={() => setEdit({ _id: item._id, content: item.content, debutDate: item.debutDate, endDate: item.endDate })}
             className='edit-icon'
           />
         </div>
