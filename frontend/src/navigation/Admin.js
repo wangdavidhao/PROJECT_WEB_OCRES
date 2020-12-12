@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Modal, Button} from 'react-bootstrap';
 import {ListData} from './../widgets/ListData.js'
 
 import axios from '../axios';
@@ -19,6 +19,11 @@ const Admin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const handleSignIn = async (e) => {
 
         e.preventDefault();
@@ -27,6 +32,7 @@ const Admin = () => {
             password: password
         })
         .then((response) => {
+            
             setAuthToken(response.data);
             setEmail('');
             setPassword('');
@@ -34,7 +40,8 @@ const Admin = () => {
             setIsLogged(true);
         })
         .catch((error) => {
-            console.log(error);
+            console.log('Erreur', error);
+            handleShow();
         });
     };
 
@@ -54,6 +61,17 @@ const Admin = () => {
 
     return (
         <Container fluid={true} className="admin">
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Erreur</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Utilisateur introuvable...</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Fermer
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <Navbar page="admin"/>
             <Row>
                 <Col>

@@ -5,12 +5,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ListData.css';
 import {FaUser } from 'react-icons/fa';
+import {Modal, Button} from 'react-bootstrap';
 
 import axios from '../axios';
 
 ///LISTFORM
 const ListForm = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+  const [input, setInput] = useState(props.edit ? props.edit.content : '');
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -23,6 +24,7 @@ const ListForm = (props) => {
   });
 
   const addRule = async (e) => {
+    e.preventDefault();
     //On vérifie s'il y a un contenu
     if(input){
         await axios.post('/rule', {
@@ -49,29 +51,33 @@ const ListForm = (props) => {
   };
 
   const updateRule = async (e) => {
+    e.preventDefault();
     if(input){
-      try{
         await axios.put(`/rule/${props.edit._id}`, {
           content:input,
         }, {
           headers: {
             'auth-token':sessionStorage.getItem("token"),
           }
-        });
-        //On réinitialise les valeurs à l'état initial
-        setInput('');
-        props.fetchRules();
-      }catch(error){
+        })
+        .then(() => {
+            //On réinitialise les valeurs à l'état initial
+            setInput('');
+            props.onSubmit();
+        })
+      .catch((error) =>{
         console.log(error);
-      }
+      })
     }
   }
+  console.log(props.edit);
 
   return (
     <form  className='item-form'>
     {(props.isAdmin || props.isAdmin === undefined)? (
       props.edit ? (
         <>
+          <label>Règle (150 carac.) : </label>
           <textarea
             placeholder='Modifier une règle'
             value={input}
@@ -79,7 +85,7 @@ const ListForm = (props) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxLength = "255"
+            maxLength = "150"
             ref={inputRef}
           />
           
@@ -89,7 +95,7 @@ const ListForm = (props) => {
         </>
       ) : (
         <>
-          <label>Règle : </label>
+          <label>Règle (150 carac.) : </label>
           <textarea
             placeholder='Ajouter une règle'
             value={input}
@@ -97,13 +103,13 @@ const ListForm = (props) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxLength = "255"
+            maxLength = "150"
             ref={inputRef}
           />
-              <label>Date début : </label>
-              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-              <label>Date fin : </label>
-              <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+          <label>Date début : </label>
+          <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+          <label>Date fin : </label>
+          <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
           <button onClick={addRule} className='item-button'>
             Ajouter
           </button>
@@ -115,23 +121,23 @@ const ListForm = (props) => {
 
 ///LIST
 
-const List = ({ items,isAdmin, removeItem}) => {
-  const [edit, setEdit] = useState({
-    _id: null,
-    value: ''
-  });
+const List = ({ items,isAdmin, removeItem, fetchRules}) => {
 
-  const submitUpdate = (value) => {
-    setEdit({
+    const [edit, setEdit] = useState({
       _id: null,
-      value: ''
+      content: ''
     });
-  };
 
-  
+    const submitUpdate = () => {
+      setEdit({
+        id: null,
+        content: ''
+      });
+      fetchRules();
+    };
 
   if (edit._id) {
-    return <ListForm edit={edit} onSubmit={submitUpdate} />;
+    return <ListForm edit={edit} onSubmit={submitUpdate}/>;
   }
 
   return( 
@@ -144,7 +150,10 @@ const List = ({ items,isAdmin, removeItem}) => {
         key={index}
       >
         <div className="textDiv w-100" key={item._id}>
-          <p style={{fontWeight:'bolder'}}>{item.content.toUpperCase()}</p>
+          <div className="pDiv">
+            <p style={{fontWeight:'bolder'}}>{item.content.toUpperCase()}</p>
+          </div>
+          
           <span ><i>Valable du <span style={{color:"#ffd32a"}}>{item.debutDate.substring(0,10)} 
           </span> au <span style={{color:"#ffd32a"}}>{item.endDate.substring(0,10)}</span></i></span>
         </div>
@@ -155,7 +164,7 @@ const List = ({ items,isAdmin, removeItem}) => {
             className='delete-icon'
           />
           <TiEdit
-            onClick={() => setEdit({ _id: item._id, value: item.content })}
+            onClick={() => setEdit({ _id: item._id, content: item.content })}
             className='edit-icon'
           />
         </div>
@@ -207,7 +216,7 @@ export const ListData = ({isAdmin}) => {
     <>
       <div className={isAdmin ? 'item-appAdmin' : 'item-app'}>
         {isAdmin ? <div className="d-flex flex-row align-items-center justify-content-center">
-          <h3 style={{color:'#fff'}} className="my-4">Page admin</h3>
+          <h3 style={{color:'#fff'}} className="my-4">Page admin pour le widget règles</h3>
           <FaUser fontSize={24} color={'white'} className="mx-3"/>
           </div> 
           :''}
@@ -220,6 +229,7 @@ export const ListData = ({isAdmin}) => {
           items={items}
           isAdmin={isAdmin}
           removeItem={removeItem}
+          fetchRules={fetchRules}
         />
       </div>
     </>
