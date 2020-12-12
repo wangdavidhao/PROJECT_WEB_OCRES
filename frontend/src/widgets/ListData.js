@@ -5,13 +5,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ListData.css';
 import {FaUser } from 'react-icons/fa';
-import {Modal, Button} from 'react-bootstrap';
 
 import axios from '../axios';
 
 ///LISTFORM
-const ListForm = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.content : '');
+const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
+  const [input, setInput] = useState(edit ? edit.content : '');
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -41,7 +40,7 @@ const ListForm = (props) => {
             setInput('');
             setStartDate(new Date());
             setEndDate(new Date());
-            props.fetchRules();
+            fetchRules();
         })
       .catch((error) =>{
         console.log(error);
@@ -53,7 +52,7 @@ const ListForm = (props) => {
   const updateRule = async (e) => {
     e.preventDefault();
     if(input){
-        await axios.put(`/rule/${props.edit._id}`, {
+        await axios.put(`/rule/${edit._id}`, {
           content:input,
         }, {
           headers: {
@@ -63,19 +62,18 @@ const ListForm = (props) => {
         .then(() => {
             //On réinitialise les valeurs à l'état initial
             setInput('');
-            props.onSubmit();
+            onSubmit();
         })
       .catch((error) =>{
         console.log(error);
       })
     }
   }
-  console.log(props.edit);
 
   return (
     <form  className='item-form'>
-    {(props.isAdmin || props.isAdmin === undefined)? (
-      props.edit ? (
+    {(isAdmin || isAdmin === undefined)? (
+      edit ?(
         <>
           <label>Règle (150 carac.) : </label>
           <textarea
@@ -87,6 +85,7 @@ const ListForm = (props) => {
             rows="5" cols="30"
             maxLength = "150"
             ref={inputRef}
+            onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />
           
           <button onClick={updateRule} className='item-button edit'>
@@ -105,6 +104,7 @@ const ListForm = (props) => {
             rows="5" cols="30"
             maxLength = "150"
             ref={inputRef}
+            onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />
           <label>Date début : </label>
           <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
@@ -123,10 +123,7 @@ const ListForm = (props) => {
 
 const List = ({ items,isAdmin, removeItem, fetchRules}) => {
 
-    const [edit, setEdit] = useState({
-      _id: null,
-      content: ''
-    });
+    const [edit, setEdit] = useState({});
 
     const submitUpdate = () => {
       setEdit({
@@ -142,6 +139,10 @@ const List = ({ items,isAdmin, removeItem, fetchRules}) => {
 
   return( 
     <div className="item-container">
+      <ListForm 
+          isAdmin={isAdmin}
+          fetchRules={fetchRules}
+      />
       {!isAdmin ? <p>Attestation : <a href="https://media.interieur.gouv.fr/deplacement-covid-19/" target="_blank" rel="noopener noreferrer">cliquez-ici</a></p> : ''}
       
       {items.map((item, index) => (
@@ -220,11 +221,7 @@ export const ListData = ({isAdmin}) => {
           <FaUser fontSize={24} color={'white'} className="mx-3"/>
           </div> 
           :''}
-        <ListForm 
-          isAdmin={isAdmin}
-          items={items}
-          fetchRules={fetchRules}
-          />
+        
         <List
           items={items}
           isAdmin={isAdmin}
