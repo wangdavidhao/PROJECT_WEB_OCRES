@@ -108,7 +108,8 @@ const DptBar = ({info}) => {
             ticks:{
               fontColor:"white",
               fontSize:14,
-              maxTicksLimit:8,
+              maxTicksLimit:6,
+              fontFamily:"inherit",
             }
           }
         ]

@@ -72,7 +72,7 @@ const CountryMarker = React.memo(({countries,type}) => {
                         >
                         <div className="map__popup">
                             <span>{country.country}</span>
-                            <img src={country.countryInfo.flag} width="80px" height="50px"></img>
+                            <img src={country.countryInfo.flag} alt={country.country} width="80px" height="50px"></img>
                             <span>{casesType} : {country[type]}</span>
                         </div>
                         

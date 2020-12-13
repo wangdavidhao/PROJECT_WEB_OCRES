@@ -1,0 +1,44 @@
+.admin__signIn{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+.admin_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:#37384B;
+    padding: 3rem;
+    border-radius: 5px;
+    color:#fff;
+    text-align: center;
+}
+
+.admin__connect{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border:none;
+    background-color: #30336b;
+    color:#fff;
+    font-weight: bolder;
+}
+
+.admin__connect:hover{
+    font-weight: bolder;
+    background-color:#1B9CFC;
+}
+
+label{
+    text-align: center;
+    font-weight: bold;
+}
+
+input{
+    margin-bottom:2rem !important;
+    outline-width: 0 !important;
+    border-radius: 5px !important;
+    border:transparent;
+    padding: 0.4rem;
+}

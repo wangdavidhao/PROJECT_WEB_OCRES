@@ -23,22 +23,22 @@ const API_URL = 'https://disease.sh/v3/covid-19';
 const API_URL_GOUV = 'https://www.data.gouv.fr/fr/datasets';
 
 //URL pour la FRANCE
-const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
+// const API_URL_FRANCE = 'https://coronavirusapi-france.now.sh';
 //AllLiveData
 //https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
 export const Dashboard = () => {
 
     //State pour chaque type de data
-    const [world, setWorld] = useState({});
+    const [world, setWorld] = useState({}); // eslint-disable-line no-unused-vars
     const [country, setCountry] = useState({});
     const [countries, setCountries] = useState([]);
     // const [continent, setContinent] = useState({});
     // const [continents, setContinents] = useState([]);
     // const [france, setFrance] = useState([]);
 
-    const [worldHistoric, setWorldHistoric] = useState({});
-    const [countryHistoric, setCountryHistoric] = useState({});
+    const [worldHistoric, setWorldHistoric] = useState({}); // eslint-disable-line no-unused-vars
+    const [countryHistoric, setCountryHistoric] = useState({}); // eslint-disable-line no-unused-vars
     const [countriesHistoric, setCountriesHistoric] = useState([]);
 
     const [gender, setGender] = useState([]);

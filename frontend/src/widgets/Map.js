@@ -4,7 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 
 import CountryMarker from './CountryMarker.js';
 
-import ReactMapGL, {FlyToInterpolator, Marker, Popup} from 'react-map-gl';
+import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
 
 import PropTypes from 'prop-types';
 

@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "5fd41511241d6d41e462c904"
+  },
+  "content": "allègement du confinement",
+  "debutDate": {
+    "$date": "2020-11-28T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2020-12-15T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-12T00:55:45.007Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T12:27:36.875Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd41542241d6d41e462c905"
+  },
+  "content": "Couvre feu de 20h à 6h",
+  "debutDate": {
+    "$date": "2020-12-15T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-01-20T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-12T00:56:34.243Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-12T20:04:06.581Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd4154e241d6d41e462c906"
+  },
+  "content": "fezeee",
+  "debutDate": {
+    "$date": "2020-12-12T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2020-12-12T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-12T00:56:46.284Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T15:58:17.619Z"
+  },
+  "__v": 0
+}]

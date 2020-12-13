@@ -15,9 +15,8 @@ let data = [];
  * @param {*} props 
  */
 const renderActiveShape = (props) => {
-    const RADIAN = Math.PI / 180;
-    const {cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-    fill, payload, percent, value,
+    const {cx, cy,  innerRadius, outerRadius, startAngle, endAngle,
+    fill, payload, percent
     } = props;
 
 
