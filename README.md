@@ -47,7 +47,12 @@ __npm install && npm start__ to launch the application.
 Le frontend est lancé sur le port 3000, tandis que le backend est lancé sur le port 9000.
 The fronted is lauched on port 3000, while the backend is lauched on port 9000.
 
+__backend__
+```bash
+$ npm install 
+```
 
+__frontend__
 ```bash
 $ npm install && npm start
 ```
