@@ -46,8 +46,6 @@ const Admin = () => {
         });
     };
 
-    
-
     //Vérifie s'il y a un token dans le localeStorage
     const checkToken = () => {
         let token = sessionStorage.getItem("token");
@@ -79,12 +77,16 @@ const Admin = () => {
                     
                     {!isLogged ? 
                         <form className="admin__signIn" onSubmit={handleSignIn}>
-                            <div className="d-flex align-items-center justify-content-center text-align-center"><h1>Connexion <FaUser/></h1></div>
-                            <label htmlFor="email">Email : </label>
-                            <input type="email" name="email" placeholder="Mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                            <label htmlFor="password">Mot de passe : </label>
-                            <input type="password" name="password" placeholder="Mdp" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                            <button className="admin__connect" type="submit">Connexion</button>
+                            <div className="admin_form">
+                                <div className="d-flex justify-content-center text-align-center my-2"><h1>Connexion : </h1></div>
+                                <label htmlFor="email">Email : </label>
+                                <input type="email" name="email" placeholder="Mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                <label htmlFor="password">Mot de passe : </label>
+                                <input type="password" name="password" placeholder="Mdp" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                <button className="admin__connect" type="submit">Connexion</button>
+                            </div>
+
+                           
                         </form> 
                     : <ListData isAdmin={true}/> }
                 </Col>

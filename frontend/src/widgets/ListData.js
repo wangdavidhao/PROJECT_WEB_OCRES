@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ListData.css';
 import {FaUser } from 'react-icons/fa';
+import {Button, Modal} from 'react-bootstrap';
 
 import axios from '../axios';
 
@@ -17,6 +18,11 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
 
   const [editSdate, setEditSdate] = useState(edit ? new Date(edit.debutDate): '');
   const [editEdate, setEditEdate] = useState(edit ? new Date(edit.endDate): '');
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const inputRef = useRef(null);
 
@@ -48,6 +54,8 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
       .catch((error) =>{
         console.log(error);
       })
+    }else{
+      handleShow();
     }
 
   };
@@ -72,6 +80,8 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
       .catch((error) =>{
         console.log(error);
       })
+    }else{
+      handleShow();
     }
   }
 
@@ -125,6 +135,17 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
           </button>
         </>
       )) : ""}
+      <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Erreur</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Contenu vide, ajoutez une règle</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Fermer
+                </Button>
+                </Modal.Footer>
+            </Modal>
     </form>
   );
 }
@@ -144,6 +165,20 @@ const List = ({ items,isAdmin, removeItem, fetchRules}) => {
       });
       fetchRules();
     };
+  
+  const [show, setShow] = useState(false);
+  const [rule, setRule] = useState({});
+
+  const handleClose = () => setShow(false);
+  const handleShow = (rule) => {
+      setShow(true);
+      setRule(rule);
+  }
+
+  const handleDelete = (id) => {
+    removeItem(id);
+    setShow(false);
+  }
 
   if (edit._id) {
     return <ListForm edit={edit} onSubmit={submitUpdate}/>;
@@ -173,9 +208,23 @@ const List = ({ items,isAdmin, removeItem, fetchRules}) => {
         {(isAdmin || isAdmin === undefined) &&
         <div className='icons'>
           <RiCloseCircleLine
-            onClick={() => removeItem(item._id)}
+            onClick={() => handleShow(item)}
             className='delete-icon'
           />
+          <Modal show={show} onHide={handleClose} rule={rule} >
+                <Modal.Header closeButton>
+                <Modal.Title>Suppression</Modal.Title>
+                </Modal.Header>
+                <Modal.Body><span style={{'font-weight' :'bold'}}>Vous souhaitez supprimer ce post?</span><p>{rule.content}</p></Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Non
+                </Button>
+                <Button variant="primary" onClick={() => handleDelete(rule._id)}>
+                    Valider
+                </Button>
+                </Modal.Footer>
+          </Modal>
           <TiEdit
             onClick={() => setEdit({ _id: item._id, content: item.content, debutDate: item.debutDate, endDate: item.endDate })}
             className='edit-icon'
