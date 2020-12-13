@@ -15,7 +15,12 @@ Widgets :
 - Poucentages / Percentages
 - Données hospitalières en France / French hospital data
 
+
+Frontend : 
 ![](app_preview/dashboard.gif)
+
+Backend :
+![](app_preview/admin.gif)
 
 ## Table des matières/Table of contents
 * 🚧 [Installation](#installation)
@@ -75,7 +80,7 @@ https://trello.com/b/M4wvzsn0/projet-web
 - Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
 - Données gouvernement Français/French government data : https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
-- Notre API sur Mongodb/Our Mongodb API : mongodb+srv://david:e0L37GH6i1w8WMhu@cluster0.hblym.mongodb.net/dashboard_db?retryWrites=true&w=majority
+- Notre API sur Mongodb/Our Mongodb API : __mongodb+srv://david:e0L37GH6i1w8WMhu@cluster0.hblym.mongodb.net/dashboard_db?retryWrites=true&w=majority__
 
 ## Technologies
 
