@@ -1,6 +1,15 @@
 label{
     color:#fff;
     margin: 0 1rem;
+    font-weight: bolder;
+}
+
+textarea{
+    font-weight: bolder;
+}
+
+input{
+    font-weight: bolder;
 }
 
 .item-appAdmin {
@@ -66,10 +75,12 @@ label{
     outline: none;
     color: #000000;
     text-transform: capitalize;
+    font-weight: bold;
 }
 
 .item-button:hover{
     color: white;
+    font-weight: bolder;
 }
 
 .item-button.edit {
@@ -121,4 +132,9 @@ label{
     word-break:break-all;
     
     
+}
+
+.listData__buttons{
+    display: flex;
+    flex-direction: row;
 }

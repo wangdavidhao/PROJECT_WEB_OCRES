@@ -34,7 +34,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
   const addRule = async (e) => {
     e.preventDefault();
     //On vérifie s'il y a un contenu
-    if(input){
+    if(input && startDate && endDate && typeof(startDate) === Date && typeof(endDate) === Date){
         await axios.post('/rule', {
           content:input,
           debutDate:startDate.toISOString().split('T')[0],
@@ -62,7 +62,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
 
   const updateRule = async (e) => {
     e.preventDefault();
-    if(input){
+    if(input && editSdate && editEdate && typeof(editSdate) === Date && typeof(editEdate) === Date){
         await axios.put(`/rule/${edit._id}`, {
           content:input,
           debutDate:editSdate.toISOString().split('T')[0],
@@ -91,7 +91,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
     {(isAdmin || isAdmin === undefined)? (
       edit ?(
         <>
-          <label>Règle (150 carac.) : </label>
+          <label>Règle (200 carac.) : </label>
           <textarea
             placeholder='Modifier une règle'
             value={input}
@@ -107,14 +107,19 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
           <DatePicker selected={editSdate} onChange={date => setEditSdate(date)} />
           <label>Date fin : </label>
           <DatePicker selected={editEdate} onChange={date => setEditEdate(date)} />
+          <div className="listData__buttons">
+            <button onClick={updateRule} className='item-button edit'>
+              Modifier
+            </button>
+            <button onClick={() => onSubmit()} className='item-button edit'>
+              Retour
+            </button>
+          </div>
           
-          <button onClick={updateRule} className='item-button edit'>
-            Modifier
-          </button>
         </>
       ) : (
         <>
-          <label>Règle (150 carac.) : </label>
+          <label>Règle (200 carac.) : </label>
           <textarea
             placeholder='Ajouter une règle'
             value={input}
@@ -130,16 +135,22 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
           <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
           <label>Date fin : </label>
           <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
-          <button onClick={addRule} className='item-button'>
-            Ajouter
-          </button>
+          <div className="listData__buttons">
+            <button onClick={addRule} className='item-button'>
+              Ajouter
+            </button>
+            <button onClick={() => setInput('')} className='item-button'>
+              Clear
+            </button>
+          </div>
+          
         </>
       )) : ""}
       <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Erreur</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Contenu vide, ajoutez une règle</Modal.Body>
+                <Modal.Body>Un champ est erroné ou est vide</Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Fermer
