@@ -33,6 +33,13 @@ Backend :
 
 ## Installation
 
+Install : 
+
+-   [Mongo](https://www.mongodb.com/) 
+-   [ExpressJS](https://expressjs.com/) 
+-   [ReactJS](https://reactjs.org/) 
+-   [Node](https://nodejs.org/en/) 11.4.0+ 
+
 Cloner le projet dans un répertoire puis :
 
 Se placer dans le dossier backend et lancer la commande :
