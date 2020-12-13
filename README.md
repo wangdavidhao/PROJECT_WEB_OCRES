@@ -44,21 +44,26 @@ __npm install && npm start__ pour lancer l'application.
 Clone/fork the project and :
 
 In the backend folder, run : 
-__npm install__
+__npm install && npm start__
+The link for the database is already in the .env file as the project is only for school purpose and not a professional one.
+You can also change the database url by replacing it with your local link with the port 27017 by changing the .env file.
+If you choose to run locally, you can import the json files from the exportDbb folder to your local database.
+
+
 
 In the frontend folder, run : 
 __npm install && npm start__ to launch the application.
 
+
 Le frontend est lancé sur le port 3000, tandis que le backend est lancé sur le port 9000.
+The frontend is launched on port 3000, while the backend is launched on port 9000.
 
-The fronted is lauched on port 3000, while the backend is lauched on port 9000.
-
-__backend__
+__Backend__
 ```bash
-$ npm install 
+$ npm install && npm start
 ```
 
-__frontend__
+__Frontend__
 ```bash
 $ npm install && npm start
 ```
@@ -80,16 +85,15 @@ https://trello.com/b/M4wvzsn0/projet-web
 - Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
 - Données gouvernement Français/French government data : https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
-- Notre API sur Mongodb/Our Mongodb API : __mongodb+srv://david:e0L37GH6i1w8WMhu@cluster0.hblym.mongodb.net/dashboard_db?retryWrites=true&w=majority__
 
 ## Technologies
 
-- Node JS - React JS - Router - Mapbox
-- Axios HTTP Request
-- Bootstrap 4
-- Recharts - Chart JS
-- Storybook
-- CSS
+- Node JS - React JS - Express JS - CSS
+- Axios HTTP Request - JWT - Bcrypt - Joi
+- MongoDB - Mongoose
+- Bootstrap 4 - Material UI
+- Recharts - Chart JS - Router-dom 
+- Dev : Storybook - Nodemon
 
 ## Collaborateurs
 
