@@ -1,26 +1,8 @@
 [{
   "_id": {
-    "$oid": "5fd41511241d6d41e462c904"
-  },
-  "content": "allègement du confinement",
-  "debutDate": {
-    "$date": "2020-11-28T00:00:00Z"
-  },
-  "endDate": {
-    "$date": "2020-12-15T00:00:00Z"
-  },
-  "createdAt": {
-    "$date": "2020-12-12T00:55:45.007Z"
-  },
-  "updatedAt": {
-    "$date": "2020-12-13T12:27:36.875Z"
-  },
-  "__v": 0
-},{
-  "_id": {
     "$oid": "5fd41542241d6d41e462c905"
   },
-  "content": "Couvre feu de 20h à 6h",
+  "content": "Instauration d’un couvre-feu de 20h00 à 06h00 du matin à l’exception des réveillons du 24 décembre",
   "debutDate": {
     "$date": "2020-12-15T00:00:00Z"
   },
@@ -31,25 +13,169 @@
     "$date": "2020-12-12T00:56:34.243Z"
   },
   "updatedAt": {
-    "$date": "2020-12-12T20:04:06.581Z"
+    "$date": "2020-12-13T16:59:45.214Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "5fd4154e241d6d41e462c906"
+    "$oid": "5fd647fc2f0a713b5cbe2c6e"
   },
-  "content": "fezeee",
+  "content": "Maintien du système d’attestation dérogatoire pour les déplacements impérieux avec maintien du télétravail quand cela est possible",
   "debutDate": {
-    "$date": "2020-12-12T00:00:00Z"
+    "$date": "2020-12-13T00:00:00Z"
   },
   "endDate": {
-    "$date": "2020-12-12T00:00:00Z"
+    "$date": "2021-02-01T00:00:00Z"
   },
   "createdAt": {
-    "$date": "2020-12-12T00:56:46.284Z"
+    "$date": "2020-12-13T16:57:32.278Z"
   },
   "updatedAt": {
-    "$date": "2020-12-13T15:58:17.619Z"
+    "$date": "2020-12-13T16:57:32.278Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648132f0a713b5cbe2c6f"
+  },
+  "content": "Autorisation des activités physiques et des promenades dans un rayon de 20 kilomètres et pour une durée maximum de 03h00",
+  "debutDate": {
+    "$date": "2020-12-28T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-02-08T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T16:57:55.551Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T16:57:55.551Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648342f0a713b5cbe2c70"
+  },
+  "content": "Ouverture des commerces et services à domicile jusqu’à 21h00 dans le cadre d’un protocole sanitaire strict dont les librairies, les disquaires ou encore les bibliothèques",
+  "debutDate": {
+    "$date": "2020-11-28T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-02-03T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T16:58:28.636Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T16:58:28.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648722f0a713b5cbe2c71"
+  },
+  "content": "Prolongation pendant 3 semaines de la fermeture des lieux accueillants du public (salles de cinéma, théâtre, musée).",
+  "debutDate": {
+    "$date": "2020-12-15T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-01-07T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T16:59:30.550Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T16:59:30.550Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648922f0a713b5cbe2c72"
+  },
+  "content": "Interdiction des rassemblements sur la voie publique",
+  "debutDate": {
+    "$date": "2020-12-15T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-01-19T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T17:00:02.107Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T17:00:02.107Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648a62f0a713b5cbe2c73"
+  },
+  "content": "Ouverture des salles de sport et des restaurants",
+  "debutDate": {
+    "$date": "2021-01-20T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-03-01T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T17:00:22.219Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T17:00:22.219Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648be2f0a713b5cbe2c74"
+  },
+  "content": "Reprise des cours en présentiel pour les lycées et si les conditions sanitaires se maintiennent, reprise des cours en présentiel dans les universités 15 jours plus tard",
+  "debutDate": {
+    "$date": "2021-01-20T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-05-20T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T17:00:46.174Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T17:00:46.174Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648d82f0a713b5cbe2c75"
+  },
+  "content": "Possible réouverture des stations de ski",
+  "debutDate": {
+    "$date": "2021-01-04T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-03-01T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T17:01:12.819Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T17:01:12.819Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fd648f12f0a713b5cbe2c76"
+  },
+  "content": "Une amende forfaitaire de 135 € sera appliquée en cas de non-respect du confinement",
+  "debutDate": {
+    "$date": "2020-10-15T00:00:00Z"
+  },
+  "endDate": {
+    "$date": "2021-01-01T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2020-12-13T17:01:37.276Z"
+  },
+  "updatedAt": {
+    "$date": "2020-12-13T17:01:37.276Z"
   },
   "__v": 0
 }]
