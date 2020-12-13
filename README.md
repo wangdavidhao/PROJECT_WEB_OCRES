@@ -15,7 +15,12 @@ Widgets :
 - Poucentages / Percentages
 - Données hospitalières en France / French hospital data
 
+
+Frontend : 
 ![](app_preview/dashboard.gif)
+
+Backend :
+![](app_preview/admin.gif)
 
 ## Table des matières/Table of contents
 * 🚧 [Installation](#installation)
@@ -28,21 +33,41 @@ Widgets :
 
 ## Installation
 
-Cloner le projet dans un répertoire puis lancer la commande:
-__npm install && npm start__ pour tout de suite lancer l'application.
+Cloner le projet dans un répertoire puis :
 
-Clone/fork the project and run :
+Se placer dans le dossier backend et lancer la commande :
+__npm install__
+
+Se placer dans le dossier frontend et lancer la commande :
+__npm install && npm start__ pour lancer l'application.
+
+Clone/fork the project and :
+
+In the backend folder, run : 
+__npm install__
+
+In the frontend folder, run : 
 __npm install && npm start__ to launch the application.
 
+Le frontend est lancé sur le port 3000, tandis que le backend est lancé sur le port 9000.
+
+The fronted is lauched on port 3000, while the backend is lauched on port 9000.
+
+__backend__
+```bash
+$ npm install 
+```
+
+__frontend__
 ```bash
 $ npm install && npm start
 ```
 
 ## Etat du projet
 
-Il s'agit pour l'instant de la partie front-end. La partie back-end est en développement.
+Ce projet fait intervenir une API que nous avons créer. Elle est donc à la fois composée du frontend et du backend
 
-It's only the front of the project. The back is still in development.
+This project contains both the front and the back of the project. 
 
 ## Outils de gestion projet
 
@@ -55,9 +80,11 @@ https://trello.com/b/M4wvzsn0/projet-web
 - Données départementales/French departments data : https://coronavirusapi-france.now.sh/AllLiveData
 - Données gouvernement Français/French government data : https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/#_
 
+- Notre API sur Mongodb/Our Mongodb API : __mongodb+srv://david:e0L37GH6i1w8WMhu@cluster0.hblym.mongodb.net/dashboard_db?retryWrites=true&w=majority__
+
 ## Technologies
 
-- React JS - Router - Mapbox
+- Node JS - React JS - Router - Mapbox
 - Axios HTTP Request
 - Bootstrap 4
 - Recharts - Chart JS
