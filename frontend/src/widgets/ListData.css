@@ -134,7 +134,25 @@ input{
     
 }
 
+.listData__form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .listData__buttons{
     display: flex;
     flex-direction: row;
+}
+
+.listData__content{
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+}
+
+.listData__dates{
+    display: flex;
+    flex-direction: column;
 }

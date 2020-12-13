@@ -24,6 +24,9 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const max_carac = 200;
+  const [carac, setCarac] = useState(edit ? max_carac - input.length : max_carac);
+
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
   const addRule = async (e) => {
     e.preventDefault();
     //On vérifie s'il y a un contenu
-    if(input && startDate && endDate && typeof(startDate) === Date && typeof(endDate) === Date){
+    if(input && startDate && endDate){
         await axios.post('/rule', {
           content:input,
           debutDate:startDate.toISOString().split('T')[0],
@@ -62,7 +65,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
 
   const updateRule = async (e) => {
     e.preventDefault();
-    if(input && editSdate && editEdate && typeof(editSdate) === Date && typeof(editEdate) === Date){
+    if(input && editSdate && editEdate){
         await axios.put(`/rule/${edit._id}`, {
           content:input,
           debutDate:editSdate.toISOString().split('T')[0],
@@ -85,6 +88,11 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
     }
   }
 
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    setCarac(max_carac - e.target.value.length);
+  }
+
 
   return (
     <form  className='item-form'>
@@ -95,7 +103,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
           <textarea
             placeholder='Modifier une règle'
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleChange}
             name='text'
             className='item-input'
             rows="5" cols="30"
@@ -103,6 +111,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
             ref={inputRef}
             onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />
+          <p style={{color:'#fff'}}>Nb de carac. restants : {carac}</p>
           <label>Date début : </label>
           <DatePicker selected={editSdate} onChange={date => setEditSdate(date)} />
           <label>Date fin : </label>
@@ -119,32 +128,42 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
         </>
       ) : (
         <>
-          <label>Règle (200 carac.) : </label>
-          <textarea
-            placeholder='Ajouter une règle'
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            name='text'
-            className='item-input'
-            rows="5" cols="30"
-            maxLength = "200"
-            ref={inputRef}
-            onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
-          />
-          <label>Date début : </label>
-          <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-          <label>Date fin : </label>
-          <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+        <div className="listData__form">
+          <div className="listData__content">
+            <label>Règle (200 carac.) : </label>
+            <textarea
+              placeholder='Ajouter une règle'
+              value={input}
+              onChange={handleChange}
+              name='text'
+              className='item-input'
+              rows="5" cols="30"
+              maxLength = "200"
+              ref={inputRef}
+              onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
+            />
+            <p style={{color:'#fff'}}>Nb de carac. restants : {carac}</p>
+
+          </div>
+        
+
+          <div className="listData__dates">
+            <label>Date début : </label>
+            <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            <label>Date fin : </label>
+            <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+          </div>
+        </div>
           <div className="listData__buttons">
             <button onClick={addRule} className='item-button'>
               Ajouter
             </button>
             <button onClick={() => setInput('')} className='item-button'>
-              Clear
+              Effacer
             </button>
           </div>
-          
         </>
+        
       )) : ""}
       <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
