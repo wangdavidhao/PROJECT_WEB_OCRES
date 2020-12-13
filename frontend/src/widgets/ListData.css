@@ -15,7 +15,7 @@ label{
     max-height : 35vh;
     overflow-y : scroll;
     min-height: 100vh;
-    padding-bottom: 2rem;
+    padding: 0;
     
 }
 
@@ -57,7 +57,7 @@ label{
 
 
 .item-button {
-    margin:1rem;
+    margin:0.5rem;
     background-color: #15b815;
     padding: 0.6rem;
     border: none;

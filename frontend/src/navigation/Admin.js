@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Modal, Button} from 'react-bootstrap';
 import {ListData} from './../widgets/ListData.js'
+import {FaUser} from 'react-icons/fa';
 
 import axios from '../axios';
 
@@ -78,12 +79,12 @@ const Admin = () => {
                     
                     {!isLogged ? 
                         <form className="admin__signIn" onSubmit={handleSignIn}>
-                            <h1>Connexion</h1>
+                            <div className="d-flex align-items-center justify-content-center text-align-center"><h1>Connexion <FaUser/></h1></div>
                             <label htmlFor="email">Email : </label>
                             <input type="email" name="email" placeholder="Mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
                             <label htmlFor="password">Mot de passe : </label>
                             <input type="password" name="password" placeholder="Mdp" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                            <button type="submit">Connexion</button>
+                            <button className="admin__connect" type="submit">Connexion</button>
                         </form> 
                     : <ListData isAdmin={true}/> }
                 </Col>

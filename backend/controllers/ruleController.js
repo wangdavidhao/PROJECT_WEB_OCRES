@@ -1,11 +1,9 @@
-const RuleModel = require('../models/ruleModel');
-
 const ruleModel = require('.././models/ruleModel');
 
 const Joi = require('joi');
 
 const schema = Joi.object({
-    content: Joi.string().required().max(500),
+    content: Joi.string().required().max(200),
     debutDate: Joi.date(),
     endDate: Joi.date(),
     createdAt: Joi.date(),
@@ -43,10 +41,10 @@ const putExistingRule = (req, res) => {
     const endDate = req.body.endDate;
     ruleModel.findByIdAndUpdate(id, {'content': content, 'debutDate': debutDate, 'endDate': endDate}, (err, data) =>{
         if (err){
-            res.send(err);
+            res.status(500).send(err);
         }
         else{
-            res.send(data);
+            res.status(200).send(data);
         }
     });
 }
@@ -55,14 +53,13 @@ const deleteExistingRule = (req, res) => {
     const {id} = req.params;
     ruleModel.findByIdAndDelete(id, (err, data) =>{
         if (err){
-            res.send(err);
+            res.status(500).send(err);
         }
         else{
-            res.send(data);
+            res.status(200).send(data);
         }
     });
 }
-
 
 module.exports = {
     getAllRules,

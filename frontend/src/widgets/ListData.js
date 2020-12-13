@@ -89,7 +89,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxLength = "150"
+            maxLength = "200"
             ref={inputRef}
             onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />
@@ -112,7 +112,7 @@ const ListForm = ({edit, onSubmit, isAdmin,fetchRules}) => {
             name='text'
             className='item-input'
             rows="5" cols="30"
-            maxLength = "150"
+            maxLength = "200"
             ref={inputRef}
             onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
           />

@@ -7,13 +7,13 @@ require('dotenv').config();
 const userAuth = (req, res, next) => {
 
     const authToken = req.header('auth-token'); //On get le auth-token depuis le header
-    if(!authToken) return res.status(400).send('Access denied'); //Si token non renseigné, alors accès refusé
+    if(!authToken) return res.status(403).send('Access denied'); //Si token non renseigné, alors accès refusé
 
     try{
         jwt.verify(authToken, process.env.AUTH_TOKEN); //On vérifie le token
         next(); //On passe au prochain middleware
     }catch(err){
-        res.status(400).send('Auth token non valide'); //Si token incorrect alors erreur
+        res.status(403).send('Auth token non valide'); //Si token incorrect alors erreur
     }
 }
 

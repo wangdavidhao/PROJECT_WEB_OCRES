@@ -60,22 +60,22 @@ const userController = {
     connectUser: async (req, res) => {
         const {error} = schema.validate(req.body); //On récupère l'objet de validation, data depuis le body
 
-        if(error) return res.status(400).send(error.details[0].message);
+        if(error) return res.status(401).send(error.details[0].message);
 
         //Vérification mail
         const user = await UserModel.findOne({mail: req.body.mail});
-        if(!user) return res.status(400).send('Mail incorrect');
+        if(!user) return res.status(401).send('Mail incorrect');
 
         //Vérification mdp
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        if(!validPassword) return res.status(400).send('Mdp incorrect');
+        if(!validPassword) return res.status(401).send('Mdp incorrect');
 
         try{
             //Attribution d'un token
             const authToken = jwt.sign({_id: user._id}, process.env.AUTH_TOKEN);
             res.header('auth-token', authToken).send(authToken);
         }catch(err){
-            console.log(err);
+            res.status(400).send(err);
         }
         
     }

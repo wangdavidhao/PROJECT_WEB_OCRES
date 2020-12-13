@@ -5,6 +5,19 @@
     padding: 10rem;
 }
 
+.admin__connect{
+    padding: 0.3rem;
+    border-radius: 3px;
+    border:none;
+    background-color: #1B9CFC;
+    color:#fff;
+}
+
+.admin__connect:hover{
+    font-weight: bolder;
+    background-color:#00a8ff;
+}
+
 label{
     text-align: center;
 }
@@ -13,4 +26,6 @@ input{
     margin-bottom:2rem !important;
     outline-width: 0 !important;
     border-radius: 5px !important;
+    border:transparent;
+    padding: 0.4rem;
 }
